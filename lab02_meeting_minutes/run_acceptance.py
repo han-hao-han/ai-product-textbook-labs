@@ -36,7 +36,6 @@ def main() -> int:
 def _check_required_files() -> dict[str, Any]:
     required = [
         "experiment_lock.json",
-        "api_call_budget.json",
         "src/schemas.py",
         "src/prompts.py",
         "src/validators.py",
@@ -75,9 +74,12 @@ def _check_lock_accepted() -> dict[str, Any]:
 
 
 def _check_budget() -> dict[str, Any]:
-    budget = _read_json(LAB_DIR / "api_call_budget.json")
+    path = LAB_DIR / "api_call_budget.json"
+    if not path.exists():
+        return {"name": "api_budget_local_optional", "ok": True, "status": "not_committed"}
+    budget = _read_json(path)
     ok = budget.get("used", 0) <= budget.get("limit", 0) and budget.get("remaining", -1) >= 0
-    return {"name": "api_budget", "ok": ok, "used": budget.get("used"), "limit": budget.get("limit"), "remaining": budget.get("remaining")}
+    return {"name": "api_budget_local_optional", "ok": ok, "status": "present", "used": budget.get("used"), "limit": budget.get("limit"), "remaining": budget.get("remaining")}
 
 
 def _check_representative_real_regression() -> dict[str, Any]:

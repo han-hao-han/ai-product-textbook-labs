@@ -39,9 +39,8 @@
     "human_h4_accepted_date": "2026-07-20"
   },
   "api_budget": {
-    "limit": 50,
-    "used": 37,
-    "remaining": 13,
-    "authorized_expand_to": 100
+    "status": "local_cost_control_not_committed",
+    "tracked_file": false,
+    "runtime_file": "api_call_budget.json"
   }
 }

@@ -13,11 +13,9 @@
       "mismatches": {}
     },
     {
-      "name": "api_budget",
+      "name": "api_budget_local_optional",
       "ok": true,
-      "used": 39,
-      "limit": 50,
-      "remaining": 11
+      "status": "not_committed"
     },
     {
       "name": "representative_real_regression_v11",

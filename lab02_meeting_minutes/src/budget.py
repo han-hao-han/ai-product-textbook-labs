@@ -6,9 +6,19 @@ from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 BUDGET_PATH = PROJECT_DIR / "api_call_budget.json"
+DEFAULT_BUDGET = {
+    "experiment": "1.5.2",
+    "limit": 50,
+    "used": 0,
+    "remaining": 50,
+    "warning_threshold": 40,
+    "status": "active",
+}
 
 
 def load_budget(path: Path = BUDGET_PATH) -> dict:
+    if not path.exists():
+        return DEFAULT_BUDGET.copy()
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -27,5 +37,6 @@ def record_api_call(path: Path = BUDGET_PATH) -> dict:
     budget["remaining"] = int(budget["limit"]) - int(budget["used"])
     if budget["remaining"] <= 0:
         budget["status"] = "exhausted"
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(budget, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return budget

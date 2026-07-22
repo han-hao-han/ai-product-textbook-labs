@@ -66,9 +66,9 @@
     "purpose": "Streamlit and optional full-QMSum local samples use a domain-general conservative prompt with stricter owner evidence and decision precision. The TS3010a gold-checked smoke result remains the historical v2 result."
   },
   "api_budget": {
-    "limit": 50,
-    "used": 37,
-    "remaining": 13,
-    "note": "TS3010a v2 smoke test ended at 30/50; subsequent Streamlit exploratory calls increased the global experiment count to 37/50."
+    "status": "local_cost_control_not_committed",
+    "tracked_file": false,
+    "runtime_file": "../api_call_budget.json",
+    "note": "Historical smoke metadata may record call-count evidence, but the live budget state file is local and not part of the repository."
   }
 }

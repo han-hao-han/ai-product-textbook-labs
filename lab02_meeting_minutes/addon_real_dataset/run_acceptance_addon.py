@@ -135,12 +135,15 @@ def _check_data_scope() -> dict[str, Any]:
 
 
 def _check_api_budget() -> dict[str, Any]:
-    budget = _read_json(PROJECT_ROOT / "lab02_meeting_minutes" / "api_call_budget.json")
+    path = PROJECT_ROOT / "lab02_meeting_minutes" / "api_call_budget.json"
+    if not path.exists():
+        return {"name": "api_budget_local_optional", "ok": True, "status": "not_committed"}
+    budget = _read_json(path)
     used = int(budget.get("used", 0))
     limit = int(budget.get("limit", 0))
     remaining = int(budget.get("remaining", -1))
     ok = used >= 30 and used <= limit and remaining == limit - used and used < int(budget.get("warning_threshold", limit + 1))
-    return {"name": "api_budget_active_after_addon_v2_and_ui_runs", "ok": ok, "used": used, "remaining": remaining, "limit": limit}
+    return {"name": "api_budget_local_optional", "ok": ok, "status": "present", "used": used, "remaining": remaining, "limit": limit}
 
 
 def _check_sensitive_text() -> dict[str, Any]:

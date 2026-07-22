@@ -44,11 +44,9 @@
       "local_cache_ignore_ok": true
     },
     {
-      "name": "api_budget_active_after_addon_v2_and_ui_runs",
+      "name": "api_budget_local_optional",
       "ok": true,
-      "used": 37,
-      "remaining": 13,
-      "limit": 50
+      "status": "not_committed"
     },
     {
       "name": "sensitive_text_scan",
