@@ -1,0 +1,42 @@
+{
+  "acceptance_version": "acceptance_v1_h4_final",
+  "ok": true,
+  "checks": [
+    {
+      "name": "required_files",
+      "ok": true,
+      "missing": []
+    },
+    {
+      "name": "lock_accepted_versions",
+      "ok": true,
+      "mismatches": {}
+    },
+    {
+      "name": "api_budget",
+      "ok": true,
+      "used": 39,
+      "limit": 50,
+      "remaining": 11
+    },
+    {
+      "name": "representative_real_regression_v11",
+      "ok": true,
+      "case_count": 4,
+      "report_ok": true,
+      "main_gold_compare_ok": true,
+      "gold_compare_issue_count": 0
+    },
+    {
+      "name": "screenshots_manifest",
+      "ok": true,
+      "manifest_exists": true,
+      "png_count": 6
+    },
+    {
+      "name": "sensitive_text_scan",
+      "ok": true,
+      "hits": []
+    }
+  ]
+}

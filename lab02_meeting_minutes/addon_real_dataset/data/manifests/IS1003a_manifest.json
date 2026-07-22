@@ -1,0 +1,16 @@
+{
+  "dataset": "QMSum",
+  "case_id": "IS1003a",
+  "domain": "Product",
+  "split": "test",
+  "official_path": "data/Product/test/IS1003a.json",
+  "source_repository": "https://github.com/Yale-LILY/QMSum",
+  "stored_files": [
+    "data/selected_cases/IS1003a.md"
+  ],
+  "turn_count": 301,
+  "topic_count": 3,
+  "general_query_count": 1,
+  "specific_query_count": 6,
+  "distribution_note": "Only three curated converted transcripts are stored for the addon experiment; the full QMSum dataset is not stored."
+}

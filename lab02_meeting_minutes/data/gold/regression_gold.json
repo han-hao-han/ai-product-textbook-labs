@@ -1,0 +1,99 @@
+{
+  "gold_standard_version": "gold_v1_h2_confirmed",
+  "annotation_date": "2026-07-20",
+  "cases": [
+    {
+      "meeting_id": "regression_001",
+      "meeting_date": "2026-07-23",
+      "expected_action_items": [
+        {
+          "task": "补充 30 条多订单表达样本",
+          "owner": "沈鹏",
+          "due_date_raw": "明天前",
+          "due_date_normalized": "2026-07-24",
+          "evidence": "沈鹏在明天前补充 30 条多订单表达样本。"
+        },
+        {
+          "task": "完成离线评测并输出准确率对比表",
+          "owner": "罗洁",
+          "due_date_raw": "本周六前",
+          "due_date_normalized": "2026-07-25",
+          "evidence": "罗洁在本周六前完成离线评测并输出准确率对比表。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": []
+    },
+    {
+      "meeting_id": "regression_002",
+      "meeting_date": "2026-07-24",
+      "expected_action_items": [
+        {
+          "task": "同步发票知识库到测试环境",
+          "owner": "潘蕾",
+          "due_date_raw": "今天下午",
+          "due_date_normalized": "2026-07-24",
+          "evidence": "潘蕾今天下午同步发票知识库到测试环境。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "deduplication_required": true
+    },
+    {
+      "meeting_id": "regression_003",
+      "meeting_date": "2026-07-27",
+      "expected_action_items": [
+        {
+          "task": "完成工单创建联调，董伟负责接口，韩雪负责前端按钮",
+          "owner": [
+            "董伟",
+            "韩雪"
+          ],
+          "due_date_raw": "本周四前",
+          "due_date_normalized": "2026-07-30",
+          "evidence": "董伟和韩雪在本周四前完成工单创建联调，董伟负责接口，韩雪负责前端按钮。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": []
+    },
+    {
+      "meeting_id": "regression_004",
+      "meeting_date": "2026-07-28",
+      "expected_action_items": [],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "no_action_item_expected": true
+    },
+    {
+      "meeting_id": "regression_005",
+      "meeting_date": "2026-07-29",
+      "expected_action_items": [
+        {
+          "task": "确认退款异常码映射",
+          "owner": "朱航",
+          "due_date_raw": "下周二前",
+          "due_date_normalized": "2026-08-04",
+          "evidence": "朱航在下周二前确认退款异常码映射。"
+        },
+        {
+          "task": "整理答案推荐卡片加载耗时日志",
+          "owner": "唐诗",
+          "due_date_raw": "本周五前",
+          "due_date_normalized": "2026-07-31",
+          "evidence": "唐诗在本周五前整理答案推荐卡片加载耗时日志。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [
+        {
+          "question": "是否把灰度范围从 5% 扩到 20%",
+          "evidence": "今天不决定扩量，等退款异常码和加载耗时两个问题确认后再定。"
+        }
+      ],
+      "deduplication_required": true,
+      "chunked_candidate": true
+    }
+  ]
+}

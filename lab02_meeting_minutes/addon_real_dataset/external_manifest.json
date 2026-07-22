@@ -1,0 +1,40 @@
+{
+  "dataset": "QMSum",
+  "official_repository": "https://github.com/Yale-LILY/QMSum",
+  "license_observed": "MIT",
+  "distribution_policy": "Commit only three curated converted samples plus metadata, scripts, derived results, and the TS3010a gold standard. The full QMSum dataset is optional user-managed local cache under data/downloads/qmsum_full and must not be committed.",
+  "candidate_cases": [
+    {
+      "case_id": "TS3010a",
+      "domain": "Product",
+      "split": "val",
+      "official_path": "data/Product/val/TS3010a.json",
+      "size_bytes": 24793,
+      "turn_count": 168,
+      "topic_count": 3,
+      "general_query_count": 1,
+      "specific_query_count": 2,
+      "recommended_role": "main",
+      "stored_converted_input": "data/selected_cases/TS3010a.md",
+      "draft_gold_standard": "data/gold/TS3010a_gold.json"
+    },
+    {
+      "case_id": "IS1003a",
+      "domain": "Product",
+      "split": "test",
+      "official_path": "data/Product/test/IS1003a.json",
+      "size_bytes": 41427,
+      "recommended_role": "curated_sample",
+      "stored_converted_input": "data/selected_cases/IS1003a.md"
+    },
+    {
+      "case_id": "ES2011a",
+      "domain": "Product",
+      "split": "test",
+      "official_path": "data/Product/test/ES2011a.json",
+      "size_bytes": 45255,
+      "recommended_role": "curated_sample",
+      "stored_converted_input": "data/selected_cases/ES2011a.md"
+    }
+  ]
+}

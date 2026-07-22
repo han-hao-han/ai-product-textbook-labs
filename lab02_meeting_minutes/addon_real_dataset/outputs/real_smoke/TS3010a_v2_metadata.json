@@ -1,0 +1,29 @@
+{
+  "case_id": "TS3010a",
+  "meeting_id": "qmsum_product_val_TS3010a",
+  "model": "deepseek-v4-flash",
+  "prompt_version": "addon_prompt_qmsum_real_meeting_v2_design_requirement_recall",
+  "schema_version": "schema_v1_h3_draft",
+  "validator_version": "validator_v1_h3_draft",
+  "status": "success",
+  "usage": {
+    "completion_tokens": 3147,
+    "prompt_tokens": 3505,
+    "total_tokens": 6652,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 1988,
+      "rejected_prediction_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 3505
+  },
+  "api_budget_used": 30,
+  "api_budget_remaining": 20
+}

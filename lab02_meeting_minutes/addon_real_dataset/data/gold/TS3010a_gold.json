@@ -1,0 +1,70 @@
+{
+  "dataset_id": "qmsum_product_val_TS3010a",
+  "meeting_id": "qmsum_product_val_TS3010a",
+  "data_type": "real_public_research_dataset_selected_case",
+  "source_dataset": "QMSum",
+  "source_path": "data/Product/val/TS3010a.json",
+  "gold_standard_version": "qmsum_TS3010a_gold_v1_draft",
+  "annotation_date": "2026-07-20",
+  "single_reviewer": true,
+  "annotation_scope": "Small-scale addon gold standard for action items, decisions, and open questions only.",
+  "meeting_title": "QMSum Product meeting TS3010a",
+  "meeting_date": null,
+  "expected_action_items": [],
+  "expected_decisions": [
+    {
+      "decision_id": "D001",
+      "decision": "The new remote control should be original, trendy, and user-friendly.",
+      "evidence": "It has to be original , trendy and user-friendly .",
+      "semantic_anchors": ["original", "trendy", "user-friendly"]
+    },
+    {
+      "decision_id": "D002",
+      "decision": "The product should target a selling price of twenty five Euros and a manufacturing budget of twelve and a half Euros.",
+      "evidence": "Uh we will sell the t at twenty five Euros . And we have only twenty of twelve and a half Euro to make it .",
+      "semantic_anchors": ["twenty five", "twelve and a half"]
+    },
+    {
+      "decision_id": "D003",
+      "decision": "The remote control should not be too heavy and should avoid too many buttons.",
+      "evidence": "The weight . Not not too heavy .",
+      "semantic_anchors": ["not too heavy", "not much buttons"]
+    },
+    {
+      "decision_id": "D004",
+      "decision": "The remote control should be durable if dropped, using material such as rubber or hard plastic.",
+      "evidence": "Bust-free . That when you drop it , it won't break . Like uh some kind of rubber on it . Or hard uh hard plastic .",
+      "semantic_anchors": ["won't break", "rubber", "hard plastic"]
+    },
+    {
+      "decision_id": "D005",
+      "decision": "The remote control should include an LED indicator showing that it works.",
+      "evidence": "Yeah well the LED on the corner , that that indicates that it's working . If you push a button .",
+      "semantic_anchors": ["LED", "working"]
+    },
+    {
+      "decision_id": "D006",
+      "decision": "The remote control should use inexpensive material, probably plastic.",
+      "evidence": "And looking on the budget , not too expensive uh material . So probably plastic or something .",
+      "semantic_anchors": ["not too expensive", "plastic"]
+    },
+    {
+      "decision_id": "D007",
+      "decision": "The remote control should look nice and work with as many existing products as possible.",
+      "evidence": "it also has to look nice . Or you won't sell it .",
+      "semantic_anchors": ["look nice", "work with as many"]
+    },
+    {
+      "decision_id": "D008",
+      "decision": "The remote control should avoid high battery consumption.",
+      "evidence": "it it won't take a lot of batteries . So you don't {disfmarker} won't have to change the batteries uh once a week or uh once every two weeks .",
+      "semantic_anchors": ["won't take a lot of batteries", "change the batteries"]
+    }
+  ],
+  "expected_open_questions": [],
+  "gold_notes": [
+    "No concrete owner/date action items are annotated because the selected meeting mostly contains brainstorming and product requirement discussion.",
+    "Decision items are treated as accepted design requirements, following the QMSum specific-query answer about remote feature design.",
+    "The addon gold standard is intentionally small and conservative; it should not be used to claim full benchmark performance."
+  ]
+}

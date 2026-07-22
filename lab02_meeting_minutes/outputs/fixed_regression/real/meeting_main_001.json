@@ -1,0 +1,199 @@
+{
+  "meeting_id": "meeting_main_001",
+  "meeting_title": "人工智能客服 MVP 上线前进度会",
+  "meeting_date": "2026-07-20",
+  "attendees": [
+    {
+      "name": "王芳",
+      "role": "产品负责人",
+      "evidence": "- 王芳：产品负责人"
+    },
+    {
+      "name": "张琳",
+      "role": "算法工程师",
+      "evidence": "- 张琳：算法工程师"
+    },
+    {
+      "name": "李明",
+      "role": "后端工程师",
+      "evidence": "- 李明：后端工程师"
+    },
+    {
+      "name": "陈晨",
+      "role": "前端工程师",
+      "evidence": "- 陈晨：前端工程师"
+    },
+    {
+      "name": "赵强",
+      "role": "测试负责人",
+      "evidence": "- 赵强：测试负责人"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "T001",
+      "topic": "知识库标签收口",
+      "evidence": "知识库标签这块本周必须收口。"
+    },
+    {
+      "topic_id": "T002",
+      "topic": "退款接口联调",
+      "evidence": "那退款接口联调先定下来，李明在下周三前完成退款接口异常码映射和联调验证。"
+    },
+    {
+      "topic_id": "T003",
+      "topic": "前端风险提示弹窗",
+      "evidence": "前端先按二次确认方案实现。陈晨，你在下周三前补齐风险提示弹窗，并把确认按钮和取消按钮的埋点事件加上。"
+    },
+    {
+      "topic_id": "T004",
+      "topic": "测试计划两步走",
+      "evidence": "测试这边按两步走。赵强本周五前先完成订单、物流、发票三个场景的回归测试；退款场景等接口联调完成后再补测。"
+    },
+    {
+      "topic_id": "T005",
+      "topic": "上线时间未定",
+      "evidence": "上线时间今天不定。我们先保留“下周五前完成灰度准备”的目标，但是否下周五晚上灰度，要等退款接口和回归结果出来后再决定。"
+    },
+    {
+      "topic_id": "T006",
+      "topic": "MVP范围决策",
+      "evidence": "这个形成决策：MVP 首版只覆盖 Web 客服工作台，移动端客服入口不进入本次上线范围。"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "D001",
+      "decision": "前端风险提示弹窗按二次确认方案实现",
+      "evidence": "前端先按二次确认方案实现。"
+    },
+    {
+      "decision_id": "D002",
+      "decision": "MVP首版只覆盖Web客服工作台，移动端不进入上线范围",
+      "evidence": "这个形成决策：MVP 首版只覆盖 Web 客服工作台，移动端客服入口不进入本次上线范围。"
+    }
+  ],
+  "action_items": [
+    {
+      "action_id": "A001",
+      "task": "完成退款和发票场景标签复核，给出复核表",
+      "owner": "张琳",
+      "due_date_raw": "本周五前",
+      "due_date_normalized": "2026-07-24",
+      "status": "pending",
+      "evidence": "张琳，你在本周五前完成退款和发票场景的标签复核，把需要产品确认的样例整理出来。"
+    },
+    {
+      "action_id": "A002",
+      "task": "完成退款接口异常码映射和联调验证",
+      "owner": "李明",
+      "due_date_raw": "下周三前",
+      "due_date_normalized": "2026-07-29",
+      "status": "pending",
+      "evidence": "那退款接口联调先定下来，李明在下周三前完成退款接口异常码映射和联调验证。"
+    },
+    {
+      "action_id": "A003",
+      "task": "补齐风险提示弹窗并加埋点事件",
+      "owner": "陈晨",
+      "due_date_raw": "下周三前",
+      "due_date_normalized": "2026-07-29",
+      "status": "pending",
+      "evidence": "陈晨，你在下周三前补齐风险提示弹窗，并把确认按钮和取消按钮的埋点事件加上。"
+    },
+    {
+      "action_id": "A004",
+      "task": "整理埋点命名表并发送给陈晨和李明",
+      "owner": "王芳",
+      "due_date_raw": "明天下午",
+      "due_date_normalized": "2026-07-21",
+      "status": "pending",
+      "evidence": "埋点命名表由我来整理，我明天下午发给陈晨和李明。"
+    },
+    {
+      "action_id": "A005",
+      "task": "完成订单、物流、发票三个场景的回归测试",
+      "owner": "赵强",
+      "due_date_raw": "本周五前",
+      "due_date_normalized": "2026-07-24",
+      "status": "pending",
+      "evidence": "赵强本周五前先完成订单、物流、发票三个场景的回归测试；退款场景等接口联调完成后再补测。"
+    },
+    {
+      "action_id": "A006",
+      "task": "在复核表中增加影响测试用例说明",
+      "owner": "张琳",
+      "due_date_raw": null,
+      "due_date_normalized": null,
+      "status": "pending",
+      "evidence": "张琳在复核表里增加影响测试用例说明"
+    },
+    {
+      "action_id": "A007",
+      "task": "根据复核表更新测试用例",
+      "owner": "赵强",
+      "due_date_raw": null,
+      "due_date_normalized": null,
+      "status": "pending",
+      "evidence": "赵强根据复核表更新测试用例"
+    },
+    {
+      "action_id": "A008",
+      "task": "准备客服培训说明",
+      "owner": null,
+      "due_date_raw": null,
+      "due_date_normalized": null,
+      "status": "pending",
+      "evidence": "灰度上线前需要准备客服培训说明，但今天没有确定负责人。"
+    }
+  ],
+  "open_questions": [
+    {
+      "question_id": "Q001",
+      "question": "首版是否接入人工转接原因字段？",
+      "owner": null,
+      "evidence": "满意度标签这件事先不做决策。我们需要确认上线首版是否真的要接入人工转接原因，否则会影响范围。"
+    },
+    {
+      "question_id": "Q002",
+      "question": "下周五晚上是否灰度上线？",
+      "owner": null,
+      "evidence": "上线时间今天不定。我们先保留“下周五前完成灰度准备”的目标，但是否下周五晚上灰度，要等退款接口和回归结果出来后再决定。"
+    },
+    {
+      "question_id": "Q003",
+      "question": "客服培训说明由谁负责？",
+      "owner": null,
+      "evidence": "这个事项先记下来，下一次项目会上明确谁负责。"
+    }
+  ],
+  "meeting_summary": "我总结一下：知识库本周五收口，退款接口下周三完成，前端风险弹窗下周三完成，测试先做三个已通场景，MVP 首版只覆盖 Web 工作台。人工转接原因字段和下周五是否灰度上线仍待确认。",
+  "processing_metadata": {
+    "mode": "single_pass",
+    "chunk_count": 1,
+    "model": "deepseek-v4-flash",
+    "prompt_version": "prompt_v11_open_question_precision_guard_h4_dirty",
+    "schema_version": "schema_v1_h3_draft",
+    "validator_version": "validator_v1_h3_draft",
+    "elapsed_seconds": 56.2614,
+    "usage": {
+      "completion_tokens": 7421,
+      "prompt_tokens": 2646,
+      "total_tokens": 10067,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 5885,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cache_write_tokens": null,
+        "cached_tokens": 1152
+      },
+      "prompt_cache_hit_tokens": 1152,
+      "prompt_cache_miss_tokens": 1494
+    }
+  },
+  "validation_issues": []
+}

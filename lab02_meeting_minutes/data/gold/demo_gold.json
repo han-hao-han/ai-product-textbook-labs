@@ -1,0 +1,80 @@
+{
+  "gold_standard_version": "gold_v1_h2_confirmed",
+  "annotation_date": "2026-07-20",
+  "cases": [
+    {
+      "meeting_id": "demo_001",
+      "meeting_date": "2026-07-21",
+      "expected_decisions": [
+        {
+          "decision": "投诉分类拆成“服务态度”和“处理时效”两个标签",
+          "evidence": "这个形成决策，投诉分类拆成“服务态度”和“处理时效”两个标签。"
+        }
+      ],
+      "expected_action_items": [
+        {
+          "task": "完成投诉分类标签调整",
+          "owner": "刘洋",
+          "due_date_raw": "本周五前",
+          "due_date_normalized": "2026-07-24",
+          "evidence": "刘洋在本周五前完成标签调整。"
+        },
+        {
+          "task": "更新评测样例",
+          "owner": "何佳",
+          "due_date_raw": "下周一前",
+          "due_date_normalized": "2026-07-27",
+          "evidence": "何佳在下周一前更新评测样例。"
+        }
+      ],
+      "expected_open_questions": [
+        {
+          "question": "是否增加“情绪激烈”标签",
+          "evidence": "是否增加“情绪激烈”标签，今天先不定，等看完历史会话后再讨论。"
+        }
+      ]
+    },
+    {
+      "meeting_id": "demo_002",
+      "meeting_date": null,
+      "expected_decisions": [],
+      "expected_action_items": [
+        {
+          "task": "整理 20 条退款失败样例",
+          "owner": null,
+          "due_date_raw": "下周三前",
+          "due_date_normalized": null,
+          "evidence": "需要在下周三前整理 20 条退款失败样例，但今天没有指定负责人。"
+        }
+      ],
+      "expected_open_questions": [
+        {
+          "question": "退款状态是否拆成三类",
+          "evidence": "先记为未决问题，退款状态是否拆成三类下次再定。"
+        }
+      ],
+      "must_not_guess_owner": true,
+      "must_not_normalize_without_meeting_date": true
+    },
+    {
+      "meeting_id": "demo_003",
+      "meeting_date": "2026-07-22",
+      "expected_decisions": [
+        {
+          "decision": "本次验收只覆盖 Web 工作台，移动端入口不进入本次验收范围",
+          "evidence": "本次验收只覆盖 Web 工作台，移动端入口不进入本次验收范围。这是今天的结论。"
+        }
+      ],
+      "expected_action_items": [
+        {
+          "task": "完成风险提示关闭按钮埋点",
+          "owner": "邓宁",
+          "due_date_raw": "明天",
+          "due_date_normalized": "2026-07-23",
+          "evidence": "邓宁明天完成风险提示关闭按钮埋点。"
+        }
+      ],
+      "expected_open_questions": []
+    }
+  ]
+}

@@ -168,6 +168,16 @@ lab01_feedback_analysis/screenshots/
 **/data/downloads/
 **/data/tmp/
 
+# 用户在 Streamlit 中上传、粘贴或从完整 QMSum 缓存临时转换的运行输入
+lab02_meeting_minutes/outputs/streamlit_runs/
+
+# 1.5.2 本地运行缓存、日志和不适合提交的截图
+lab02_meeting_minutes/addon_real_dataset/data/downloads/
+lab02_meeting_minutes/addon_real_dataset/outputs/streamlit_runs/
+lab02_meeting_minutes/outputs/*.log
+lab02_meeting_minutes/results/
+lab02_meeting_minutes/screenshots/streamlit_qmsum_full_dataset.png
+
 *.zip
 *.7z
 *.rar

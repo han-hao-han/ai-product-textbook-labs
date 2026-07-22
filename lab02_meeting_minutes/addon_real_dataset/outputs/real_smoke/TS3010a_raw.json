@@ -1,0 +1,77 @@
+{
+  "meeting_title": "Kick-off meeting for new remote control design",
+  "attendees": [
+    {
+      "name": "Project Manager",
+      "role": null,
+      "evidence": "Project Manager: So welcome . The first kick-off meeting ."
+    },
+    {
+      "name": "Industrial Designer",
+      "role": null,
+      "evidence": "Industrial Designer: {vocalsound}"
+    },
+    {
+      "name": "Marketing",
+      "role": null,
+      "evidence": "Marketing: {vocalsound}"
+    },
+    {
+      "name": "User Interface",
+      "role": null,
+      "evidence": "User Interface: {vocalsound}"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "T001",
+      "topic": "Plan making and painting with the product",
+      "evidence": "Project Manager: First you can save the documents . We have to do that every time we make something . You can print it . No . And we have to use the pen and the eraser . So Now . We all have to use this one ."
+    },
+    {
+      "topic_id": "T002",
+      "topic": "Sharing experiences with remote controls",
+      "evidence": "Project Manager: First I wanna hear from you . Uh what are your experiences with remote controls ."
+    },
+    {
+      "topic_id": "T003",
+      "topic": "Designing remote control features",
+      "evidence": "Project Manager: For our own remote control we have to think how do we make it . So what ideas do you have for it , for the new remote control ? What what does it have to have ?"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "D001",
+      "decision": "Remote control should be lightweight (not too heavy).",
+      "evidence": "Industrial Designer: The weight . Not not too heavy . Project Manager: Not too heavy . Yes ."
+    },
+    {
+      "decision_id": "D002",
+      "decision": "Remote control should have big buttons (positive).",
+      "evidence": "Industrial Designer: Big buttons , positive . Project Manager: Positive ."
+    },
+    {
+      "decision_id": "D003",
+      "decision": "Remote control should be drop-resistant (bust-free).",
+      "evidence": "Industrial Designer: Bust-free . That when you drop it , it won't break . Like uh some kind of rubber on it . Or hard uh hard plastic ."
+    },
+    {
+      "decision_id": "D004",
+      "decision": "Remote control should have a LED indicator for feedback.",
+      "evidence": "User Interface: And that it controls the channels and the the volume . And uh I I I think it's positive if there's a a LED uh uh a LED on the corner of the of the remote . So that you know it s it still has batteries on it in it . And that if you push the button the LED uh gives a light , and uh and you see that it's working ."
+    },
+    {
+      "decision_id": "D005",
+      "decision": "Remote control should be compatible with as many existing products as possible.",
+      "evidence": "Marketing: And um yeah uh on our website we can see what products we already have . And it should work with as many uh as possible of them . Project Manager: Okay . This is It has to be compatible with other things ."
+    },
+    {
+      "decision_id": "D006",
+      "decision": "Remote control should have an attractive appearance for marketability.",
+      "evidence": "Marketing: Yeah I think it from a marketing point of view , it also has to look nice . Or you won't sell it . Project Manager: Yes ."
+    }
+  ],
+  "action_items": [],
+  "open_questions": [],
+  "meeting_summary": "The meeting began with a team painting activity to familiarize with the design tools. Then, team members shared their experiences with remote controls, highlighting issues like too many buttons, fragility, and lack of feedback. Finally, they brainstormed design requirements for a new remote control, including lightweight, big buttons, drop resistance, LED indicator, compatibility with multiple devices, and attractive appearance. The meeting concluded with a plan for a follow-up meeting in half an hour."
+}

@@ -1,0 +1,74 @@
+{
+  "experiment": "1.5.2-addon-real-meeting-dataset",
+  "parent_experiment": "1.5.2",
+  "stage": "H4",
+  "status": "acceptance_ready",
+  "dataset": {
+    "name": "QMSum",
+    "case_id": "TS3010a",
+    "domain": "Product",
+    "split": "val",
+    "source_path": "data/Product/val/TS3010a.json",
+    "converted_input": "data/selected_cases/TS3010a.md",
+    "curated_samples": [
+      {
+        "case_id": "TS3010a",
+        "domain": "Product",
+        "split": "val",
+        "converted_input": "data/selected_cases/TS3010a.md",
+        "gold_standard": "data/gold/TS3010a_gold.json",
+        "role": "main_gold_checked"
+      },
+      {
+        "case_id": "IS1003a",
+        "domain": "Product",
+        "split": "test",
+        "converted_input": "data/selected_cases/IS1003a.md",
+        "gold_standard": null,
+        "role": "curated_exploratory"
+      },
+      {
+        "case_id": "ES2011a",
+        "domain": "Product",
+        "split": "test",
+        "converted_input": "data/selected_cases/ES2011a.md",
+        "gold_standard": null,
+        "role": "curated_exploratory"
+      }
+    ],
+    "full_dataset_policy": "optional local download only; cache path data/downloads/qmsum_full is ignored by Git"
+  },
+  "gold_standard": {
+    "path": "data/gold/TS3010a_gold.json",
+    "expected_action_items": 0,
+    "expected_decisions": 8,
+    "expected_open_questions": 0
+  },
+  "real_smoke_v1": {
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v1_draft",
+    "api_budget_used_after_call": 29,
+    "validation_issue_count_after_repair": 0,
+    "gold_compare_ok": false,
+    "recalled_decision_count": 3
+  },
+  "real_smoke_v2": {
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v2_design_requirement_recall",
+    "api_budget_used_after_call": 30,
+    "validation_issue_count_after_repair": 0,
+    "gold_compare_ok": true,
+    "expected_decision_count": 8,
+    "recalled_decision_count": 8,
+    "result": "outputs/real_smoke/TS3010a_v2_result.json",
+    "gold_compare_report": "outputs/real_smoke/TS3010a_v2_gold_compare.json"
+  },
+  "current_exploratory_prompt": {
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v4_owner_decision_precision",
+    "purpose": "Streamlit and optional full-QMSum local samples use a domain-general conservative prompt with stricter owner evidence and decision precision. The TS3010a gold-checked smoke result remains the historical v2 result."
+  },
+  "api_budget": {
+    "limit": 50,
+    "used": 37,
+    "remaining": 13,
+    "note": "TS3010a v2 smoke test ended at 30/50; subsequent Streamlit exploratory calls increased the global experiment count to 37/50."
+  }
+}

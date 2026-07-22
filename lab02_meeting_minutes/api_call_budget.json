@@ -1,0 +1,8 @@
+{
+  "experiment": "1.5.2",
+  "limit": 50,
+  "used": 39,
+  "remaining": 11,
+  "warning_threshold": 40,
+  "status": "active"
+}
