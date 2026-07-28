@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sample_review_record_v1.json",
+  "title": "XFUND教学样本人工复核记录",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "sample_id",
+    "dataset",
+    "privacy_review",
+    "annotation_review",
+    "final_reference_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sample-review-v1"
+    },
+    "sample_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dataset": {
+      "const": "XFUND v1.0 zh"
+    },
+    "privacy_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_at",
+        "reviewer",
+        "national_id",
+        "other_signal_categories",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["pending", "passed", "rejected"]
+        },
+        "reviewed_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "reviewer": {
+          "type": ["string", "null"]
+        },
+        "national_id": {
+          "enum": ["not_reviewed", "not_present", "present", "uncertain"]
+        },
+        "other_signal_categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "annotation_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_at",
+        "reviewer",
+        "source",
+        "special_symbol_review",
+        "corrections",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["pending", "confirmed", "corrected", "rejected"]
+        },
+        "reviewed_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "reviewer": {
+          "type": ["string", "null"]
+        },
+        "source": {
+          "const": "xfund_explicit_question_answer_relations"
+        },
+        "special_symbol_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "entity_count",
+            "detected_symbols",
+            "interpretation_policy",
+            "notes"
+          ],
+          "properties": {
+            "status": {
+              "enum": ["not_applicable", "pending", "confirmed", "corrected"]
+            },
+            "entity_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "detected_symbols": {
+              "type": "array",
+              "items": {
+                "enum": ["☑", "□", "☒", "✓", "✔", "√", "■"]
+              },
+              "uniqueItems": true
+            },
+            "interpretation_policy": {
+              "const": "preserve_glyphs_no_automatic_semantic_equivalence"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "corrections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/correction"
+          }
+        },
+        "structure_reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/structureReview"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "final_reference_status": {
+      "enum": [
+        "not_ready",
+        "source_annotation_confirmed",
+        "human_corrected",
+        "rejected"
+      ]
+    },
+    "evaluation_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_frozen_before_model_run",
+        "model_run_id",
+        "adjudicated_at",
+        "usage",
+        "included_in_formal_validation",
+        "notes"
+      ],
+      "properties": {
+        "reference_frozen_before_model_run": {
+          "type": "boolean"
+        },
+        "model_run_id": {
+          "type": ["string", "null"]
+        },
+        "adjudicated_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "usage": {
+          "enum": [
+            "pre_model_frozen_reference",
+            "teaching_post_run_adjudication_only"
+          ]
+        },
+        "included_in_formal_validation": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nullableEntityId": {
+      "type": ["string", "integer", "null"]
+    },
+    "nullableField": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["key", "value"],
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correction_id",
+        "action",
+        "source_question_entity_id",
+        "source_answer_entity_id",
+        "original",
+        "corrected",
+        "reason",
+        "evidence"
+      ],
+      "properties": {
+        "correction_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "enum": [
+            "add_field",
+            "remove_field",
+            "replace_key",
+            "replace_value",
+            "replace_pair",
+            "repair_relation"
+          ]
+        },
+        "source_question_entity_id": {
+          "$ref": "#/$defs/nullableEntityId"
+        },
+        "source_answer_entity_id": {
+          "$ref": "#/$defs/nullableEntityId"
+        },
+        "original": {
+          "$ref": "#/$defs/nullableField"
+        },
+        "corrected": {
+          "$ref": "#/$defs/nullableField"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "enum": ["visible_image", "source_annotation", "both"]
+        }
+      }
+    },
+    "structureReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "structure_type",
+        "source_field_indices",
+        "row_count",
+        "column_count",
+        "columns",
+        "rows",
+        "decision",
+        "reason",
+        "evidence"
+      ],
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "structure_type": {
+          "const": "table"
+        },
+        "source_field_indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["row_id", "cells"],
+            "properties": {
+              "row_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "column_index",
+                    "source_question_entity_id",
+                    "source_answer_entity_id"
+                  ],
+                  "properties": {
+                    "column_index": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "source_question_entity_id": {
+                      "$ref": "#/$defs/nullableEntityId"
+                    },
+                    "source_answer_entity_id": {
+                      "$ref": "#/$defs/nullableEntityId"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "decision": {
+          "const": "preserve_fields_with_row_grouping"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "const": "visible_image"
+        }
+      }
+    }
+  }
+}

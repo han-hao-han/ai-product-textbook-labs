@@ -1,0 +1,20 @@
+# XFUND official assets and locally generated teaching data.
+data/raw/
+data/local/
+data/processed/
+data/teaching_subset/
+
+# Local runtime results will be refined in later stages.
+results/current/
+results/history/
+results/comparisons/
+results/failed/
+results/example_candidates/
+results/validations/
+
+# Experiment-local credentials. Never commit this file.
+.env
+
+__pycache__/
+*.py[cod]
+.pytest_cache/

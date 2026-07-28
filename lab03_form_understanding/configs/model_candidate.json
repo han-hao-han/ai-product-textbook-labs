@@ -1,0 +1,60 @@
+{
+  "schema_version": "v1",
+  "status": "h3_frozen_user_confirmed",
+  "provider": "aliyun_model_studio",
+  "model_id": "qwen3.7-plus-2026-05-26",
+  "api_style": "openai_compatible_chat_completions",
+  "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "prompt_version": "v1",
+  "output_schema_version": "v1",
+  "request_options": {
+    "response_format": {"type": "json_object"},
+    "enable_thinking": false,
+    "temperature": 0,
+    "timeout_seconds": 120
+  },
+  "verified_official_capabilities": [
+    "image_input",
+    "text_output",
+    "structured_output_in_non_thinking_mode",
+    "openai_compatible_chat_completions"
+  ],
+  "selection_reason": "官方视觉理解文档推荐Qwen3.7 Plus作为视觉任务起点；固定日期版本避免别名更新导致教材复现实验漂移。",
+  "official_docs": [
+    "https://help.aliyun.com/zh/model-studio/vision-model/",
+    "https://help.aliyun.com/zh/model-studio/qwen-structured-output",
+    "https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions"
+  ],
+  "h3_confirmation": {
+    "confirmed_on": "2026-07-23",
+    "model_and_calling_method": true,
+    "prompt_v1": true,
+    "schema_v1": true,
+    "conservative_deterministic_comparison": false,
+    "comparison_policy_version": "v2",
+    "dataset_annotation_consistency_layer": true,
+    "diagnostic_hints_do_not_auto_judge": true,
+    "final_reference_accuracy_gate": true,
+    "final_reference_accuracy_gate_scope": "main_sample_only",
+    "fixed_validation_reference_gate": false,
+    "fixed_validation_scope": "visual_model_call_and_engineering_flow",
+    "comparison_v2_confirmed_on": "2026-07-23",
+    "reopened_reason": "XFUND原始标注存在少许问题；已实现并确认数据集原始标注一致性、非裁决性诊断和主样本最终参考结果门禁。固定验证只验证视觉模型调用和工程流程，不要求逐字段修复原始标注。"
+  },
+  "real_account_verification": {
+    "run_id": "20260722T172525_205760Z",
+    "run_at": "2026-07-22T17:25:25.205760+00:00",
+    "sample_id": "zh_train_103",
+    "model_requested": "qwen3.7-plus-2026-05-26",
+    "model_returned": "qwen3.7-plus-2026-05-26",
+    "finish_reason": "stop",
+    "elapsed_seconds": 16.1181,
+    "usage_saved": true,
+    "json_parse_passed": true,
+    "schema_validation_passed": true,
+    "field_count": 28,
+    "warning_count": 0,
+    "current_updated": false,
+    "sensitive_metadata_check": "passed"
+  }
+}
