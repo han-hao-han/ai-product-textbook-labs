@@ -1,0 +1,126 @@
+{
+  "schema_version": "interactive_rag_result_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T13:56:25.517658+08:00",
+  "question": "如何使用Pydantic模型声明请求体？",
+  "top_k": 5,
+  "threshold": 0.6831968426704407,
+  "phases": [
+    {
+      "name": "query_embedding",
+      "status": "completed",
+      "elapsed_seconds": 11.542954,
+      "diagnostics": {
+        "input_count": 1,
+        "min_input_tokens": 38,
+        "max_input_tokens": 38,
+        "truncated_input_count": 0,
+        "elapsed_seconds": 0.358501,
+        "min_l2_norm": 0.9999999403953552,
+        "max_l2_norm": 0.9999999403953552,
+        "max_l2_deviation": 5.960464477539063e-08
+      }
+    },
+    {
+      "name": "retrieval",
+      "status": "completed",
+      "elapsed_seconds": 11.542954,
+      "top_k": 5
+    },
+    {
+      "name": "retrieval_gate",
+      "status": "completed",
+      "elapsed_seconds": 5e-06,
+      "top1_score": 0.8620750904083252,
+      "threshold": 0.6831968426704407,
+      "passed": true
+    },
+    {
+      "name": "classification",
+      "status": "completed",
+      "elapsed_seconds": 2.203823,
+      "attempts": 1
+    },
+    {
+      "name": "structured_generation",
+      "status": "completed",
+      "elapsed_seconds": 7.304533,
+      "attempts": 1,
+      "classification_fallback": false
+    },
+    {
+      "name": "validation",
+      "status": "completed",
+      "elapsed_seconds": 0.003565,
+      "warnings": 0
+    },
+    {
+      "name": "final",
+      "status": "completed"
+    }
+  ],
+  "classification": {
+    "question_type": "code_example",
+    "fallback": false
+  },
+  "answer": {
+    "answerable": true,
+    "answer": "在 FastAPI 中，使用 Pydantic 模型声明请求体的步骤如下：\n\n1. **导入 BaseModel**：从 `pydantic` 导入 `BaseModel`。\n2. **创建数据模型**：定义一个继承自 `BaseModel` 的类，并使用 Python 标准类型声明属性。具有默认值（如 `None`）的属性为可选，否则为必选。\n3. **声明为参数**：在路径操作函数中，将参数类型声明为该 Pydantic 模型。FastAPI 会自动从请求体中读取 JSON 数据，进行校验并转换为模型实例。\n\n示例代码：\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\nclass Item(BaseModel):\n    name: str\n    description: str | None = None\n    price: float\n    tax: float | None = None\n\napp = FastAPI()\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    return item\n```\n\n在此示例中，`item: Item` 告诉 FastAPI 该参数应从请求体中获取。",
+    "cited_chunk_ids": [
+      "fastapi_51a712ad620828b3c1cd",
+      "fastapi_7f0b0fa681a4f61c5c89",
+      "fastapi_3938c4a4fed740ce48d9"
+    ],
+    "refusal_reason": null
+  },
+  "citations": [
+    {
+      "chunk_id": "fastapi_51a712ad620828b3c1cd",
+      "page_title": "请求体",
+      "section_path": [
+        "请求体 { #request-body }"
+      ],
+      "source_path": "docs/zh/docs/tutorial/body.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/body.md",
+      "excerpt": "# 请求体\n\n当你需要从客户端（比如浏览器）向你的 API 发送数据时，会把它作为**请求体**发送。\n\n**请求体**是客户端发送给你的 API 的数据。**响应体**是你的 API 发送给客户端的数据。\n\n你的 API 几乎总是需要发送**响应体**。但客户端不一定总是要发送**请求体**，有时它们只请求某个路径，可能带一些查询参数，但不会发送请求体。\n\n使用 Pydantic 模型来声明**请求体**，能充分利用它的功能和优点。\n\n> **信息**\n\n发送数据应使用以下之一：`POST`（",
+      "start_offset": 0,
+      "end_offset": 250,
+      "visible_characters": 250,
+      "selection_method": "query_answer_terms_continuous_window_atomic_code_table_v1"
+    },
+    {
+      "chunk_id": "fastapi_7f0b0fa681a4f61c5c89",
+      "page_title": "请求体",
+      "section_path": [
+        "请求体 { #request-body }",
+        "声明为参数 { #declare-it-as-a-parameter }"
+      ],
+      "source_path": "docs/zh/docs/tutorial/body.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/body.md",
+      "excerpt": "# 请求体\n\n## 声明为参数\n\n````python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\nclass Item(BaseModel):\n    name: str\n    description: str | None = None\n    price: float\n    tax: float | None = None\n\napp = FastAPI()\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    return item\n```",
+      "start_offset": 0,
+      "end_offset": 299,
+      "visible_characters": 299,
+      "selection_method": "query_answer_terms_continuous_window_atomic_code_table_v1"
+    },
+    {
+      "chunk_id": "fastapi_3938c4a4fed740ce48d9",
+      "page_title": "请求体",
+      "section_path": [
+        "请求体 { #request-body }",
+        "使用模型 { #use-the-model }"
+      ],
+      "source_path": "docs/zh/docs/tutorial/body.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/body.md",
+      "excerpt": "# 请求体\n\n## 使用模型\n\n````python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\nclass Item(BaseModel):\n    name: str\n    description: str | None = None\n    price: float\n    tax: float | None = None\n\napp = FastAPI()\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    item_dict = item.model_dump()\n    if item.tax is not None:\n        price_with_tax = item.price + item.tax\n        item_dict.update({\"price_with_tax\": price_with_tax})\n    return item_dict\n```",
+      "start_offset": 0,
+      "end_offset": 474,
+      "visible_characters": 474,
+      "selection_method": "query_answer_terms_continuous_window_atomic_code_table_v1"
+    }
+  ],
+  "validation_warnings": [],
+  "final_state": "answered",
+  "total_elapsed_seconds": 22.498355,
+  "reader_experience_type": "in_scope"
+}

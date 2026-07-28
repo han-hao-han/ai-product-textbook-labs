@@ -1,0 +1,24 @@
+{
+  "schema_version": "retrieval_gate_frozen_v1",
+  "status": "h3_frozen_user_confirmed",
+  "confirmed_on": "2026-07-28",
+  "threshold": 0.6831968426704407,
+  "score": "top1_exact_cosine_via_dot_product_on_l2_vectors",
+  "pass_rule": "top1_score >= threshold",
+  "reject_rule": "top1_score < threshold",
+  "source_commit": "82064857539e6286522c347b4b11331b48dd2378",
+  "corpus_sha256": "71cf57bca05ddbc43a61a6155690f5bd4ebc07cc1cf6f181fe80bfc2d66e741d",
+  "index_sha256": "250ddaea4e54c67d0de36af64afe66667794d3c0100ecf73706e1ad115262909",
+  "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "calibration": {
+    "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+    "question_set_sha256": "13ccbdd23ac50edeb1e106ea68d295f185cfea6e4d3789db3dd66a2429253d9b",
+    "gate_policy_sha256": "a457b31c53091fd3b16df2eeea1e6ba9e7fc36c1ed17687a87063920bb340769",
+    "threshold_result_sha256": "fb2473dd0f485d5579eccd98431cd598e44e6460378ccc1d5e069a4e926b1dd8",
+    "in_scope_recall": 0.95,
+    "negative_rejection_rate": 0.9333333333333333,
+    "balanced_accuracy": 0.9416666666666667
+  },
+  "evaluation_set_sha256": "fd852bcbfd4dfdd91f6b48bdc92d062e905d47f19c1562c79c736e3542155254",
+  "retune_after_evaluation": false
+}

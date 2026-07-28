@@ -1,0 +1,77 @@
+{
+  "schema_version": "interactive_rag_result_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T13:58:49.790869+08:00",
+  "question": "我的8核16GB服务器在每秒5000请求时应该精确启动多少个Uvicorn worker？",
+  "top_k": 5,
+  "threshold": 0.6831968426704407,
+  "phases": [
+    {
+      "name": "query_embedding",
+      "status": "completed",
+      "elapsed_seconds": 3.621222,
+      "diagnostics": {
+        "input_count": 1,
+        "min_input_tokens": 54,
+        "max_input_tokens": 54,
+        "truncated_input_count": 0,
+        "elapsed_seconds": 0.415574,
+        "min_l2_norm": 1.0,
+        "max_l2_norm": 1.0,
+        "max_l2_deviation": 0.0
+      }
+    },
+    {
+      "name": "retrieval",
+      "status": "completed",
+      "elapsed_seconds": 3.621222,
+      "top_k": 5
+    },
+    {
+      "name": "retrieval_gate",
+      "status": "completed",
+      "elapsed_seconds": 6e-06,
+      "top1_score": 0.7688771486282349,
+      "threshold": 0.6831968426704407,
+      "passed": true
+    },
+    {
+      "name": "classification",
+      "status": "completed",
+      "elapsed_seconds": 1.054874,
+      "attempts": 1
+    },
+    {
+      "name": "structured_generation",
+      "status": "completed",
+      "elapsed_seconds": 3.153336,
+      "attempts": 1,
+      "classification_fallback": false
+    },
+    {
+      "name": "validation",
+      "status": "completed",
+      "elapsed_seconds": 4.1e-05,
+      "warnings": 0
+    },
+    {
+      "name": "final",
+      "status": "completed"
+    }
+  ],
+  "classification": {
+    "question_type": "concise_concept",
+    "fallback": false
+  },
+  "answer": {
+    "answerable": false,
+    "answer": null,
+    "cited_chunk_ids": [],
+    "refusal_reason": "提供的证据仅说明了可以使用 --workers 选项启动多个工作进程以利用多核 CPU，但未提供根据 CPU 核心数、内存或请求量（如每秒5000请求）计算具体 worker 数量的公式或建议。"
+  },
+  "citations": [],
+  "validation_warnings": [],
+  "final_state": "model_refused",
+  "total_elapsed_seconds": 7.877064,
+  "reader_experience_type": "boundary"
+}

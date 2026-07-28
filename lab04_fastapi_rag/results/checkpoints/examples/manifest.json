@@ -1,0 +1,27 @@
+{
+  "schema_version": "checkpoint_examples_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "exported_at": "2026-07-28T15:41:37.823760+08:00",
+  "same_run_chain": true,
+  "checkpoint_statuses": {
+    "checkpoint_1": "warning",
+    "checkpoint_2": "warning",
+    "checkpoint_3": "passed",
+    "checkpoint_4": "warning"
+  },
+  "judge_examples": [
+    {
+      "question_id": "EVAL_IN_001",
+      "answer_grade": "fully_correct"
+    },
+    {
+      "question_id": "EVAL_IN_008",
+      "answer_grade": "mostly_correct"
+    }
+  ],
+  "contains_api_key": false,
+  "contains_authorization_header": false,
+  "contains_local_absolute_path": false,
+  "results_may_vary": true,
+  "full_run_records_committed": false
+}

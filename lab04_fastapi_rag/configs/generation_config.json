@@ -1,0 +1,44 @@
+{
+  "schema_version": "generation_config_v1",
+  "status": "h3_generation_candidate_user_confirmed",
+  "provider": "aliyun_model_studio",
+  "region": "cn-beijing",
+  "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "api_key_environment_variable": "DASHSCOPE_API_KEY",
+  "client_api": "openai_compatible_chat_completions",
+  "model": "qwen3.7-plus-2026-05-26",
+  "structured_output": {
+    "mode": "json_object",
+    "response_format": {
+      "type": "json_object"
+    },
+    "prompt_must_explicitly_request_json": true,
+    "prompt_only_json_fallback": false
+  },
+  "request": {
+    "stream": false,
+    "temperature": 0,
+    "enable_thinking": false,
+    "output_token_cap": null,
+    "dynamic_length_strategy": "prompt_detail_only_no_output_token_cap",
+    "timeout_seconds": 60,
+    "retry_wait_seconds": 2,
+    "temporary_error_max_retries": 1
+  },
+  "question_types": [
+    "concise_concept",
+    "procedure",
+    "code_example",
+    "comprehensive"
+  ],
+  "runtime_dependencies": {
+    "openai": "2.46.0",
+    "pydantic": "2.13.4",
+    "python-dotenv": "1.2.2",
+    "streamlit": "1.59.2"
+  },
+  "official_references": [
+    "https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions",
+    "https://help.aliyun.com/zh/model-studio/base-url"
+  ]
+}

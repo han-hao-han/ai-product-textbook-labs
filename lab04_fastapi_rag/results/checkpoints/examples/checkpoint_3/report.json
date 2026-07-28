@@ -1,0 +1,49 @@
+{
+  "schema_version": "checkpoint_3_report_v1",
+  "checkpoint": "checkpoint_3",
+  "title": "完整RAG问答",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T13:59:45.491612+08:00",
+  "status": "passed",
+  "generation_client_state": {
+    "schema_version": "generation_current_state_v1",
+    "updated_at": "2026-07-28T13:50:10.638538+08:00",
+    "status": "passed",
+    "latest_attempt": "attempt_003",
+    "model": "qwen3.7-plus-2026-05-26",
+    "reason": "json_mode_and_schemas_passed",
+    "online_calls_allowed": true,
+    "api_key_saved": false
+  },
+  "reader_experience_records": [
+    {
+      "reader_experience_type": "in_scope",
+      "label": "知识库内",
+      "saved_result": "interactive/saved/result_001/result.json",
+      "question": "如何使用Pydantic模型声明请求体？",
+      "final_state": "answered",
+      "top_k": 5,
+      "total_elapsed_seconds": 22.498355
+    },
+    {
+      "reader_experience_type": "boundary",
+      "label": "边界",
+      "saved_result": "interactive/saved/result_002/result.json",
+      "question": "我的8核16GB服务器在每秒5000请求时应该精确启动多少个Uvicorn worker？",
+      "final_state": "model_refused",
+      "top_k": 5,
+      "total_elapsed_seconds": 7.877064
+    },
+    {
+      "reader_experience_type": "out_of_scope",
+      "label": "知识库外",
+      "saved_result": "interactive/saved/result_003/result.json",
+      "question": "明天北京天气如何？",
+      "final_state": "retrieval_rejected",
+      "top_k": 5,
+      "total_elapsed_seconds": 3.318672
+    }
+  ],
+  "formal_evaluation_run": false,
+  "codex_judge_called": false
+}

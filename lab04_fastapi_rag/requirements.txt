@@ -1,0 +1,13 @@
+# H3-Embedding frozen runtime for checkpoint 2.
+torch==2.11.0
+numpy==1.23.5
+transformers==4.57.6
+huggingface-hub==0.36.2
+tokenizers==0.22.1
+safetensors==0.7.0
+
+# H3 generation and Streamlit runtime.
+openai==2.46.0
+pydantic==2.13.4
+python-dotenv==1.2.2
+streamlit==1.59.2

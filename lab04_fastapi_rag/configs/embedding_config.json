@@ -1,0 +1,64 @@
+{
+  "schema_version": "qwen3_embedding_v1",
+  "model_id": "Qwen/Qwen3-Embedding-0.6B",
+  "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "revision_last_modified": "2026-04-20T02:45:58Z",
+  "official_url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+  "license": "Apache-2.0",
+  "dimension": 1024,
+  "max_length": 8192,
+  "padding_side": "left",
+  "pooling": "last_non_padding_token",
+  "normalize": "L2",
+  "storage_dtype": "float32",
+  "inference_dtype": "float32",
+  "document_instruction": null,
+  "query_instruction": "Given a Chinese question about FastAPI, retrieve relevant passages from the FastAPI Chinese documentation that answer the question.",
+  "query_template": "Instruct: {instruction}\nQuery:{query}",
+  "top_k": 5,
+  "demo_query": "如何使用Pydantic模型声明请求体？",
+  "batch_size": {
+    "cpu": 2,
+    "cuda": 8
+  },
+  "runtime_dependencies": {
+    "torch": "2.11.0",
+    "numpy": "1.23.5",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2",
+    "tokenizers": "0.22.1",
+    "safetensors": "0.7.0"
+  },
+  "required_files": [
+    {
+      "path": "config.json",
+      "size_bytes": 727,
+      "git_blob_sha1": "cef2749ee93607b8f9a58ec72f4f6bfaf874e71d"
+    },
+    {
+      "path": "merges.txt",
+      "size_bytes": 1671853,
+      "git_blob_sha1": "31349551d90c7606f325fe0f11bbb8bd5fa0d7c7"
+    },
+    {
+      "path": "model.safetensors",
+      "size_bytes": 1191586416,
+      "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+    },
+    {
+      "path": "tokenizer.json",
+      "size_bytes": 11423705,
+      "sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size_bytes": 9706,
+      "git_blob_sha1": "7345216a0785dc7086e8c245b2a9d3896ce2b756"
+    },
+    {
+      "path": "vocab.json",
+      "size_bytes": 2776833,
+      "git_blob_sha1": "4783fe10ac3adce15ac8f358ef5462739852c569"
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "schema_version": "retrieval_demo_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T13:59:35.556344+08:00",
+  "status": "passed",
+  "query": "明天北京天气如何？",
+  "query_instruction": "Given a Chinese question about FastAPI, retrieve relevant passages from the FastAPI Chinese documentation that answer the question.",
+  "query_template": "Instruct: {instruction}\nQuery:{query}",
+  "model_id": "Qwen/Qwen3-Embedding-0.6B",
+  "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "device": "cpu",
+  "top_k": 5,
+  "similarity": "exact_cosine_via_dot_product_on_l2_vectors",
+  "query_embedding_diagnostics": {
+    "input_count": 1,
+    "min_input_tokens": 33,
+    "max_input_tokens": 33,
+    "truncated_input_count": 0,
+    "elapsed_seconds": 0.307538,
+    "min_l2_norm": 0.9999999403953552,
+    "max_l2_norm": 0.9999999403953552,
+    "max_l2_deviation": 5.960464477539063e-08
+  },
+  "top1_score": 0.3644562363624573,
+  "hits": [
+    {
+      "rank": 1,
+      "score": 0.3644562363624573,
+      "row_index": 287,
+      "chunk_id": "fastapi_ea88c995e8cb37e0a4be",
+      "page_title": "元数据和文档 URL",
+      "section_path": [
+        "元数据和文档 URL { #metadata-and-docs-urls }"
+      ],
+      "section_paths": [
+        [
+          "元数据和文档 URL { #metadata-and-docs-urls }"
+        ],
+        [
+          "元数据和文档 URL { #metadata-and-docs-urls }",
+          "API 元数据 { #metadata-for-api }"
+        ]
+      ],
+      "source_path": "docs/zh/docs/tutorial/metadata.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/metadata.md",
+      "chunk_index": 0,
+      "token_count": 520,
+      "contains_code": false,
+      "contains_table": true,
+      "content_sha256": "7adb499700f1114969cf8902e75db2c642ca2c42ffe3c9b7351d9bf10688302f",
+      "content": "# 元数据和文档 URL\n\n你可以在 FastAPI 应用程序中自定义多个元数据配置。\n\n## API 元数据\n\n你可以在设置 OpenAPI 规范和自动 API 文档 UI 中使用的以下字段：\n\n| 参数 | 类型 | 描述 |\n|------------|------|-------------|\n| `title` | `str` | API 的标题。 |\n| `summary` | `str` | API 的简短摘要。 自 OpenAPI 3.1.0、FastAPI 0.99.0 起可用。 |\n| `description` | `str` | API 的简短描述。可以使用 Markdown。 |\n| `version` | `string` | API 的版本。这是您自己的应用程序的版本，而不是 OpenAPI 的版本。例如 `2.5.0`。 |\n| `terms_of_service` | `str` | API 服务条款的 URL。如果提供，则必须是 URL。 |\n| `contact` | `dict` | 公开的 API 的联系信息。它可以包含多个字段。contact 字段参数类型描述namestr联系人/组织的识别名称。urlstr指向联系信息的 URL。必须采用 URL 格式。emailstr联系人/组织的电子邮件地址。必须采用电子邮件地址的格式。 |\n| `license_info` | `dict` | 公开的 API 的许可证信息。它可以包含多个字段。license_info 字段参数类型描述namestr必须（如果设置了 license_info）。用于 API 的许可证名称。identifierstrAPI 的 SPDX 许可证表达式。字段 identifier 与字段 url 互斥。自 OpenAPI 3.1.0、FastAPI 0.99.0 起可用。urlstr用于 API 的许可证的 URL。必须采用 URL 格式。 |\n\n你可以按如下方式设置它们："
+    },
+    {
+      "rank": 2,
+      "score": 0.36198604106903076,
+      "row_index": 350,
+      "chunk_id": "fastapi_cb6c42107a74b59034c4",
+      "page_title": "声明请求示例数据",
+      "section_path": [
+        "声明请求示例数据 { #declare-request-example-data }",
+        "技术细节 { #technical-details }"
+      ],
+      "section_paths": [
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }"
+        ],
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }",
+          "JSON Schema 的 `examples` 字段 { #json-schemas-examples-field }"
+        ],
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }",
+          "Pydantic 与 FastAPI 的 `examples` { #pydantic-and-fastapi-examples }"
+        ]
+      ],
+      "source_path": "docs/zh/docs/tutorial/schema-extra-example.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/schema-extra-example.md",
+      "chunk_index": 4,
+      "token_count": 754,
+      "contains_code": false,
+      "contains_table": false,
+      "content_sha256": "5ba07cdcfe1507081faaa103a1db29aac78cb805f2a91748f825771449a88d58",
+      "content": "# 声明请求示例数据\n\n## 技术细节\n\n你可以把这当作一堂简短的 OpenAPI 和 JSON Schema 历史课。🤓\n\n> **警告**\n\n以下是关于 JSON Schema 和 OpenAPI 标准的非常技术性的细节。\n\n如果上面的思路对你已经足够可用，你可能不需要这些细节，可以直接跳过。\n\n在 OpenAPI 3.1.0 之前，OpenAPI 使用的是一个更旧且经过修改的 JSON Schema 版本。\n\n当时 JSON Schema 没有 `examples`，所以 OpenAPI 在它修改过的版本中添加了自己的 `example` 字段。\n\nOpenAPI 还在规范的其他部分添加了 `example` 和 `examples` 字段：\n\n- `Parameter Object`（规范中），被 FastAPI 的以下内容使用：\n    - `Path()`\n    - `Query()`\n    - `Header()`\n    - `Cookie()`\n- `Request Body Object` 中的 `content` 字段里的 `Media Type Object`（规范中），被 FastAPI 的以下内容使用：\n    - `Body()`\n    - `File()`\n    - `Form()`\n\n> **信息**\n\n这个旧的、OpenAPI 特定的 `examples` 参数，自 FastAPI `0.103.0` 起改名为 `openapi_examples`。\n\n### JSON Schema 的 `examples` 字段\n\n后来，JSON Schema 在新版本的规范中添加了 `examples` 字段。\n\n随后新的 OpenAPI 3.1.0 基于最新版本（JSON Schema 2020-12），其中包含了这个新的 `examples` 字段。\n\n现在，这个新的 `examples` 字段优先于旧的单个（且自定义的）`example` 字段，后者已被弃用。\n\nJSON Schema 中这个新的 `examples` 字段只是一个由示例组成的 `list`，而不是像上面提到的 OpenAPI 其他位置那样带有额外元数据的 `dict`。\n\n> **信息**\n\n即使在 OpenAPI 3.1.0 发布、并与 JSON Schema 有了这种更简单的集成之后，有一段时间里，提供自动文档的 Swagger UI 并不支持 OpenAPI 3.1.0（它自 5.0.0 版本起已支持 🎉）。\n\n因此，FastAPI 0.99.0 之前的版本仍然使用低于 3.1.0 的 OpenAPI 版本。\n\n### Pydantic 与 FastAPI 的 `examples`\n\n当你在 Pydantic 模型中添加 `examples`，通过 `schema_extra` 或 `Field(examples=[\"something\"])`，这些示例会被添加到该 Pydantic 模型的 JSON Schema 中。\n\n这个 Pydantic 模型的 JSON Schema 会被包含到你的 API 的 OpenAPI 中，然后在文档 UI 中使用。"
+    },
+    {
+      "rank": 3,
+      "score": 0.35849863290786743,
+      "row_index": 268,
+      "chunk_id": "fastapi_eb04d386d8b5a372668d",
+      "page_title": "第一步",
+      "section_path": [
+        "第一步 { #first-steps }"
+      ],
+      "section_paths": [
+        [
+          "第一步 { #first-steps }"
+        ],
+        [
+          "第一步 { #first-steps }",
+          "(未命名层级)",
+          "查看 { #check-it }"
+        ],
+        [
+          "第一步 { #first-steps }",
+          "(未命名层级)",
+          "交互式 API 文档 { #interactive-api-docs }"
+        ],
+        [
+          "第一步 { #first-steps }",
+          "(未命名层级)",
+          "可选的 API 文档 { #alternative-api-docs }"
+        ],
+        [
+          "第一步 { #first-steps }",
+          "(未命名层级)",
+          "OpenAPI { #openapi }"
+        ],
+        [
+          "第一步 { #first-steps }",
+          "(未命名层级)",
+          "OpenAPI { #openapi }",
+          "「模式」 { #schema }"
+        ]
+      ],
+      "source_path": "docs/zh/docs/tutorial/first-steps.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/first-steps.md",
+      "chunk_index": 0,
+      "token_count": 774,
+      "contains_code": true,
+      "contains_table": false,
+      "content_sha256": "403822ea8b5093978330c6cc62cf5a3d406684219fedc3d883ad3bffbbd1087e",
+      "content": "# 第一步\n\n最简单的 FastAPI 文件可能像下面这样：\n\n````python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\nasync def root():\n    return {\"message\": \"Hello World\"}\n````\n\n将其复制到 `main.py` 文件中。\n\n运行实时服务器：\n\n```console\n$ fastapi dev\n\n   FastAPI   Starting development server 🚀\n\n             Searching for package file structure from directories\n             with __init__.py files\n             Importing from /home/user/code/awesomeapp\n\n    module   🐍 main.py\n\n      code   Importing the FastAPI app object from the module with\n             the following code:\n\n             from main import app\n\n       app   Using import string: main:app\n\n    server   Server started at http://127.0.0.1:8000\n    server   Documentation at http://127.0.0.1:8000/docs\n\n       tip   Running in development mode, for production use:\n             fastapi run\n\n             Logs:\n\n      INFO   Will watch for changes in these directories:\n             [&apos;/home/user/code/awesomeapp&apos;]\n      INFO   Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C\n             to quit)\n      INFO   Started reloader process [383138] using WatchFiles\n      INFO   Started server process [383153]\n      INFO   Waiting for application startup.\n      INFO   Application startup complete.\n```\n\n在输出中，会有一行信息像下面这样：\n\n```hl_lines=\"4\"\nINFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)\n```\n\n该行显示了你的应用在本机所提供服务的 URL 地址。\n\n## (未命名层级)\n\n### 查看\n\n打开浏览器访问 http://127.0.0.1:8000。\n\n你将看到如下的 JSON 响应：\n\n```JSON\n{\"message\": \"Hello World\"}\n```\n\n### 交互式 API 文档\n\n跳转到 http://127.0.0.1:8000/docs。\n\n你将会看到自动生成的交互式 API 文档（由 Swagger UI 提供）：\n\n![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)\n\n### 可选的 API 文档\n\n前往 http://127.0.0.1:8000/redoc。\n\n你将会看到可选的自动生成文档 （由 ReDoc 提供）：\n\n![ReDoc](https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png)\n\n### OpenAPI\n\n**FastAPI** 使用定义 API 的 **OpenAPI** 标准将你的所有 API 转换成「模式」。\n\n#### 「模式」\n\n「模式」是对事物的一种定义或描述。它并非具体的实现代码，而只是抽象的描述。"
+    },
+    {
+      "rank": 4,
+      "score": 0.3581985533237457,
+      "row_index": 351,
+      "chunk_id": "fastapi_a2d744b0dace57394c92",
+      "page_title": "声明请求示例数据",
+      "section_path": [
+        "声明请求示例数据 { #declare-request-example-data }",
+        "技术细节 { #technical-details }",
+        "Pydantic 与 FastAPI 的 `examples` { #pydantic-and-fastapi-examples }"
+      ],
+      "section_paths": [
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }",
+          "Pydantic 与 FastAPI 的 `examples` { #pydantic-and-fastapi-examples }"
+        ],
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }",
+          "Swagger UI 与 OpenAPI 特定的 `examples` { #swagger-ui-and-openapi-specific-examples }"
+        ],
+        [
+          "声明请求示例数据 { #declare-request-example-data }",
+          "技术细节 { #technical-details }",
+          "总结 { #summary }"
+        ]
+      ],
+      "source_path": "docs/zh/docs/tutorial/schema-extra-example.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/tutorial/schema-extra-example.md",
+      "chunk_index": 5,
+      "token_count": 438,
+      "contains_code": false,
+      "contains_table": false,
+      "content_sha256": "e24bb6e76fd3e692d492a3c68df60846a2af99b7c431ade13937c8f828916517",
+      "content": "# 声明请求示例数据\n\n## 技术细节\n\n### Pydantic 与 FastAPI 的 `examples`\n\n在 FastAPI 0.99.0 之前的版本（0.99.0 及以上使用更新的 OpenAPI 3.1.0），当你在其他工具（`Query()`、`Body()` 等）中使用 `example` 或 `examples` 时，这些示例不会被添加到描述该数据的 JSON Schema 中（甚至不会添加到 OpenAPI 自己的 JSON Schema 版本中），而是会直接添加到 OpenAPI 的路径操作声明中（在 OpenAPI 使用 JSON Schema 的部分之外）。\n\n但现在 FastAPI 0.99.0 及以上使用 OpenAPI 3.1.0（其使用 JSON Schema 2020-12）以及 Swagger UI 5.0.0 及以上后，一切更加一致，示例会包含在 JSON Schema 中。\n\n### Swagger UI 与 OpenAPI 特定的 `examples`\n\n此前，由于 Swagger UI 不支持多个 JSON Schema 示例（截至 2023-08-26），用户无法在文档中展示多个示例。\n\n为了解决这个问题，FastAPI `0.103.0` 通过新增参数 `openapi_examples`，为声明同样的旧式 OpenAPI 特定 `examples` 字段提供了支持。🤓\n\n### 总结\n\n我曾经说我不太喜欢历史……结果现在在这儿上“技术史”课。😅\n\n简而言之，升级到 FastAPI 0.99.0 或更高版本，一切会更简单、一致、直观，你也不必了解这些历史细节。😎"
+    },
+    {
+      "rank": 5,
+      "score": 0.35075342655181885,
+      "row_index": 151,
+      "chunk_id": "fastapi_7d5da7bbbf55b8f270da",
+      "page_title": "部署",
+      "section_path": [
+        "部署 { #deployment }"
+      ],
+      "section_paths": [
+        [
+          "部署 { #deployment }"
+        ],
+        [
+          "部署 { #deployment }",
+          "部署是什么意思 { #what-does-deployment-mean }"
+        ],
+        [
+          "部署 { #deployment }",
+          "部署策略 { #deployment-strategies }"
+        ]
+      ],
+      "source_path": "docs/zh/docs/deployment/index.md",
+      "source_url": "https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/deployment/index.md",
+      "chunk_index": 0,
+      "token_count": 456,
+      "contains_code": false,
+      "contains_table": false,
+      "content_sha256": "97a226b12b2e03ae484e0a4b6b4163af95567bb443f4a0b42c6fe6200b1497f8",
+      "content": "# 部署\n\n部署 **FastAPI** 应用程序相对容易。\n\n## 部署是什么意思\n\n**部署**应用程序意味着执行必要的步骤以使其**可供用户使用**。\n\n对于**Web API**来说，通常涉及将其放到一台**远程机器**中，搭配一个性能和稳定性都不错的**服务器程序**，以便你的**用户**可以高效地**访问**你的应用程序，而不会出现中断或其他问题。\n\n这与**开发**阶段形成鲜明对比，在**开发**阶段，你不断更改代码、破坏代码、修复代码，来回停止和重启开发服务器等。\n\n## 部署策略\n\n根据你的使用场景和使用的工具，有多种方法可以实现此目的。\n\n你可以使用一些工具自行**部署服务器**，你也可以使用能为你完成部分工作的**云服务**，或其他可能的选项。\n\n例如，我们（FastAPI 团队）构建了 **FastAPI Cloud**，让将 FastAPI 应用部署到云端尽可能流畅，并且保持与使用 FastAPI 开发时相同的开发者体验。\n\n我将向你展示在部署 **FastAPI** 应用程序时你可能应该记住的一些主要概念（尽管其中大部分适用于任何其他类型的 Web 应用程序）。\n\n在接下来的部分中，你将看到更多需要记住的细节以及一些技巧。 ✨"
+    }
+  ],
+  "dependencies": {
+    "torch": "2.11.0",
+    "numpy": "1.23.5",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2",
+    "tokenizers": "0.22.1",
+    "safetensors": "0.7.0"
+  },
+  "elapsed_seconds": 0.308879,
+  "generation_model_called": false
+}

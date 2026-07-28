@@ -1,0 +1,108 @@
+{
+  "schema_version": "saved_generation_context_v1",
+  "online_model_called": true,
+  "evidence_sent": [
+    {
+      "chunk_id": "fastapi_b5becbdde23ac92c192b",
+      "page_title": "容器中的 FastAPI - Docker",
+      "section_path": [
+        "容器中的 FastAPI - Docker { #fastapi-in-containers-docker }",
+        "复制 - 进程数 { #replication-number-of-processes }",
+        "一个负载均衡器 - 多个 worker 容器 { #one-load-balancer-multiple-worker-containers }"
+      ],
+      "source_path": "docs/zh/docs/deployment/docker.md",
+      "chunk_index": 9,
+      "content": "# 容器中的 FastAPI - Docker\n\n## 复制 - 进程数\n\n### 一个负载均衡器 - 多个 worker 容器\n\n分布式容器系统配合**负载均衡器**会把请求**轮流分配**到每个应用容器。因此，每个请求都可能由多个**副本容器**之一来处理。\n\n通常，这个**负载均衡器**还能处理发往集群中*其他*应用的请求（例如不同域名，或不同的 URL 路径前缀），并将通信转发到运行*那个其他*应用的正确容器。\n\n### 每个容器一个进程\n\n在这种场景下，你大概率希望**每个容器只有一个（Uvicorn）进程**，因为你已经在集群层面处理了复制。\n\n因此，这种情况下你**不希望**在容器内再启多个 workers（例如通过 `--workers` 命令行选项）。你会希望每个容器仅有一个**单独的 Uvicorn 进程**（但可能会有多个容器）。\n\n在容器内再放一个进程管理器（就像启多个 workers 一样）只会引入**不必要的复杂性**，而这些你很可能已经在集群系统中处理了。\n\n### 具有多个进程和特殊情况的容器\n\n当然，也有一些**特殊情况**，你可能希望让**一个容器**里运行多个 **Uvicorn worker 进程**。\n\n在这些情况下，你可以使用 `--workers` 命令行选项来设置要运行的 worker 数量：\n\n```{ .dockerfile .annotate }\nFROM python:3.14\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\n\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\n# (1)!\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\", \"--workers\", \"4\"]\n```\n\n1. 这里我们使用 `--workers` 命令行选项将 worker 数量设置为 4。\n\n以下是这种做法可能合理的一些示例：\n\n#### 一个简单的应用\n\n如果你的应用**足够简单**，可以在**单台服务器**（不是集群）上运行，你可能会希望在容器内有一个进程管理器。\n\n#### Docker Compose\n\n如果你使用 **Docker Compose** 部署到**单台服务器**（不是集群），那么你不会有一个简单的方法在保留共享网络与**负载均衡**的同时管理容器复制（通过 Docker Compose）。"
+    },
+    {
+      "chunk_id": "fastapi_f84da535b6833734fa24",
+      "page_title": "手动运行服务器",
+      "section_path": [
+        "手动运行服务器 { #run-a-server-manually }",
+        "安装服务器程序 { #install-the-server-program }"
+      ],
+      "source_path": "docs/zh/docs/deployment/manually.md",
+      "chunk_index": 1,
+      "content": "# 手动运行服务器\n\n## 安装服务器程序\n\n当您安装 FastAPI 时，它自带一个生产环境服务器——Uvicorn，并且您可以使用 `fastapi run` 命令来启动它。\n\n不过，您也可以手动安装 ASGI 服务器。\n\n请确保您创建并激活一个[虚拟环境](https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/virtual-environments.md)，然后再安装服务器应用程序。\n\n例如，要安装 Uvicorn，可以运行以下命令：\n\n```console\n$ pip install \"uvicorn[standard]\"\n\n---> 100%\n```\n\n类似的流程也适用于任何其他 ASGI 服务器程序。\n\n> **提示**\n\n通过添加 `standard` 选项，Uvicorn 将安装并使用一些推荐的额外依赖项。\n\n其中包括 `uvloop`，这是 `asyncio` 的高性能替代方案，能够显著提升并发性能。\n\n当您使用 `pip install \"fastapi[standard]\"` 安装 FastAPI 时，实际上也会安装 `uvicorn[standard]`。\n\n## 运行服务器程序\n\n如果您手动安装了 ASGI 服务器，通常需要以特定格式传递一个导入字符串，以便服务器能够正确导入您的 FastAPI 应用：\n\n```console\n$ uvicorn main:app --host 0.0.0.0 --port 80\n\nINFO:     Uvicorn running on http://0.0.0.0:80 (Press CTRL+C to quit)\n```\n\n> **注意**\n\n命令 `uvicorn main:app` 的含义如下：\n\n* `main`：指的是 `main.py` 文件（即 Python “模块”）。\n* `app`：指的是 `main.py` 文件中通过 `app = FastAPI()` 创建的对象。\n\n它等价于以下导入语句：\n\n```Python\nfrom main import app\n```\n\n每种 ASGI 服务器程序通常都会有类似的命令，您可以在它们的官方文档中找到更多信息。\n\n> **警告**\n\nUvicorn 和其他服务器支持 `--reload` 选项，该选项在开发过程中非常有用。\n\n但 `--reload` 选项会消耗更多资源，且相对不稳定。\n\n它对于**开发阶段**非常有帮助，但在**生产环境**中**不应该**使用。\n\n## 部署概念\n\n这些示例运行服务器程序（例如 Uvicorn），启动**单个进程**，在所有 IP（`0.0.0.0`）上监听预定义端口（例如`80`）。\n\n这是基本思路。 但您可能需要处理一些其他事情，例如："
+    },
+    {
+      "chunk_id": "fastapi_71f536f3961a10926f25",
+      "page_title": "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式",
+      "section_path": [
+        "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式 { #server-workers-uvicorn-with-workers }"
+      ],
+      "source_path": "docs/zh/docs/deployment/server-workers.md",
+      "chunk_index": 0,
+      "content": "# 服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式\n\n让我们回顾一下之前的部署概念：\n\n* 安全性 - HTTPS\n* 启动时运行\n* 重新启动\n* **复制（运行的进程数）**\n* 内存\n* 启动前的先前步骤\n\n到目前为止，在文档中的所有教程中，您可能一直是在运行一个**服务器程序**，例如使用 `fastapi` 命令来启动 Uvicorn，而它默认运行的是**单进程模式**。\n\n部署应用程序时，您可能希望进行一些**进程复制**，以利用**多核** CPU 并能够处理更多请求。\n\n正如您在上一章有关[部署概念](https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/deployment/concepts.md)中看到的，您可以使用多种策略。\n\n在本章节中，我将向您展示如何使用 `fastapi` 命令或直接使用 `uvicorn` 命令以**多工作进程模式**运行 **Uvicorn**。\n\n> **信息**\n\n如果您正在使用容器，例如 Docker 或 Kubernetes，我将在下一章中告诉您更多相关信息：[容器中的 FastAPI - Docker](https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/deployment/docker.md)。\n\n比较特别的是，在 **Kubernetes** 环境中运行时，您通常**不需要**使用多个工作进程，而是**每个容器运行一个 Uvicorn 进程**。不过，我会在本章节的后续部分详细介绍这一点。\n\n## 多个工作进程\n\n您可以使用 `--workers` 命令行选项来启动多个工作进程：\n\n//// tab | `fastapi`\n\n如果您使用 `fastapi` 命令："
+    },
+    {
+      "chunk_id": "fastapi_6df9c6aa8d1361524fd3",
+      "page_title": "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式",
+      "section_path": [
+        "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式 { #server-workers-uvicorn-with-workers }",
+        "多个工作进程 { #multiple-workers }"
+      ],
+      "source_path": "docs/zh/docs/deployment/server-workers.md",
+      "chunk_index": 1,
+      "content": "# 服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式\n\n## 多个工作进程\n\n您可以使用 `--workers` 命令行选项来启动多个工作进程：\n\n//// tab | `fastapi`\n\n如果您使用 `fastapi` 命令：\n\n```console\n$ fastapi run --workers 4 main.py\n\n   FastAPI   Starting production server 🚀\n\n             Searching for package file structure from directories with\n             __init__.py files\n             Importing from /home/user/code/awesomeapp\n\n    module   🐍 main.py\n\n      code   Importing the FastAPI app object from the module with the\n             following code:\n\n             from main import app\n\n       app   Using import string: main:app\n\n    server   Server started at http://0.0.0.0:8000\n    server   Documentation at http://0.0.0.0:8000/docs\n\n             Logs:\n\n      INFO   Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to\n             quit)\n      INFO   Started parent process [27365]\n      INFO   Started server process [27368]\n      INFO   Started server process [27369]\n      INFO   Started server process [27370]\n      INFO   Started server process [27367]\n      INFO   Waiting for application startup.\n      INFO   Waiting for application startup.\n      INFO   Waiting for application startup.\n      INFO   Waiting for application startup.\n      INFO   Application startup complete.\n      INFO   Application startup complete.\n      INFO   Application startup complete.\n      INFO   Application startup complete.\n```\n\n////\n\n//// tab | `uvicorn`\n\n如果您更想要直接使用 `uvicorn` 命令：\n\n```console\n$ uvicorn main:app --host 0.0.0.0 --port 8080 --workers 4\nINFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)\nINFO:     Started parent process [27365]\nINFO:     Started server process [27368]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Started server process [27369]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Started server process [27370]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Started server process [27367]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\n```\n\n////\n\n这里唯一的新选项是 `--workers` 告诉 Uvicorn 启动 4 个工作进程。\n\n您还可以看到它显示了每个进程的 **PID**，父进程（这是**进程管理器**）的 PID 为`27365`，每个工作进程的 PID 为：`27368`、`27369`， `27370`和`27367`。"
+    },
+    {
+      "chunk_id": "fastapi_edc4b3edac60b8173b20",
+      "page_title": "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式",
+      "section_path": [
+        "服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式 { #server-workers-uvicorn-with-workers }",
+        "部署概念 { #deployment-concepts }"
+      ],
+      "source_path": "docs/zh/docs/deployment/server-workers.md",
+      "chunk_index": 2,
+      "content": "# 服务器工作进程（Workers） - 使用 Uvicorn 的多工作进程模式\n\n## 部署概念\n\n在这里，您学习了如何使用多个**工作进程（workers）**来让应用程序的执行**并行化**，充分利用 CPU 的**多核性能**，并能够处理**更多的请求**。\n\n从上面的部署概念列表来看，使用worker主要有助于**复制**部分，并对**重新启动**有一点帮助，但您仍然需要照顾其他部分：\n\n* **安全 - HTTPS**\n* **启动时运行**\n* ***重新启动***\n* 复制（运行的进程数）\n* **内存**\n* **启动之前的先前步骤**\n\n## 容器和 Docker\n\n在关于 [容器中的 FastAPI - Docker](https://github.com/fastapi/fastapi/blob/82064857539e6286522c347b4b11331b48dd2378/docs/zh/docs/deployment/docker.md) 的下一章中，我将介绍一些可用于处理其他**部署概念**的策略。\n\n我将向您展示如何**从零开始构建自己的镜像**，以运行一个单独的 Uvicorn 进程。这个过程相对简单，并且在使用 **Kubernetes** 等分布式容器管理系统时，这通常是您需要采取的方法。\n\n## 回顾\n\n您可以在使用 `fastapi` 或 `uvicorn` 命令时，通过 `--workers` CLI 选项启用多个工作进程（workers），以充分利用**多核 CPU**，以**并行运行多个进程**。\n\n如果您要设置**自己的部署系统**，同时自己处理其他部署概念，则可以使用这些工具和想法。\n\n请查看下一章，了解带有容器（例如 Docker 和 Kubernetes）的 **FastAPI**。 您将看到这些工具也有简单的方法来解决其他**部署概念**。 ✨"
+    }
+  ],
+  "raw_responses": [
+    {
+      "purpose": "classification",
+      "content": "{\"question_type\":\"concise_concept\"}",
+      "response_id": "chatcmpl-4f12e555-fae5-9814-82be-23a59c56bed4",
+      "response_model": "qwen3.7-plus-2026-05-26",
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 9,
+        "prompt_tokens": 219,
+        "total_tokens": 228,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "text_tokens": 219
+        }
+      },
+      "attempts": 1,
+      "elapsed_seconds": 1.054539
+    },
+    {
+      "purpose": "answer",
+      "content": "{\n\"answerable\": false,\n\"answer\": null,\n\"cited_chunk_ids\": [],\n\"refusal_reason\": \"提供的证据仅说明了可以使用 --workers 选项启动多个工作进程以利用多核 CPU，但未提供根据 CPU 核心数、内存或请求量（如每秒5000请求）计算具体 worker 数量的公式或建议。\"\n}",
+      "response_id": "chatcmpl-f9742226-713c-9ec0-89a6-c199f5608027",
+      "response_model": "qwen3.7-plus-2026-05-26",
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 80,
+        "prompt_tokens": 3501,
+        "total_tokens": 3581,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "text_tokens": 3501
+        }
+      },
+      "attempts": 1,
+      "elapsed_seconds": 3.15265
+    }
+  ],
+  "error": null,
+  "api_key_saved": false,
+  "complete_prompt_saved": false
+}

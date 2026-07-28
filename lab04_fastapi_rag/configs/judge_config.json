@@ -1,0 +1,49 @@
+{
+  "schema_version": "judge_config_v1",
+  "status": "h3_judge_frozen_real_probe_passed",
+  "provider": "codex_cli_chatgpt",
+  "cli_version": "0.145.0",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "execution": {
+    "entrypoint": "codex.cmd_via_cmd.exe",
+    "probe_series": "h3_probe_codex_cli_0_145_0",
+    "one_question_per_process": true,
+    "serial": true,
+    "working_directory": "project_root",
+    "sandbox": "read-only",
+    "approval_policy": "never",
+    "ephemeral": true,
+    "ignore_user_config": true,
+    "ignore_execpolicy_rules": true,
+    "jsonl_events": true,
+    "timeout_seconds": 300,
+    "automatic_retries": 0
+  },
+  "structured_output": {
+    "mode": "codex_output_schema",
+    "schema_path": "configs/judge_output.schema.json"
+  },
+  "contamination_policy": {
+    "prompt_forbids_tools": true,
+    "any_tool_or_command_event_is_contaminated": true,
+    "unparseable_jsonl_is_contaminated": true
+  },
+  "formal_metrics_attempt": "attempt_001",
+  "h3_verification": {
+    "probe_series": "h3_probe_codex_cli_0_145_0",
+    "probe_attempt": "attempt_002",
+    "status": "judged",
+    "cli_version": "0.145.0",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "forbidden_events": [],
+    "output_schema_sha256": "ee30e32ab6fff55cc725e8cae310bb8c7423c08db12bebe6f39ec0b35973f5c8",
+    "prompt_sha256": "ad23881d72c2d37565d1a82db9d20c3f401451f3b5bece907145ab8b5c1f1336"
+  },
+  "official_references": [
+    "https://learn.chatgpt.com/docs/models",
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://learn.chatgpt.com/docs/developer-commands"
+  ]
+}

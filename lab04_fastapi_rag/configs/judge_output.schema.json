@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FastAPI RAG Codex Judge Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "answer_grade",
+    "covered_required_points",
+    "missing_required_points",
+    "critical_errors",
+    "unsupported_major_claim",
+    "citation_supports_answer",
+    "citation_set_minimal",
+    "review_reason"
+  ],
+  "properties": {
+    "answer_grade": {
+      "type": "string",
+      "enum": [
+        "fully_correct",
+        "mostly_correct",
+        "incorrect"
+      ]
+    },
+    "covered_required_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_required_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "critical_errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unsupported_major_claim": {
+      "type": "boolean"
+    },
+    "citation_supports_answer": {
+      "type": "boolean"
+    },
+    "citation_set_minimal": {
+      "type": "boolean"
+    },
+    "review_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    }
+  }
+}
