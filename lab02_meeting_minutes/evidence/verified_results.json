@@ -1,0 +1,46 @@
+{
+  "experiment": "1.5.2",
+  "stage": "H4",
+  "lock_status": "accepted",
+  "mock_regression": {
+    "report": "outputs/fixed_regression_mock_report.json",
+    "case_count": 15,
+    "ok": true
+  },
+  "representative_real_regression": {
+    "report": "outputs/fixed_regression_real_v11_report.json",
+    "case_count": 4,
+    "ok": true,
+    "cases": [
+      "meeting_main_001",
+      "demo_002",
+      "regression_005",
+      "edge_005_discussion_no_decision"
+    ]
+  },
+  "streamlit": {
+    "app": "streamlit_app.py",
+    "screenshot_script": "capture_streamlit_screenshot.py",
+    "screenshots": [
+      "screenshots/streamlit_main_verified.png",
+      "screenshots/streamlit_custom_input.png",
+      "screenshots/streamlit_structured_results.png",
+      "screenshots/streamlit_addon_real_dataset.png",
+      "screenshots/streamlit_qmsum_full_dataset.png",
+      "screenshots/streamlit_files_download.png"
+    ],
+    "privacy_check": "passed"
+  },
+  "acceptance": {
+    "script": "run_acceptance.py",
+    "report": "outputs/acceptance_report_h4_final.json",
+    "ok": true,
+    "acceptance_version": "acceptance_v1_h4_final",
+    "human_h4_accepted_date": "2026-07-20"
+  },
+  "api_budget": {
+    "status": "local_cost_control_not_committed",
+    "tracked_file": false,
+    "runtime_file": "api_call_budget.json"
+  }
+}

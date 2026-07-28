@@ -1,0 +1,62 @@
+{
+  "gold_compare_version": "addon_qmsum_gold_compare_v1",
+  "ok": false,
+  "expected_decision_count": 8,
+  "recalled_decision_count": 3,
+  "recalled_decision_ids": [
+    "D004",
+    "D005",
+    "D007"
+  ],
+  "issues": [
+    {
+      "kind": "decisions",
+      "code": "missing_design_requirement",
+      "decision_id": "D001",
+      "missing_anchors": [
+        "original",
+        "trendy",
+        "user-friendly"
+      ],
+      "gold_decision": "The new remote control should be original, trendy, and user-friendly."
+    },
+    {
+      "kind": "decisions",
+      "code": "missing_design_requirement",
+      "decision_id": "D002",
+      "missing_anchors": [
+        "twenty five",
+        "twelve and a half"
+      ],
+      "gold_decision": "The product should target a selling price of twenty five Euros and a manufacturing budget of twelve and a half Euros."
+    },
+    {
+      "kind": "decisions",
+      "code": "missing_design_requirement",
+      "decision_id": "D003",
+      "missing_anchors": [
+        "not much buttons"
+      ],
+      "gold_decision": "The remote control should not be too heavy and should avoid too many buttons."
+    },
+    {
+      "kind": "decisions",
+      "code": "missing_design_requirement",
+      "decision_id": "D006",
+      "missing_anchors": [
+        "not too expensive"
+      ],
+      "gold_decision": "The remote control should use inexpensive material, probably plastic."
+    },
+    {
+      "kind": "decisions",
+      "code": "missing_design_requirement",
+      "decision_id": "D008",
+      "missing_anchors": [
+        "won't take a lot of batteries",
+        "change the batteries"
+      ],
+      "gold_decision": "The remote control should avoid high battery consumption."
+    }
+  ]
+}

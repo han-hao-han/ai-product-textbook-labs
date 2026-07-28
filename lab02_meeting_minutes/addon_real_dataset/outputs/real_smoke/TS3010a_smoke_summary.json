@@ -1,0 +1,25 @@
+{
+  "experiment": "1.5.2-addon-real-meeting-dataset",
+  "case_id": "TS3010a",
+  "dataset": "QMSum",
+  "model": "deepseek-v4-flash",
+  "prompt_version": "addon_prompt_qmsum_real_meeting_v1_draft",
+  "schema_version": "schema_v1_h3_draft",
+  "validator_version": "validator_v1_h3_draft",
+  "api_call_counted": true,
+  "api_budget_used_after_call": 29,
+  "structure_validation_ok_after_repair": true,
+  "validation_issue_count_after_repair": 0,
+  "gold_compare_report": "TS3010a_gold_compare.json",
+  "gold_compare_ok": false,
+  "expected_decision_count": 8,
+  "recalled_decision_count": 3,
+  "recalled_decision_ids": ["D004", "D005", "D007"],
+  "main_findings": [
+    "The model produced valid JSON and no action items or open questions, which matches the conservative addon gold standard.",
+    "The model initially used cleaned or cross-speaker evidence; deterministic evidence repair reduced validation issues from 7 to 0 without another API call.",
+    "The model recalled durable/drop-resistant design, LED feedback, and appearance/compatibility-related requirements.",
+    "The model missed or under-specified original/trendy/user-friendly, price and manufacturing budget, fewer buttons, inexpensive material, and battery-saving requirements."
+  ],
+  "next_recommendation": "Tune the addon Prompt to ask for early-stage goals, budget constraints, and late brainstorming design requirements as separate accepted design requirements before running another real call."
+}

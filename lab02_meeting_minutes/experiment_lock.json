@@ -1,0 +1,16 @@
+{
+  "experiment": "1.5.2",
+  "status": "accepted",
+  "dataset_version": "dataset_h2_draft_20260720",
+  "gold_standard_version": "gold_v1_h2_confirmed",
+  "model": "deepseek-v4-flash",
+  "prompt_version": "prompt_v11_open_question_precision_guard_h4_dirty",
+  "schema_version": "schema_v1_h3_draft",
+  "validator_version": "validator_v2_noise_tolerant_evidence",
+  "chunking_version": "chunking_v1_h3_draft",
+  "date_normalizer_version": "date_normalizer_v1_h3_draft",
+  "evidence_repair_version": "evidence_repair_v2_qmsum_line_fallback",
+  "gold_compare_version": "gold_compare_v1_h3_draft",
+  "acceptance_version": "acceptance_v1_h4_final",
+  "verified_date": "2026-07-20"
+}

@@ -1,0 +1,107 @@
+{
+  "meeting_id": "qmsum_product_val_TS3010a",
+  "meeting_title": "Kick-off meeting for new remote control design",
+  "meeting_date": null,
+  "attendees": [
+    {
+      "name": "Project Manager",
+      "role": null,
+      "evidence": "Project Manager: So welcome . The first kick-off meeting ."
+    },
+    {
+      "name": "Industrial Designer",
+      "role": null,
+      "evidence": "Industrial Designer: {vocalsound}"
+    },
+    {
+      "name": "Marketing",
+      "role": null,
+      "evidence": "Marketing: {vocalsound}"
+    },
+    {
+      "name": "User Interface",
+      "role": null,
+      "evidence": "User Interface: {vocalsound}"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "T001",
+      "topic": "Plan making and painting with the product",
+      "evidence": "First you can save the documents . We have to do that every time we make something ."
+    },
+    {
+      "topic_id": "T002",
+      "topic": "Sharing experiences with remote controls",
+      "evidence": "First I wanna hear from you . Uh what are your experiences with remote controls ."
+    },
+    {
+      "topic_id": "T003",
+      "topic": "Designing remote control features",
+      "evidence": "Project Manager: For our own remote control we have to think how do we make it . So what ideas do you have for it , for the new remote control ? What what does it have to have ?"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "D001",
+      "decision": "Remote control should be lightweight (not too heavy).",
+      "evidence": "The weight . Not not too heavy ."
+    },
+    {
+      "decision_id": "D002",
+      "decision": "Remote control should have big buttons (positive).",
+      "evidence": "Big buttons , positive ."
+    },
+    {
+      "decision_id": "D003",
+      "decision": "Remote control should be drop-resistant (bust-free).",
+      "evidence": "Industrial Designer: Bust-free . That when you drop it , it won't break . Like uh some kind of rubber on it . Or hard uh hard plastic ."
+    },
+    {
+      "decision_id": "D004",
+      "decision": "Remote control should have a LED indicator for feedback.",
+      "evidence": "And that if you push the button the LED uh gives a light , and uh and you see that it's working ."
+    },
+    {
+      "decision_id": "D005",
+      "decision": "Remote control should be compatible with as many existing products as possible.",
+      "evidence": "And um yeah uh on our website we can see what products we already have . And it should work with as many uh as possible of them ."
+    },
+    {
+      "decision_id": "D006",
+      "decision": "Remote control should have an attractive appearance for marketability.",
+      "evidence": "it also has to look nice . Or you won't sell it ."
+    }
+  ],
+  "action_items": [],
+  "open_questions": [],
+  "meeting_summary": "The meeting began with a team painting activity to familiarize with the design tools. Then, team members shared their experiences with remote controls, highlighting issues like too many buttons, fragility, and lack of feedback. Finally, they brainstormed design requirements for a new remote control, including lightweight, big buttons, drop resistance, LED indicator, compatibility with multiple devices, and attractive appearance. The meeting concluded with a plan for a follow-up meeting in half an hour.",
+  "processing_metadata": {
+    "mode": "single_pass",
+    "chunk_count": 1,
+    "model": "deepseek-v4-flash",
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v1_draft",
+    "schema_version": "schema_v1_h3_draft",
+    "validator_version": "validator_v1_h3_draft",
+    "elapsed_seconds": 32.2265,
+    "usage": {
+      "completion_tokens": 3452,
+      "prompt_tokens": 3357,
+      "total_tokens": 6809,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 2530,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 3357
+    }
+  },
+  "validation_issues": []
+}

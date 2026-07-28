@@ -1,0 +1,43 @@
+{
+  "mode": "real",
+  "case_count": 4,
+  "ok": true,
+  "items": [
+    {
+      "meeting_id": "meeting_main_001",
+      "group": "main",
+      "mode": "real",
+      "result_path": "lab02_meeting_minutes\\outputs\\fixed_regression\\real\\meeting_main_001.json",
+      "validation_issue_count": 0,
+      "gold_compare_ok": true,
+      "gold_compare_issues": []
+    },
+    {
+      "meeting_id": "demo_002",
+      "group": "demo",
+      "mode": "real",
+      "result_path": "lab02_meeting_minutes\\outputs\\fixed_regression\\real\\demo_002.json",
+      "validation_issue_count": 0,
+      "gold_compare_ok": true,
+      "gold_compare_issues": []
+    },
+    {
+      "meeting_id": "regression_005",
+      "group": "regression",
+      "mode": "real",
+      "result_path": "lab02_meeting_minutes\\outputs\\fixed_regression\\real\\regression_005.json",
+      "validation_issue_count": 0,
+      "gold_compare_ok": true,
+      "gold_compare_issues": []
+    },
+    {
+      "meeting_id": "edge_005_discussion_no_decision",
+      "group": "edge",
+      "mode": "real",
+      "result_path": "lab02_meeting_minutes\\outputs\\fixed_regression\\real\\edge_005_discussion_no_decision.json",
+      "validation_issue_count": 0,
+      "gold_compare_ok": true,
+      "gold_compare_issues": []
+    }
+  ]
+}

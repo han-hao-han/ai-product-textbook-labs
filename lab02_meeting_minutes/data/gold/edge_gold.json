@@ -1,0 +1,98 @@
+{
+  "gold_standard_version": "gold_v1_h2_confirmed",
+  "annotation_date": "2026-07-20",
+  "cases": [
+    {
+      "meeting_id": "edge_001_no_owner",
+      "meeting_date": "2026-07-20",
+      "expected_action_items": [
+        {
+          "task": "补一份客服培训说明",
+          "owner": null,
+          "due_date_raw": null,
+          "due_date_normalized": null,
+          "evidence": "上线前需要补一份客服培训说明。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "must_not_guess_owner": true
+    },
+    {
+      "meeting_id": "edge_002_no_due_date",
+      "meeting_date": "2026-07-20",
+      "expected_action_items": [
+        {
+          "task": "调整用户反馈入口提示文案",
+          "owner": "苏晴",
+          "due_date_raw": null,
+          "due_date_normalized": null,
+          "evidence": "苏晴负责调整用户反馈入口提示文案，今天不设截止日期。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "must_not_guess_due_date": true
+    },
+    {
+      "meeting_id": "edge_003_relative_no_meeting_date",
+      "meeting_date": null,
+      "expected_action_items": [
+        {
+          "task": "补 10 条退款接口测试样例",
+          "owner": "乔安",
+          "due_date_raw": "下周三前",
+          "due_date_normalized": null,
+          "evidence": "乔安负责补样例。因为会议日期没有记录，先保留“下周三前”的原始说法。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "must_not_normalize_without_meeting_date": true
+    },
+    {
+      "meeting_id": "edge_004_relative_with_meeting_date",
+      "meeting_date": "2026-07-20",
+      "expected_action_items": [
+        {
+          "task": "补齐风险答案二次确认说明文档",
+          "owner": "米兰",
+          "due_date_raw": "下周三前",
+          "due_date_normalized": "2026-07-29",
+          "evidence": "米兰下周三前补齐风险答案二次确认说明文档。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": []
+    },
+    {
+      "meeting_id": "edge_005_discussion_no_decision",
+      "meeting_date": "2026-07-20",
+      "expected_action_items": [],
+      "expected_decisions": [],
+      "expected_open_questions": [
+        {
+          "question": "是否把机器人欢迎语改得更活泼",
+          "evidence": "这个今天不做决定，先作为未决问题，等拿到用户点击数据再看。"
+        }
+      ],
+      "must_not_create_decision": true
+    },
+    {
+      "meeting_id": "edge_006_duplicate_action",
+      "meeting_date": "2026-07-20",
+      "expected_action_items": [
+        {
+          "task": "跑完发票场景回归",
+          "owner": "梁森",
+          "due_date_raw": "今天下班前",
+          "due_date_normalized": "2026-07-20",
+          "evidence": "梁森今天下班前跑完发票场景回归。"
+        }
+      ],
+      "expected_decisions": [],
+      "expected_open_questions": [],
+      "deduplication_required": true
+    }
+  ]
+}

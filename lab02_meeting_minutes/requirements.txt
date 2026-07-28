@@ -1,0 +1,5 @@
+pydantic==2.13.4
+python-dotenv
+openai
+streamlit
+pytest==9.1.1

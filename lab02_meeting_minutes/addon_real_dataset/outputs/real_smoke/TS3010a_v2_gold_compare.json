@@ -1,0 +1,17 @@
+{
+  "gold_compare_version": "addon_qmsum_gold_compare_v1",
+  "ok": true,
+  "expected_decision_count": 8,
+  "recalled_decision_count": 8,
+  "recalled_decision_ids": [
+    "D001",
+    "D002",
+    "D003",
+    "D004",
+    "D005",
+    "D006",
+    "D007",
+    "D008"
+  ],
+  "issues": []
+}

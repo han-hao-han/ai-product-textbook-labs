@@ -1,0 +1,35 @@
+{
+  "experiment": "1.5.2-addon-real-meeting-dataset",
+  "parent_experiment": "1.5.2",
+  "status": "review",
+  "h0_confirmed": true,
+  "h1_dataset_candidate": "QMSum",
+  "h1_status": "confirmed",
+  "h2_status": "confirmed",
+  "h3_status": "confirmed",
+  "h4_smoke_status": "acceptance_ready",
+  "selected_case_id": "TS3010a",
+  "curated_sample_ids": [
+    "TS3010a",
+    "IS1003a",
+    "ES2011a"
+  ],
+  "full_dataset_policy": "optional_local_download_to_ignored_cache",
+  "full_dataset_cache_dir": "data/downloads/qmsum_full",
+  "dataset_version": "qmsum_product_val_TS3010a_h2_confirmed",
+  "gold_standard_version": "qmsum_TS3010a_gold_v1_draft",
+  "model": "deepseek-v4-flash",
+  "prompt_version": "addon_prompt_qmsum_real_meeting_v4_owner_decision_precision",
+  "schema_version": "schema_v1_h3_draft_reused",
+  "validator_version": "validator_v2_noise_tolerant_evidence_reused_with_addon_notes",
+  "last_real_smoke": {
+    "case_id": "TS3010a",
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v2_design_requirement_recall",
+    "api_budget_used_after_call": 30,
+    "structure_validation_ok": true,
+    "gold_compare_ok": true,
+    "expected_decision_count": 8,
+    "recalled_decision_count": 8
+  },
+  "verified_date": null
+}

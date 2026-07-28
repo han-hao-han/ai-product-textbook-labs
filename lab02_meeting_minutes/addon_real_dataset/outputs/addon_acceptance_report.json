@@ -1,0 +1,57 @@
+{
+  "acceptance_version": "addon_acceptance_v1_h4_candidate",
+  "ok": true,
+  "checks": [
+    {
+      "name": "required_files",
+      "ok": true,
+      "missing": []
+    },
+    {
+      "name": "lock_acceptance_ready",
+      "ok": true,
+      "mismatches": {},
+      "curated_sample_ids": [
+        "TS3010a",
+        "IS1003a",
+        "ES2011a"
+      ]
+    },
+    {
+      "name": "v2_result_structure",
+      "ok": true,
+      "validation_issue_count": 0,
+      "decision_count": 11,
+      "action_item_count": 0,
+      "open_question_count": 0
+    },
+    {
+      "name": "v2_gold_compare",
+      "ok": true,
+      "expected_decision_count": 8,
+      "recalled_decision_count": 8,
+      "issue_count": 0
+    },
+    {
+      "name": "data_scope_three_curated_samples_and_local_download_cache",
+      "ok": true,
+      "selected_cases": [
+        "ES2011a.md",
+        "IS1003a.md",
+        "TS3010a.md"
+      ],
+      "unexpected_original_json_files": [],
+      "local_cache_ignore_ok": true
+    },
+    {
+      "name": "api_budget_local_optional",
+      "ok": true,
+      "status": "not_committed"
+    },
+    {
+      "name": "sensitive_text_scan",
+      "ok": true,
+      "hits": []
+    }
+  ]
+}

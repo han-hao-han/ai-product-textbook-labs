@@ -1,0 +1,132 @@
+{
+  "meeting_id": "qmsum_product_val_TS3010a",
+  "meeting_title": "Kick-off meeting for new remote control design",
+  "meeting_date": null,
+  "attendees": [
+    {
+      "name": "Project Manager",
+      "role": null,
+      "evidence": "Project Manager: So welcome . The first kick-off meeting ."
+    },
+    {
+      "name": "Industrial Designer",
+      "role": null,
+      "evidence": "Industrial Designer: {vocalsound}"
+    },
+    {
+      "name": "Marketing",
+      "role": null,
+      "evidence": "Marketing: {vocalsound}"
+    },
+    {
+      "name": "User Interface",
+      "role": null,
+      "evidence": "User Interface: {vocalsound}"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "T001",
+      "topic": "Opening painting exercise",
+      "evidence": "First we have a look at {gap} . So first to {disfmarker} we have to make a small painting ."
+    },
+    {
+      "topic_id": "T002",
+      "topic": "Experiences with remote controls",
+      "evidence": "First I wanna hear from you . Uh what are your experiences with remote controls ."
+    },
+    {
+      "topic_id": "T003",
+      "topic": "Design ideas and requirements",
+      "evidence": "Project Manager: For our own remote control we have to think how do we make it . So what ideas do you have for it , for the new remote control ?"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "D001",
+      "decision": "The remote control should be original, trendy and user-friendly.",
+      "evidence": "Project Manager: It has to be original , trendy and user-friendly ."
+    },
+    {
+      "decision_id": "D002",
+      "decision": "Selling price of 25 Euros, manufacturing budget of 12.50 Euros.",
+      "evidence": "Uh we will sell the t at twenty five Euros . And we have only twenty of twelve and a half Euro to make it ."
+    },
+    {
+      "decision_id": "D003",
+      "decision": "The remote control should not be too heavy.",
+      "evidence": "Industrial Designer: The weight . Not not too heavy ."
+    },
+    {
+      "decision_id": "D004",
+      "decision": "The remote control should have a limited number of buttons.",
+      "evidence": "Industrial Designer: Not much buttons ."
+    },
+    {
+      "decision_id": "D005",
+      "decision": "The buttons should not be too small.",
+      "evidence": "Uh buttons not too small ."
+    },
+    {
+      "decision_id": "D006",
+      "decision": "The remote control should be drop resistant and not break easily (bust-free), possibly with rubber or hard plastic.",
+      "evidence": "Industrial Designer: Bust-free . That when you drop it , it won't break . Like uh some kind of rubber on it . Or hard uh hard plastic ."
+    },
+    {
+      "decision_id": "D007",
+      "decision": "The remote control should have an LED on the corner that indicates when a button is pressed and battery status.",
+      "evidence": "Yeah well the LED on the corner , that that indicates that it's working . If you push a button ."
+    },
+    {
+      "decision_id": "D008",
+      "decision": "The material should be low-cost, likely plastic.",
+      "evidence": "not too expensive uh material . So probably plastic or something ."
+    },
+    {
+      "decision_id": "D009",
+      "decision": "The remote control should look nice to be marketable.",
+      "evidence": "Marketing: Yeah I think it uh {disfmarker} from a marketing point of view , it also has to look nice . Or you won't sell it ."
+    },
+    {
+      "decision_id": "D010",
+      "decision": "The remote control should be compatible with as many existing products as possible.",
+      "evidence": "Marketing: And um yeah uh on our website we can see what products we already have . And it should work with as many uh as possible of them ."
+    },
+    {
+      "decision_id": "D011",
+      "decision": "The remote control should have low battery consumption, avoiding frequent battery changes.",
+      "evidence": "Industrial Designer: Uh it it won't take a lot of batteries . So you don't {disfmarker} won't have to change the batteries uh once a week or uh once every two weeks ."
+    }
+  ],
+  "action_items": [],
+  "open_questions": [],
+  "meeting_summary": "The meeting started with a painting exercise to familiarize participants with drawing tools. Then, the team discussed their experiences with existing remote controls, highlighting issues like difficulty of use, breakage on dropping, and too many small buttons. They brainstormed design requirements for a new remote control, including being original/trendy/user-friendly, a selling price of 25 Euros with a 12.50 Euro manufacturing budget, lightweight, few and large buttons, drop resistance, an LED for feedback, low-cost plastic material, visual attractiveness, compatibility with existing products, and low battery consumption. No specific actions or unresolved questions were recorded.",
+  "processing_metadata": {
+    "mode": "single_pass",
+    "chunk_count": 1,
+    "model": "deepseek-v4-flash",
+    "prompt_version": "addon_prompt_qmsum_real_meeting_v2_design_requirement_recall",
+    "schema_version": "schema_v1_h3_draft",
+    "validator_version": "validator_v1_h3_draft",
+    "elapsed_seconds": 26.2277,
+    "usage": {
+      "completion_tokens": 3147,
+      "prompt_tokens": 3505,
+      "total_tokens": 6652,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 1988,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 3505
+    }
+  },
+  "validation_issues": []
+}
