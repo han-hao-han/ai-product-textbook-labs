@@ -1,0 +1,37 @@
+﻿{
+  "dataset": "XFUND",
+  "version": "v1.0",
+  "language": "zh",
+  "release_url": "https://github.com/doc-analysis/XFUND/releases/tag/v1.0",
+  "license": "CC BY-NC-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "candidate_count": 5,
+  "assets": {
+    "train": {
+      "annotation": {
+        "name": "zh.train.json",
+        "url": "https://github.com/doc-analysis/XFUND/releases/download/v1.0/zh.train.json",
+        "size": 4674754
+      },
+      "images": {
+        "name": "zh.train.zip",
+        "url": "https://github.com/doc-analysis/XFUND/releases/download/v1.0/zh.train.zip",
+        "size": 206389536,
+        "extract_dir": "zh.train"
+      }
+    },
+    "val": {
+      "annotation": {
+        "name": "zh.val.json",
+        "url": "https://github.com/doc-analysis/XFUND/releases/download/v1.0/zh.val.json",
+        "size": 1711142
+      },
+      "images": {
+        "name": "zh.val.zip",
+        "url": "https://github.com/doc-analysis/XFUND/releases/download/v1.0/zh.val.zip",
+        "size": 69217820,
+        "extract_dir": "zh.val"
+      }
+    }
+  }
+}

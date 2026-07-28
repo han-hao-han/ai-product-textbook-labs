@@ -1,0 +1,104 @@
+{
+  "schema_version": "v1",
+  "dataset": "XFUND",
+  "dataset_version": "v1.0",
+  "language": "zh",
+  "license": "CC BY-NC-SA 4.0",
+  "usage_scope": "noncommercial_education",
+  "selection_method": "user_visual_review_after_h1_privacy_reselection",
+  "confirmed_on": "2026-07-23",
+  "h2_status": "passed_user_confirmed",
+  "privacy_review": "passed_no_national_id_other_signals_recorded",
+  "annotation_review": "main_completed_fixed_validation_diagnostic_only",
+  "h4_confirmation": {
+    "status": "passed_user_confirmed",
+    "confirmed_on": "2026-07-23",
+    "single_sample_experience_completed": true,
+    "fixed_validation_completed": true,
+    "validation_run_id": "20260723T100048_257627Z",
+    "successful_sample_count": 6,
+    "failed_sample_count": 0,
+    "strict_key_comparison_limitation_confirmed": true
+  },
+  "special_symbol_policy": "preserve_glyphs_no_automatic_semantic_equivalence",
+  "source_candidate_manifest": "data/local/candidate_manifest.json",
+  "sample_review_records": "data/local/sample_reviews",
+  "main": {
+    "sample_id": "zh_train_136",
+    "role": "textbook_main",
+    "selection_reason": "字段数量适中；用户人工查看后确认除电话号码信号外无明显隐私问题"
+  },
+  "observations": [
+    {
+      "sample_id": "zh_train_115",
+      "role": "many_fields",
+      "selection_reason": "字段较多且表格较为复杂"
+    },
+    {
+      "sample_id": "zh_train_16",
+      "role": "long_key_value_distance",
+      "selection_reason": "自动特征显示键值距离较远；用户人工观察整体较为简单"
+    },
+    {
+      "sample_id": "zh_train_29",
+      "role": "complex_layout",
+      "selection_reason": "用户人工观察布局稍复杂"
+    }
+  ],
+  "validation": {
+    "status": "frozen_user_confirmed",
+    "candidate_manifest": "data/local/validation_candidate_manifest.json",
+    "selection_method": "user_visual_review_two_per_difficulty_group",
+    "confirmed_on": "2026-07-23",
+    "difficulty_adjustment": "none",
+    "privacy_review": "passed_no_national_id",
+    "order_rule": "user_confirmed_order_within_difficulty",
+    "evaluation_scope": "visual_model_call_and_engineering_flow",
+    "field_accuracy_required": false,
+    "dataset_annotation_usage": "optional_diagnostic_only",
+    "samples": [
+      {
+        "sample_id": "zh_train_30",
+        "difficulty_group": "simple",
+        "validation_order": 1,
+        "display_name": "简单1",
+        "candidate_score": 14.78
+      },
+      {
+        "sample_id": "zh_train_85",
+        "difficulty_group": "simple",
+        "validation_order": 2,
+        "display_name": "简单2",
+        "candidate_score": 22.05
+      },
+      {
+        "sample_id": "zh_train_58",
+        "difficulty_group": "medium",
+        "validation_order": 3,
+        "display_name": "中等1",
+        "candidate_score": 37.28
+      },
+      {
+        "sample_id": "zh_train_65",
+        "difficulty_group": "medium",
+        "validation_order": 4,
+        "display_name": "中等2",
+        "candidate_score": 23.91
+      },
+      {
+        "sample_id": "zh_train_132",
+        "difficulty_group": "complex",
+        "validation_order": 5,
+        "display_name": "较复杂1",
+        "candidate_score": 40.25
+      },
+      {
+        "sample_id": "zh_train_141",
+        "difficulty_group": "complex",
+        "validation_order": 6,
+        "display_name": "较复杂2",
+        "candidate_score": 68.37
+      }
+    ]
+  }
+}
