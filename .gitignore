@@ -175,6 +175,8 @@ lab02_meeting_minutes/outputs/streamlit_runs/
 lab02_meeting_minutes/addon_real_dataset/data/downloads/
 lab02_meeting_minutes/addon_real_dataset/outputs/streamlit_runs/
 lab02_meeting_minutes/api_call_budget.json
+# Lab 1.5.2 intermediate local outputs; tracked accepted reports stay tracked.
+lab02_meeting_minutes/outputs/
 lab02_meeting_minutes/outputs/*.log
 lab02_meeting_minutes/results/
 lab02_meeting_minutes/screenshots/streamlit_qmsum_full_dataset.png
