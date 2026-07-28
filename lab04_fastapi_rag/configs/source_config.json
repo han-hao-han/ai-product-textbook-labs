@@ -1,0 +1,51 @@
+{
+  "schema_version": "fastapi_source_v4",
+  "repository": "https://github.com/fastapi/fastapi",
+  "release_tag": "0.136.3",
+  "commit": "82064857539e6286522c347b4b11331b48dd2378",
+  "archive_url": "https://github.com/fastapi/fastapi/archive/82064857539e6286522c347b4b11331b48dd2378.zip",
+  "source_url_template": "https://github.com/fastapi/fastapi/blob/{commit}/{source_path}",
+  "license_path": "LICENSE",
+  "license_git_blob_sha1": "3e92463e6bd522a2a21e5f0a80d8089d6c4be20d",
+  "chinese_docs_root": "docs/zh/docs",
+  "code_source_root": "docs_src",
+  "code_dependency_exceptions": [
+    {
+      "source_path": "docs/zh/docs/how-to/configure-swagger-ui.md",
+      "dependency_path": "fastapi/openapi/docs.py",
+      "line_start": 9,
+      "line_end": 24,
+      "expected_occurrences": 1,
+      "reason": "swagger_ui_default_parameters_are_defined_in_runtime_source"
+    }
+  ],
+  "included_groups": {
+    "tutorial": 50,
+    "advanced": 34,
+    "deployment": 7,
+    "how-to": 11
+  },
+  "excluded_pages": [
+    {
+      "source_path": "docs/zh/docs/deployment/fastapicloud.md",
+      "excluded_reason": "project_promotion"
+    },
+    {
+      "source_path": "docs/zh/docs/deployment/cloud.md",
+      "excluded_reason": "external_provider_resources"
+    },
+    {
+      "source_path": "docs/zh/docs/how-to/testing-database.md",
+      "excluded_reason": "external_resource_only"
+    }
+  ],
+  "chunking": {
+    "strategy": "heading_aware_adjacent_merge_v1",
+    "token_count_method": "deterministic_cjk_ascii_estimate_v1",
+    "target_min_tokens": 500,
+    "target_max_tokens": 800,
+    "overlap_target_tokens": 100,
+    "overlap_min_tokens": 80,
+    "overlap_max_tokens": 120
+  }
+}

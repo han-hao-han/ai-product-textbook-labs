@@ -1,0 +1,46 @@
+{
+  "schema_version": "retrieval_gate_policy_v1",
+  "review_status": "candidate_pending_h2_confirmation",
+  "score": "top1_exact_cosine_via_dot_product_on_l2_vectors",
+  "pass_rule": "top1_score >= threshold",
+  "calibration_set_id": "fastapi_rag_calibration_50_v1",
+  "evaluation_set_id": "fastapi_rag_evaluation_30_v1",
+  "threshold": null,
+  "algorithm": {
+    "positive_label": "in_scope",
+    "negative_labels": ["boundary", "out_of_scope"],
+    "candidate_thresholds": "midpoints_between_adjacent_unique_calibration_scores_plus_outer_boundaries",
+    "minimum_in_scope_recall": 0.9,
+    "primary_objective": "maximize_negative_rejection_rate_subject_to_minimum_in_scope_recall",
+    "tie_breakers": [
+      "maximize_balanced_accuracy",
+      "maximize_in_scope_recall",
+      "choose_higher_threshold"
+    ],
+    "fallback_if_recall_constraint_is_infeasible": [
+      "maximize_balanced_accuracy",
+      "maximize_in_scope_recall",
+      "maximize_negative_rejection_rate",
+      "choose_lower_threshold"
+    ],
+    "score_rounding_before_selection": null
+  },
+  "leakage_controls": {
+    "freeze_question_set_hashes_before_first_calibration_run": true,
+    "use_all_50_calibration_questions_once": true,
+    "evaluation_scores_visible_during_threshold_selection": false,
+    "retune_after_evaluation": false,
+    "manual_question_removal_after_scores": false
+  },
+  "required_outputs": [
+    "per_question_top1_score",
+    "per_question_gate_decision",
+    "candidate_threshold_metrics",
+    "selected_threshold",
+    "selection_reason",
+    "calibration_question_set_sha256",
+    "evaluation_question_set_sha256",
+    "index_sha256",
+    "model_revision"
+  ]
+}

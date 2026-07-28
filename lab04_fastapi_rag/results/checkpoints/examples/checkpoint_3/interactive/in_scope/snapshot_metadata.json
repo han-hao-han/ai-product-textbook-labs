@@ -1,0 +1,11 @@
+{
+  "schema_version": "interactive_snapshot_metadata_v1",
+  "saved_at": "2026-07-28T13:58:39.033564+08:00",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "generation_config_sha256": "41c978b70cb0e69b34ee2103924011c5ac6459b8654dd96434b3223d80b6a309",
+  "retrieval_gate_sha256": "aba458edc49676e992f4d213d0f5811d8a84fe22c2e0814e7fd66157921de4b1",
+  "classification_prompt_sha256": "89b0dc399988089065fbbb3cacad18fa4cee58680c37b9437689edc3762c011e",
+  "answer_prompt_sha256": "f519da375534886710d5551cce4ac8d33e35d9bf9ab0ca92eb686b766812f2bc",
+  "api_key_saved": false,
+  "local_absolute_path_saved": false
+}

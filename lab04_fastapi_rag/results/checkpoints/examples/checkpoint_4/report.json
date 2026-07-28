@@ -1,0 +1,99 @@
+{
+  "schema_version": "checkpoint_4_report_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T15:11:51.509208+08:00",
+  "status": "warning",
+  "evaluation": {
+    "question_count": 30,
+    "completed_count": 30,
+    "question_set_sha256": "fd852bcbfd4dfdd91f6b48bdc92d062e905d47f19c1562c79c736e3542155254",
+    "formal_metrics_attempt": "attempt_001",
+    "final_states": {
+      "answered": 15,
+      "generation_failed": 2,
+      "validation_failed": 1,
+      "model_refused": 2,
+      "retrieval_rejected": 10
+    },
+    "online_generation_question_count": 20
+  },
+  "retrieval_gate": {
+    "threshold": 0.6831968426704407,
+    "retune_after_evaluation": false,
+    "config_sha256": "aba458edc49676e992f4d213d0f5811d8a84fe22c2e0814e7fd66157921de4b1"
+  },
+  "judge": {
+    "provider": "codex_cli_chatgpt",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "cli_version": "0.145.0",
+    "input_count": 15,
+    "status_counts": {
+      "judged": 15
+    },
+    "config_sha256": "5a8d9c156dd20ae10087175be80062c78d3546bf20c4295b4126fe27cc1f4d33",
+    "output_schema_sha256": "ee30e32ab6fff55cc725e8cae310bb8c7423c08db12bebe6f39ec0b35973f5c8",
+    "prompt_sha256": "ad23881d72c2d37565d1a82db9d20c3f401451f3b5bece907145ab8b5c1f1336",
+    "formal_metrics_attempt": "attempt_001",
+    "api_key_saved": false
+  },
+  "metrics": {
+    "retrieval": {
+      "top1_single_source_hits": 16,
+      "top1_single_source_denominator": 18,
+      "top1_reasonable_hit_rate": 0.8888888888888888,
+      "top5_full_hits": 18,
+      "top5_partial_hits": 0,
+      "top5_misses": 0,
+      "top5_denominator": 18,
+      "top5_source_hit_rate": 1.0,
+      "partial_counts_as_failure_in_aggregate": true
+    },
+    "classification": {
+      "strict_correct": 12,
+      "acceptable_correct": 13,
+      "denominator": 18,
+      "strict_accuracy": 0.6666666666666666,
+      "acceptable_accuracy": 0.7222222222222222,
+      "failure_count": 2,
+      "acceptable_rule": "effective_type_matches_frozen_label_including_comprehensive_fallback"
+    },
+    "answers": {
+      "grade_distribution": {
+        "fully_correct": 12,
+        "mostly_correct": 3,
+        "incorrect": 0
+      },
+      "judged_answer_count": 15,
+      "formal_in_scope_denominator": 18,
+      "not_judged_or_no_valid_answer_count": 3,
+      "fully_correct_rate": 0.6666666666666666,
+      "acceptable_answer_rate": 0.8333333333333334,
+      "acceptable_grades": [
+        "fully_correct",
+        "mostly_correct"
+      ],
+      "unjudged_counts_as_not_acceptable": true
+    },
+    "boundary_refusal": {
+      "scope": "boundary",
+      "correct_refusals": 6,
+      "mechanism_conforming": 2,
+      "denominator": 6,
+      "refusal_accuracy": 1.0,
+      "mechanism_conformity_rate": 0.3333333333333333,
+      "expected_mechanism": "model_refused"
+    },
+    "out_of_scope_refusal": {
+      "scope": "out_of_scope",
+      "correct_refusals": 6,
+      "mechanism_conforming": 6,
+      "denominator": 6,
+      "refusal_accuracy": 1.0,
+      "mechanism_conformity_rate": 1.0,
+      "expected_mechanism": "retrieval_rejected"
+    }
+  },
+  "program_grades_answer_semantics": false,
+  "generation_model_grades_itself": false
+}

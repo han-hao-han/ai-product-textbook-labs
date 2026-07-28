@@ -1,0 +1,62 @@
+{
+  "schema_version": "interactive_rag_result_v1",
+  "experiment_run_id": "fastapi_rag_20260728_005918_31df34",
+  "created_at": "2026-07-28T13:59:32.610804+08:00",
+  "question": "明天北京天气如何？",
+  "top_k": 5,
+  "threshold": 0.6831968426704407,
+  "phases": [
+    {
+      "name": "query_embedding",
+      "status": "completed",
+      "elapsed_seconds": 3.314534,
+      "diagnostics": {
+        "input_count": 1,
+        "min_input_tokens": 33,
+        "max_input_tokens": 33,
+        "truncated_input_count": 0,
+        "elapsed_seconds": 0.307538,
+        "min_l2_norm": 0.9999999403953552,
+        "max_l2_norm": 0.9999999403953552,
+        "max_l2_deviation": 5.960464477539063e-08
+      }
+    },
+    {
+      "name": "retrieval",
+      "status": "completed",
+      "elapsed_seconds": 3.314534,
+      "top_k": 5
+    },
+    {
+      "name": "retrieval_gate",
+      "status": "rejected",
+      "elapsed_seconds": 5e-06,
+      "top1_score": 0.3644562363624573,
+      "threshold": 0.6831968426704407,
+      "passed": false
+    },
+    {
+      "name": "classification",
+      "status": "skipped"
+    },
+    {
+      "name": "structured_generation",
+      "status": "skipped"
+    },
+    {
+      "name": "validation",
+      "status": "skipped"
+    },
+    {
+      "name": "final",
+      "status": "rejected"
+    }
+  ],
+  "classification": null,
+  "answer": null,
+  "citations": [],
+  "validation_warnings": [],
+  "final_state": "retrieval_rejected",
+  "total_elapsed_seconds": 3.318672,
+  "reader_experience_type": "out_of_scope"
+}

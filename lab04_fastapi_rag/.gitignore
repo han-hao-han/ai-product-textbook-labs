@@ -1,0 +1,15 @@
+# Local data and complete experiment runs are never committed.
+data/raw/
+data/local/
+data/processed/
+results/runs/
+results/example_candidates/
+
+# Python caches and local environments.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Project-local credentials. Keep the example file tracked.
+.env

@@ -1,0 +1,2 @@
+# Development-only test dependency; not part of the frozen model runtime.
+pytest>=8,<9

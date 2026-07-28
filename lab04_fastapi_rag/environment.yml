@@ -1,0 +1,9 @@
+name: fastapi-rag
+channels:
+  - defaults
+dependencies:
+  - python=3.10.20
+  - pip
+  - pip:
+      - -r requirements.txt
+      - -r requirements-dev.txt
