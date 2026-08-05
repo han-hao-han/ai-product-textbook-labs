@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v10-candidate-v1",
+  "status": "real_checkpoint_partial_pass_superseded_by_v11",
+  "created_on": "2026-08-04",
+  "terminal_claim_groups_prompt": "prompts/native_tool_terminal_claim_groups_v10.md",
+  "terminal_claim_groups_prompt_sha256": "B7F32B94C74D194CFDC919948F83A26D101B5DCD6C02EF2354FCD525F727A628",
+  "triggering_real_run": "combined_prompt_v9_four_q_real_20260804T203728_405392+0800",
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "combined_prompt_v10_offline_20260804T204638_344917+0800",
+    "question_count": 10,
+    "model_response_count": 27,
+    "full_test_count": 445,
+    "full_subtest_count": 143,
+    "real_model_called": false
+  },
+  "real_checkpoint": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v10_q04_q05_real_20260804T205119_522532+0800",
+    "passed_question_ids": ["Q05"],
+    "failed_question_ids": ["Q04"],
+    "completed_model_responses": 6,
+    "transport_failures": 0,
+    "q04_root_failure": "atom_selection_validation",
+    "superseded_by": "h3_combined_prompt_v11.candidate.json"
+  },
+  "boundary": {
+    "slot_2_exact_claim_groups": true,
+    "group_key": "dimensions_period_start_date_end_date",
+    "model_visible_slot_2_evidence_narrowed": true,
+    "peak_period_and_rank_1_sales_grouped_when_dimensions_match": true,
+    "model_writes_claim_text": true,
+    "program_authored_claim_text": false,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  }
+}

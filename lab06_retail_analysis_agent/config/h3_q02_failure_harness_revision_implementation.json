@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.5.6-h3-q02-failure-harness-revision-implementation-v1",
+  "status": "offline_implemented_prompt_guard_completed_pending_real_validation",
+  "implemented_on": "2026-08-03",
+  "authorization": {
+    "status": "authorized_by_user_for_c1_offline_stages_one_to_three",
+    "scope": [
+      "Q02四项冻结设计的离线实施",
+      "保存响应回归",
+      "Q01至Q10全量离线回归和集中审计"
+    ],
+    "real_model_calls_allowed": false,
+    "prompt_changes_allowed": false,
+    "h2_changes_allowed": false,
+    "tool_schema_changes_allowed": false,
+    "data_changes_allowed": false,
+    "v2_2_3_resume_allowed": false
+  },
+  "frozen_design": "config/h3_q02_failure_harness_revision_design.candidate.json",
+  "implementation": {
+    "rejected_report_evidence": "src/agent_orchestrator.py",
+    "harness_short_circuit_and_request_mapping": "src/fixed_question_validation.py",
+    "runner_root_cause_and_chart_short_circuit": "src/q01_q10_batch_a_safe_runner.py",
+    "saved_response_test": "tests/test_q02_failure_harness_revision_implementation.py",
+    "formal_validator": "src/q02_failure_harness_revision_implementation.py",
+    "formal_validation_script": "scripts/validate_q02_failure_harness_revision_implementation.py"
+  },
+  "implemented_boundaries": {
+    "separate_non_publishable_rejected_report_evidence": true,
+    "upstream_failure_short_circuit_with_not_evaluated_status": true,
+    "exact_request_reference_plus_controlled_display_alias": true,
+    "outcome_root_cause_before_acceptance_consequences": true
+  },
+  "expected_q02": {
+    "overall_status": "failed_stopped",
+    "root_failure_codes": ["untraceable_numeric_token", "unsupported_average_value_claim", "unsupported_average_value_claim"],
+    "formal_report_is_empty": true,
+    "rejected_report_publishable": false,
+    "report_completeness_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "chart_acceptance_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "diagnostic_manifest": {"total": 27, "covered": 27},
+    "primary_stop_stage": "report_validation",
+    "stop_reason": "report_validation_failed",
+    "q02_chart_count_mismatch_present": false
+  },
+  "persistent_exclusions": {
+    "h2_reference_answers_changed": false,
+    "h2_validation_questions_changed": false,
+    "prompt_changed": false,
+    "tool_schema_changed": false,
+    "data_changed": false,
+    "report_root_rules_changed": false,
+    "average_value_rule_changed": false,
+    "analysis_scope_row_count_rule_changed": false,
+    "run_record_accepts_rejected_report": false,
+    "safe_export_accepts_rejected_report": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "q02_failure_harness_implementation_20260803T213509_169105+0800",
+    "evidence_path": "results/raw/q02_failure_harness_implementation_20260803T213509_169105+0800/summary.json",
+    "root_failure_codes": ["untraceable_numeric_token", "unsupported_average_value_claim", "unsupported_average_value_claim"],
+    "diagnostic_manifest": {"total": 27, "covered": 27},
+    "implementation_test_status": "5_passed",
+    "full_test_status": "299_passed_49_subtests_passed",
+    "formal_report_is_empty": true,
+    "rejected_report_publishable": false,
+    "report_completeness_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "chart_acceptance_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "primary_stop_stage": "report_validation",
+    "stop_reason": "report_validation_failed",
+    "q02_chart_count_mismatch_present": false,
+    "frozen_sources_unchanged": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "consolidated_audit": {
+    "status": "passed",
+    "contract": "config/h3_c1_q02_q01_q10_offline_consolidated_audit.json",
+    "run_id": "c1_offline_consolidated_audit_20260803T215858_910392+0800",
+    "evidence_path": "results/raw/c1_offline_consolidated_audit_20260803T215858_910392+0800/summary.json",
+    "q02_harness_cascade_defect": "resolved",
+    "saved_q02_model_report_issue": "still_rejected",
+    "q01_q10_offline_status": "passed",
+    "full_test_status": "307_passed_49_subtests_passed",
+    "prompt_changed": false,
+    "real_model_called": false,
+    "v2_2_3_resumed": false
+  },
+  "subsequent_prompt_guard_implementation": {
+    "status": "offline_implementation_and_full_regression_completed",
+    "contract": "config/h3_native_report_prompt_evidence_guard_implementation.json",
+    "active_prompt": "prompts/native_tool_report_evidence_guard_v1.md",
+    "saved_q02_root_failure_codes_unchanged": true,
+    "full_test_status": "312_passed_49_subtests_passed",
+    "real_model_called": false
+  },
+  "next_gate": "Q02 Harness与Prompt证据守卫离线实施均完成；真实模型验证仍需单独授权。"
+}

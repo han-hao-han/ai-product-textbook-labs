@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v6-candidate-v1",
+  "status": "real_four_question_batch_partial_pass_superseded_by_v7",
+  "created_on": "2026-08-04",
+  "tool_prompt": "prompts/native_tool_agent_system_tool_routing_v3.md",
+  "report_prompt": "prompts/native_tool_report_metric_binding_v5.md",
+  "terminal_instruction": "prompts/native_tool_terminal_coverage_v6.md",
+  "terminal_instruction_sha256": "75D9380612415083FF23EC0970F62186B4744F7708A47502D51A6DCD8157B62D",
+  "triggering_real_run": "combined_prompt_v5_four_q_real_20260804T194742_833538+0800",
+  "boundary": {
+    "terminal_instruction_versioned": true,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "program_authored_claim_text": false,
+    "model_still_selects_atom_ids": true,
+    "model_still_writes_report": true,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "summary_path": "results/raw/combined_prompt_v6_offline_20260804T195703_850050+0800/summary.json",
+    "real_model_called": false
+  },
+  "real_validation": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v6_four_q_real_20260804T200014_287879+0800",
+    "passed_question_ids": ["Q05", "Q06"],
+    "failed_question_ids": ["Q04", "Q07"],
+    "actual_responses_completed": 12,
+    "failed_provider_or_parse_attempts": 1,
+    "superseded_by": "config/h3_combined_prompt_v7.candidate.json"
+  }
+}

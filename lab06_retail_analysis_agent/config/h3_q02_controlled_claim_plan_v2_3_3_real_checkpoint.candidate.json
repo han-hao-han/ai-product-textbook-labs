@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.5.6-h3-q02-controlled-claim-plan-v2.3.3-checkpoint-v1",
+  "status": "stopped_after_three_real_failures_pending_user_decision",
+  "created_on": "2026-08-04",
+  "design": "config/h3_controlled_claim_plan_v2_3_3.candidate.json",
+  "scope": {
+    "model": "deepseek-v4-flash",
+    "question_ids": ["Q02"],
+    "expected_model_responses": 3,
+    "response_attempt_upper_bound": 3,
+    "automatic_retry_count": 0,
+    "request_timeout_seconds": 120,
+    "execution_timeout_seconds": 480,
+    "fail_fast": true,
+    "response_phases": [
+      "business_tool_selection",
+      "controlled_claim_plan_generation",
+      "final_report_from_validated_claim_plan"
+    ],
+    "invalid_plan_stops_before_final_report": true,
+    "reuses_prior_authorization": false,
+    "v2_2_3_resumed": false
+  },
+  "authorization": {
+    "status": "consumed_by_failed_stopped_run",
+    "authorization_id": "q02-controlled-claim-plan-v2-3-3-20260804-a3",
+    "authorized_by_user_current_turn": true,
+    "standing_goal_authorization_applied": true,
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "prior_authorization_restored": false
+  },
+  "offline_implementation_authorized_by_active_goal": true,
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "q02_controlled_claim_plan_v2_3_3_20260804T142018_077198+0800",
+    "evidence_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T142018_077198+0800/summary.json",
+    "success_response_count": 3,
+    "invalid_plan_response_count": 2,
+    "invalid_plan_stopped_before_final_report": true,
+    "authorization_gate_default_denied_before_user_authorization": true,
+    "real_model_called": false
+  },
+  "first_real_result": {
+    "run_id": "q02_controlled_claim_plan_v2_3_3_20260804T142254_720403+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 2,
+    "completed_model_responses": 2,
+    "failed_transport_or_provider_attempts": 0,
+    "root_failure_stage": "claim_plan_validation",
+    "planner_slot_count": 3,
+    "final_report_request_sent": false,
+    "evidence_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T142254_720403+0800/summary.json",
+    "concentrated_audit_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T142254_720403+0800/concentrated_audit.json"
+  },
+  "candidate_revision_after_first_real_result": {
+    "section_name_changed_from_string_to_frozen_six_value_enum": true,
+    "bundle_ids_per_slot_maximum": 4,
+    "atom_ids_per_slot_maximum": 12,
+    "planner_instruction_requires_all_six_sections_in_order": true,
+    "h2_data_frozen_prompt_tool_fact_report_schema_or_harness_changed": false,
+    "focused_offline_regression": "11 passed, 20 subtests passed"
+  },
+  "second_real_result": {
+    "run_id": "q02_controlled_claim_plan_v2_3_3_20260804T142858_564462+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 2,
+    "completed_model_responses": 2,
+    "failed_transport_or_provider_attempts": 0,
+    "root_failure_stage": "claim_plan_validation",
+    "planner_slot_count": 6,
+    "planner_used_all_six_frozen_section_names": true,
+    "final_report_request_sent": false,
+    "evidence_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T142858_564462+0800/summary.json",
+    "concentrated_audit_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T142858_564462+0800/concentrated_audit.json"
+  },
+  "candidate_revision_after_second_real_result": {
+    "planner_selects_atom_ids_only": true,
+    "bundle_provenance_derived_by_program": true,
+    "selection_limit_permission_derived_by_program": true,
+    "advice_may_use_selected_evidence_or_be_numeric_free": true,
+    "requested_superlative_metric_still_fail_closed": true,
+    "h2_data_frozen_prompt_tool_fact_report_schema_or_harness_changed": false,
+    "revised_offline_plan_validation_run_id": "controlled_claim_plan_v2_3_3_20260804T143548_102430+0800",
+    "revised_offline_transport_validation_run_id": "controlled_claim_plan_transport_v2_3_3_20260804T143551_485511+0800",
+    "revised_offline_q02_runner_run_id": "q02_controlled_claim_plan_v2_3_3_20260804T143554_432024+0800",
+    "full_regression": "368 passed, 113 subtests passed"
+  },
+  "third_real_result": {
+    "run_id": "q02_controlled_claim_plan_v2_3_3_20260804T143942_941116+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 2,
+    "completed_model_responses": 2,
+    "failed_transport_or_provider_attempts": 0,
+    "root_failure_stage": "claim_plan_validation",
+    "planner_slot_count": 6,
+    "planner_used_all_six_frozen_section_names": true,
+    "root_code": "incompatible_claim_mode_and_selected_atom_kinds",
+    "final_report_request_sent": false,
+    "evidence_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T143942_941116+0800/summary.json",
+    "concentrated_audit_path": "results/raw/q02_controlled_claim_plan_v2_3_3_20260804T143942_941116+0800/concentrated_audit.json"
+  },
+  "three_failure_stop": {
+    "status": "stopped_by_project_rule",
+    "same_root_boundary": "claim_plan_validation",
+    "real_attempt_count": 3,
+    "automatic_retry_count": 0,
+    "network_or_provider_failure_count": 0,
+    "final_report_request_count": 0,
+    "further_real_calls_allowed": false,
+    "further_candidate_modification_allowed_without_user_decision": false,
+    "consolidated_audit_path": "results/raw/q02_controlled_claim_plan_v2_3_3_three_failure_audit_20260804/summary.json"
+  },
+  "real_model_calls_authorized": false
+}

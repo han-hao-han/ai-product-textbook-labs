@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.5.6-h3-controlled-claim-plan-v2.3.3-candidate-v1",
+  "status": "offline_candidate_implementation_and_transport_validated",
+  "created_on": "2026-08-04",
+  "triggering_evidence": {
+    "run_id": "q02_claim_evidence_v2_3_2_20260804T135304_479098+0800",
+    "root_stage": "report_validation",
+    "root_codes": [
+      "untraceable_numeric_token",
+      "untraceable_numeric_token",
+      "unsupported_quantity_superlative"
+    ],
+    "v2_3_2_bundle_was_delivered": true,
+    "model_followed_same_claim_binding_consistently": false
+  },
+  "goal": "Separate evidence selection from prose generation so the program can reject unsupported claim intent before a final report is authored.",
+  "pipeline": [
+    "validated tool FACT and provenance records",
+    "V2.3.2 deterministic claim evidence bundles",
+    "model-authored controlled claim plan",
+    "deterministic claim-plan validation and evidence expansion",
+    "model-authored final report using validated claim slots",
+    "unchanged formal report validation"
+  ],
+  "claim_plan_model_output": {
+    "allowed_fields": [
+      "phase",
+      "session_id",
+      "turn_id",
+      "slots",
+      "slot_id",
+      "section_name",
+      "claim_mode",
+      "atom_ids",
+      "requested_superlative_metric"
+    ],
+    "claim_text_allowed": false,
+    "numeric_value_allowed": false,
+    "calculation_expression_allowed": false,
+    "business_tool_selection_allowed": false
+  },
+  "deterministic_validation": {
+    "unknown_bundle_or_atom_rejected": true,
+    "bundle_provenance_is_derived_from_selected_atoms": true,
+    "selection_limit_permission_is_derived_from_selected_atoms": true,
+    "superlative_intent_requires_matching_rank_1_metric_fact": true,
+    "session_and_turn_must_match": true,
+    "all_six_report_sections_must_be_planned": true,
+    "advice_may_select_evidence_or_remain_numeric_free": true
+  },
+  "program_output": {
+    "phase": "report_terminal_validated_claim_plan",
+    "contains_full_allowed_evidence_references": true,
+    "contains_allowed_selection_limit_values": true,
+    "contains_allowed_superlative_metrics": true,
+    "contains_program_authored_claim_text": false,
+    "contains_program_calculated_business_value": false
+  },
+  "failure_semantics": {
+    "invalid_plan_stops_before_final_report_response": true,
+    "no_automatic_plan_repair": true,
+    "no_automatic_report_repair": true,
+    "no_validator_relaxation": true,
+    "future_real_response_count_for_q02_if_adopted": 3
+  },
+  "scope_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "frozen_prompt_changed": false,
+    "seven_tool_schema_changed": false,
+    "fact_schema_changed": false,
+    "report_schema_changed": false,
+    "report_validator_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_calls_authorized": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "controlled_claim_plan_v2_3_3_20260804T143548_102430+0800",
+    "evidence_path": "results/raw/controlled_claim_plan_v2_3_3_20260804T143548_102430+0800/summary.json",
+    "questions_passed": 10,
+    "negative_probes_passed": 4,
+    "real_model_called": false
+  },
+  "integrated_transport_validation": {
+    "status": "passed",
+    "run_id": "controlled_claim_plan_transport_v2_3_3_20260804T143551_485511+0800",
+    "evidence_path": "results/raw/controlled_claim_plan_transport_v2_3_3_20260804T143551_485511+0800/summary.json",
+    "questions_passed": 10,
+    "total_counted_model_responses": 27,
+    "q02_response_count": 3,
+    "invalid_q02_plan_stopped_before_final_report": true,
+    "real_model_called": false
+  }
+}

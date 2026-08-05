@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.5.6-h3-tool-contract-v1",
+  "status": "frozen_by_user_request",
+  "frozen_on": "2026-07-31",
+  "h2_dependencies": {
+    "metric_contract": "config/h2_metric_contract.json",
+    "validation_questions": "config/h2_validation_questions.json",
+    "cleaning_and_metrics_must_remain_frozen": true
+  },
+  "execution_policy": {
+    "whitelist_only": true,
+    "program_side_pydantic_validation": true,
+    "additional_properties_allowed": false,
+    "maximum_tool_calls_per_turn": 4,
+    "maximum_tool_calls_per_model_response": 1,
+    "customer_id_values_may_be_returned": false,
+    "arbitrary_python_sql_shell_or_expression_allowed": false
+  },
+  "tools": [
+    {
+      "name": "get_data_profile",
+      "description": "查看固定数据范围、清洗分类和已知客户覆盖概况。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "section": {
+            "description": "要查看的数据概况部分。",
+            "enum": [
+              "summary",
+              "classification",
+              "customer_coverage",
+              "all"
+            ],
+            "title": "Section",
+            "type": "string"
+          }
+        },
+        "required": [
+          "section"
+        ],
+        "title": "GetDataProfileArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_sales_overview",
+      "description": "按冻结口径计算销售额、销量、订单数和客单价。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "include_incomplete_period_warning": {
+            "description": "是否在结果中显式返回不完整期间提醒。",
+            "title": "Include Incomplete Period Warning",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "include_incomplete_period_warning"
+        ],
+        "title": "GetSalesOverviewArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "rank_products",
+      "description": "按销售额、销量或订单数返回StockCode商品Top N。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "metric": {
+            "description": "商品排名使用的冻结指标。",
+            "enum": [
+              "sales_amount",
+              "sales_quantity",
+              "order_count"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "top_n": {
+            "description": "返回前N名，范围1至10。",
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Top N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "metric",
+          "top_n"
+        ],
+        "title": "RankProductsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "analyze_regions",
+      "description": "按Country聚合排名，并可排除一个明确国家。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "metric": {
+            "description": "地区排名使用的冻结指标。",
+            "enum": [
+              "sales_amount",
+              "sales_quantity",
+              "order_count"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "top_n": {
+            "description": "返回前N名，范围1至10。",
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Top N",
+            "type": "integer"
+          },
+          "excluded_country": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "需要排除的单一Country值；不排除时为null。",
+            "title": "Excluded Country"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "metric",
+          "top_n",
+          "excluded_country"
+        ],
+        "title": "AnalyzeRegionsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "analyze_time_trend",
+      "description": "按日历月返回历史趋势并识别指定指标峰值。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "grain": {
+            "const": "month",
+            "description": "冻结为按日历月聚合。",
+            "title": "Grain",
+            "type": "string"
+          },
+          "metric": {
+            "description": "识别峰值月份使用的冻结指标。",
+            "enum": [
+              "sales_amount",
+              "sales_quantity",
+              "order_count",
+              "average_order_value"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "exclude_incomplete_periods": {
+            "description": "是否排除H2冻结的不完整月份。",
+            "title": "Exclude Incomplete Periods",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "grain",
+          "metric",
+          "exclude_incomplete_periods"
+        ],
+        "title": "AnalyzeTimeTrendArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "analyze_customers",
+      "description": "返回已知客户子集的聚合指标和覆盖率，不输出CustomerID。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "include_coverage": {
+            "const": true,
+            "description": "固定为true；客户分析必须同时报告行覆盖率和金额覆盖率。",
+            "title": "Include Coverage",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "include_coverage"
+        ],
+        "title": "AnalyzeCustomersArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "compare_segments",
+      "description": "在同一口径下比较英国与英国以外销售分段。",
+      "strict": true,
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "description": "分析期间。all_data=全部数据；complete_months_only=排除冻结的不完整月份；custom=使用start_date和end_date。",
+            "enum": [
+              "all_data",
+              "complete_months_only",
+              "custom"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的开始日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "custom期间的结束日期（YYYY-MM-DD，含当日）；其他期间必须为null。",
+            "title": "End Date"
+          },
+          "comparison": {
+            "const": "united_kingdom_vs_other",
+            "description": "冻结支持的两分段比较：英国与英国以外。",
+            "title": "Comparison",
+            "type": "string"
+          }
+        },
+        "required": [
+          "period",
+          "start_date",
+          "end_date",
+          "comparison"
+        ],
+        "title": "CompareSegmentsArguments",
+        "type": "object"
+      }
+    }
+  ],
+  "change_control": "修改工具名称、职责、参数字段或参数约束前，必须重新提交用户确认。"
+}

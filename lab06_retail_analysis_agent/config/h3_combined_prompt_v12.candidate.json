@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v12-candidate-v1",
+  "status": "real_checkpoint_failed_superseded_by_v13",
+  "created_on": "2026-08-04",
+  "slot2_forbidden_prompt": "prompts/native_tool_terminal_slot2_forbidden_v12.md",
+  "slot2_forbidden_prompt_sha256": "6691EA07F177372CA66B0248812725F405864F6645CC0442421E699D25AC29B9",
+  "atom_selection_prompt": "prompts/native_tool_atom_selection_required_guard_v11.md",
+  "terminal_claim_groups_prompt": "prompts/native_tool_terminal_claim_groups_v10.md",
+  "triggering_real_run": "combined_prompt_v11_q04_real_20260804T210129_964550+0800",
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "combined_prompt_v12_offline_20260804T210856_432115+0800",
+    "question_count": 10,
+    "model_response_count": 27,
+    "full_test_count": 449,
+    "full_subtest_count": 143,
+    "real_model_called": false
+  },
+  "real_checkpoint": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v12_q04_real_20260804T211238_659962+0800",
+    "completed_model_responses": 3,
+    "transport_failures": 0,
+    "root_failure": "untraceable_numeric_token:2011-12_in_slot_2",
+    "superseded_by": "h3_combined_prompt_v13.candidate.json"
+  },
+  "boundary": {
+    "incomplete_period_literals_isolated_from_slot_2": true,
+    "forbidden_literals_derived_from_current_turn_evidence": true,
+    "model_report_text_postprocessed": false,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  }
+}

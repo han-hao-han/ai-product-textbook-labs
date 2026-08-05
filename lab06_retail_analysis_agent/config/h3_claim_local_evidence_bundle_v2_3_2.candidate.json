@@ -1,0 +1,271 @@
+{
+  "schema_version": "1.5.6-h3-claim-local-evidence-bundle-v2.3.2-candidate-v1",
+  "status": "frozen_by_user_offline_implementation_validated",
+  "created_on": "2026-08-04",
+  "design_goal": "Improve model evidence selection before report generation without relaxing report validation or letting the program author the report.",
+  "triggering_real_evidence": {
+    "run_id": "batch_a_report_admissible_v2_3_1_20260804T131120_351077+0800",
+    "question_id": "Q02",
+    "model": "deepseek-v4-flash",
+    "transport_and_json_status": "passed",
+    "root_failure_stage": "report_validation",
+    "root_failure_code": "untraceable_numeric_token",
+    "unsupported_token": "5",
+    "failed_claim_location": "sections[4].claims[0]",
+    "available_required_fact_id": "FACT-001",
+    "required_fact_cited_in_another_claim": true,
+    "required_fact_missing_from_failed_claim": true,
+    "harness_or_h2_is_root_cause": false
+  },
+  "mainline_invariants": {
+    "model_selects_business_tools": true,
+    "model_generates_tool_arguments": true,
+    "program_validates_tool_name_and_arguments": true,
+    "pandas_computes_business_values": true,
+    "model_organizes_report_sections_and_claims": true,
+    "program_validates_report_schema_and_claim_evidence": true,
+    "human_reviews_interpretation_and_advice": true
+  },
+  "selected_boundary": {
+    "stage": "after_tool_chain_before_report_terminal",
+    "authority": "deterministic_program",
+    "inputs": [
+      "current-turn validated FactRecord objects",
+      "current-turn validated RequestRecord objects",
+      "current-turn validated PolicyRecord objects",
+      "executed call_id and frozen business tool name"
+    ],
+    "outputs": [
+      "unchanged V2.3.1 report-admissible reference catalog",
+      "deterministically derived claim_evidence_bundles",
+      "unchanged chart source call metadata"
+    ],
+    "question_id_specific_mapping_allowed": false,
+    "free_text_claim_generation_by_program_allowed": false,
+    "program_selected_business_conclusion_allowed": false,
+    "post_hoc_evidence_injection_allowed": false,
+    "report_output_repair_allowed": false
+  },
+  "terminal_envelope_candidate": {
+    "phase": "report_terminal_claim_evidence_bundles",
+    "top_level_fields": [
+      "phase",
+      "session_id",
+      "turn_id",
+      "tool_evidence",
+      "claim_evidence_bundles",
+      "bundle_usage_contract",
+      "instruction"
+    ],
+    "tool_evidence_unchanged_from": "V2.3.1",
+    "report_schema_changed": false,
+    "bundle_ids_appear_in_report_output": false,
+    "report_claims_still_embed_full_reference_objects": true
+  },
+  "bundle_schema_candidate": {
+    "fields": [
+      "bundle_id",
+      "bundle_kind",
+      "source_call_ids",
+      "source_tool_names",
+      "subject",
+      "support_atoms",
+      "prohibited_inferences"
+    ],
+    "bundle_id_pattern": "^BUNDLE-[0-9]{3,}$",
+    "bundle_kind_enum": [
+      "selection_limit",
+      "ranked_entity",
+      "aggregate_metric",
+      "period_scope",
+      "request_parameter",
+      "policy_boundary",
+      "cross_tool_observation"
+    ],
+    "support_atom_fields": [
+      "atom_id",
+      "semantic_role",
+      "value",
+      "display_value",
+      "evidence_ids"
+    ],
+    "support_atom_semantic_role_enum": [
+      "selection_limit",
+      "entity_rank",
+      "entity_identity",
+      "metric_value",
+      "period",
+      "request_parameter",
+      "policy_boundary"
+    ],
+    "subject_fields_allowed": [
+      "rank",
+      "dimensions",
+      "period",
+      "start_date",
+      "end_date"
+    ],
+    "forbidden_fields": [
+      "claim_text",
+      "recommended_conclusion",
+      "recommended_action",
+      "causal_explanation",
+      "computed_value",
+      "calculation_expression"
+    ]
+  },
+  "deterministic_grouping_rules": [
+    {
+      "rule_id": "BUNDLE-GROUP-01",
+      "bundle_kind": "selection_limit",
+      "condition": "FACT metric is top_n",
+      "result": "Create one selection_limit atom bound to that FACT reference."
+    },
+    {
+      "rule_id": "BUNDLE-GROUP-02",
+      "bundle_kind": "ranked_entity",
+      "condition": "FACTs share call_id, rank, dimensions, period and date range",
+      "result": "Group identity, rank and existing metric FACTs without calculating or comparing values."
+    },
+    {
+      "rule_id": "BUNDLE-GROUP-03",
+      "bundle_kind": "aggregate_metric",
+      "condition": "A non-ranked FACT carries a report-admissible metric value",
+      "result": "Create metric and period atoms referencing the original FACT."
+    },
+    {
+      "rule_id": "BUNDLE-GROUP-04",
+      "bundle_kind": "request_parameter",
+      "condition": "A validated RequestRecord exists",
+      "result": "Create one request atom; do not infer missing user parameters."
+    },
+    {
+      "rule_id": "BUNDLE-GROUP-05",
+      "bundle_kind": "policy_boundary",
+      "condition": "A current policy record exists",
+      "result": "Create one policy atom; preserve the exact frozen policy message."
+    },
+    {
+      "rule_id": "BUNDLE-GROUP-06",
+      "bundle_kind": "cross_tool_observation",
+      "condition": "Facts from different calls have an explicit deterministic dependency or identical admissible period/dimension join key",
+      "result": "Group existing references only; never derive a new metric or causal relation."
+    }
+  ],
+  "bundle_usage_contract": {
+    "model_may_choose_which_supported_claims_to_write": true,
+    "model_may_combine_multiple_atoms_in_one_claim": true,
+    "combined_claim_requires_union_of_atom_evidence_in_same_claim": true,
+    "reusing_a_number_in_another_claim_requires_repeating_its_evidence": true,
+    "evidence_in_another_claim_does_not_satisfy_current_claim": true,
+    "model_may_write_numeric_free_advice_subject_to_manual_review": true,
+    "model_may_not_copy_bundle_id_into_report": true,
+    "model_may_not_calculate_new_values": true,
+    "existing_report_validator_remains_final_authority": true
+  },
+  "q02_explanatory_example": {
+    "selection_limit_bundle": {
+      "bundle_id": "BUNDLE-001",
+      "bundle_kind": "selection_limit",
+      "support_atom": {
+        "semantic_role": "selection_limit",
+        "value": "5",
+        "display_value": "前5",
+        "evidence_ids": ["FACT-001"]
+      }
+    },
+    "rank_one_bundle": {
+      "bundle_kind": "ranked_entity",
+      "rank": 1,
+      "evidence_ids": ["FACT-002", "FACT-003", "FACT-004"]
+    },
+    "failed_real_claim_evidence_ids": ["FACT-002", "FACT-005"],
+    "required_evidence_union_for_same_claim": ["FACT-001", "FACT-002", "FACT-005"],
+    "program_may_auto_apply_union_to_model_output": false,
+    "purpose": "Explain the dependency before generation; the model must still copy the references itself."
+  },
+  "fail_closed_rules": {
+    "unknown_evidence_id_rejected_before_model_call": true,
+    "cross_session_or_cross_turn_reference_rejected": true,
+    "bundle_reference_field_mismatch_rejected": true,
+    "ambiguous_cross_tool_join_not_bundled": true,
+    "unsupported_bundle_kind_rejected": true,
+    "forbidden_program_authored_text_field_rejected": true,
+    "model_report_missing_local_evidence_still_rejected": true,
+    "automatic_retry_count": 0,
+    "model_failure_feedback_loop_enabled": false
+  },
+  "rejected_candidates": [
+    {
+      "candidate": "relax claim-local numeric validation",
+      "reason": "Would hide unsupported report numbers and weaken the main teaching boundary."
+    },
+    {
+      "candidate": "automatically attach FACT-001 after report generation",
+      "reason": "Would repair model output and falsely record model evidence selection as successful."
+    },
+    {
+      "candidate": "fully program-rendered report templates",
+      "reason": "Would remove the model's report-organization responsibility."
+    },
+    {
+      "candidate": "question-specific Q01-Q10 evidence maps",
+      "reason": "Would overfit the fixed questions instead of teaching a reusable constrained Agent boundary."
+    },
+    {
+      "candidate": "prompt-only same-claim reminder",
+      "reason": "The frozen evidence-guard prompt already contains this rule and the real Q02 still failed."
+    },
+    {
+      "candidate": "deterministic failure feedback and second report response",
+      "reason": "Belongs to the paused V2.2.3 revision-feedback boundary and would consume another model response."
+    },
+    {
+      "candidate": "add bundle_id to the report output Schema",
+      "reason": "Would change the frozen report control Schema without improving final FACT traceability."
+    }
+  ],
+  "scope_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "prompt_file_changed": false,
+    "seven_tool_schema_changed": false,
+    "fact_schema_or_values_changed": false,
+    "report_control_schema_changed": false,
+    "report_validator_changed": false,
+    "acceptance_root_rules_changed": false,
+    "v2_2_3_resumed": false,
+    "batch_b_authorized": false,
+    "real_model_calls_authorized": false
+  },
+  "implementation_gate": {
+    "current_phase": "offline_implementation_completed",
+    "implementation_authorized": true,
+    "freeze_required_before_implementation": true,
+    "future_minimum_tests": [
+      "generic selection_limit and ranked_entity grouping",
+      "Q02 claim evidence union example",
+      "Q06 cross-tool period dependency",
+      "unknown and cross-turn evidence rejection",
+      "program-authored claim text rejection",
+      "Q01-Q10 Mock end-to-end regression",
+      "saved real Q02 remains rejected without repair"
+    ]
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-08-04",
+    "offline_implementation_authorized": true,
+    "real_model_calls_authorized": false,
+    "h2_data_prompt_tool_fact_report_schema_or_acceptance_changes_authorized": false,
+    "v2_2_3_resume_authorized": false
+  },
+  "frozen_source_hashes": {
+    "prompts/native_tool_report_evidence_guard_v1.md": "38a2bb6c94f718f2a93a3aa09e92570a5cd777117e0dd2fba39ca95780f72d1e",
+    "src/report_validation.py": "ade86a2a37d3fcf7f747da44bc5af4e10dd12ab461a390b33368a56b088a5332",
+    "src/fact_schema.py": "e42f305c10beb6c13f183cc2ad1d80dabb8e5cf2db79e279507eeea6766e07cb",
+    "src/agent_protocol.py": "b7d571a86f10cf1c809b64d83cf6ac7247c96807de69b19eb55b4fa1b0f76b83",
+    "src/report_admissible_evidence_projection_v2_3_1.py": "98b584ce61e43662f43b1a31d04ddb114dc6f5b100e51c3aa49fc34e86569cf8",
+    "data/raw/h2_reference_answers.json": "d39eee93d841ff8a5f5c5d7943f82a622b338bf2e768dd571b2dd1ec6dda24e2"
+  }
+}

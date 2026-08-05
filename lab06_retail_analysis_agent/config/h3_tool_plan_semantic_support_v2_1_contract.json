@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.5.6-h3-tool-plan-semantic-support-v2.1",
+  "status": "reopened_by_user_for_mainline_correction",
+  "created_on": "2026-07-31",
+  "frozen_on": "2026-07-31",
+  "reopened_on": "2026-07-31",
+  "reopening": {
+    "reason": "原冻结边界把模型从原生选择白名单工具改成选择分析配方，并由程序预选唯一工具和精确参数，弱化了1.5.6受约束工具调用Agent的核心教学主线。",
+    "scope": [
+      "模型原生选择白名单工具",
+      "模型生成参数并决定是否继续调用",
+      "模型基于FACT组织报告",
+      "FACT、图表和报告统一接入"
+    ],
+    "unchanged": [
+      "H2清洗与指标口径",
+      "十个固定问题与参考答案",
+      "七个白名单工具及Pydantic Schema",
+      "Pandas确定性计算",
+      "FACT数值追溯",
+      "能力边界与隐私边界"
+    ],
+    "real_model_calls_allowed": false
+  },
+  "authorization": {
+    "user_reopened_boundary": true,
+    "reopened_scope": [
+      "工具计划",
+      "FACT依赖绑定",
+      "报告语义支持校验"
+    ],
+    "real_model_calls_allowed": false
+  },
+  "history_preservation": {
+    "v1_contract": "config/h3_fact_chart_report_contract.json",
+    "failed_v2_contract": "config/h3_report_finalization_v2_contract.json",
+    "v1_and_v2_files_unchanged": true,
+    "activation_rule": "本文件保留原V2.1冻结设计及其历史证据；重新打开的四项边界由新的主线修正版候选契约承接，在用户再次冻结前不得作为最终H3方案。"
+  },
+  "problem_evidence": {
+    "run_id": "agent_v2_online_20260731T144944_474379+0800",
+    "q06_failure": [
+      "决策门选择get_sales_overview而不是analyze_time_trend",
+      "2011-11没有通过peak_period FACT传递",
+      "完整月份总体销售额被误述为峰值月份销售额",
+      "FACT存在但不支持显著份额或驱动原因等自由定性陈述"
+    ]
+  },
+  "decision_boundary": {
+    "model_output": [
+      "clarification",
+      "boundary",
+      "analysis_recipe"
+    ],
+    "analysis_recipe_fields": [
+      "recipe_id",
+      "period",
+      "start_date",
+      "end_date",
+      "metric",
+      "top_n",
+      "excluded_country",
+      "profile_section"
+    ],
+    "model_may_select_tool_name_directly": false,
+    "program_checks": [
+      "配方参数Pydantic校验",
+      "问题明确出现的指标与decision.metric一致",
+      "问题明确出现的Top N与decision.top_n一致",
+      "峰值完整月份后分析该月商品时必须选择peak_month_product_ranking"
+    ],
+    "known_limit": "显式意图守卫只覆盖透明、高风险且可确定性识别的词组；不能替代开放域语义理解"
+  },
+  "recipe_registry": [
+    {
+      "recipe_id": "data_profile",
+      "tool_sequence": [
+        "get_data_profile"
+      ]
+    },
+    {
+      "recipe_id": "sales_overview",
+      "tool_sequence": [
+        "get_sales_overview"
+      ]
+    },
+    {
+      "recipe_id": "product_ranking",
+      "tool_sequence": [
+        "rank_products"
+      ]
+    },
+    {
+      "recipe_id": "region_ranking",
+      "tool_sequence": [
+        "analyze_regions"
+      ]
+    },
+    {
+      "recipe_id": "peak_complete_month",
+      "tool_sequence": [
+        "analyze_time_trend"
+      ]
+    },
+    {
+      "recipe_id": "overview_and_uk_comparison",
+      "tool_sequence": [
+        "get_sales_overview",
+        "compare_segments"
+      ]
+    },
+    {
+      "recipe_id": "peak_month_product_ranking",
+      "tool_sequence": [
+        "analyze_time_trend",
+        "rank_products"
+      ],
+      "dependency": {
+        "required_source_fact": {
+          "source_tool": "analyze_time_trend",
+          "metric": "peak_period",
+          "cardinality": "exactly_one"
+        },
+        "binding": "peak_period.value确定性转换为rank_products的custom起止日期"
+      }
+    },
+    {
+      "recipe_id": "overview_and_customer_coverage",
+      "tool_sequence": [
+        "get_sales_overview",
+        "analyze_customers"
+      ]
+    }
+  ],
+  "tool_execution_boundary": {
+    "seven_frozen_tools_unchanged": true,
+    "tool_argument_schemas_unchanged": true,
+    "model_native_tool_call_retained": true,
+    "program_control": [
+      "每次只暴露配方的下一个工具",
+      "模型工具参数必须与程序展开的精确参数一致",
+      "依赖参数由程序从指定FACT生成，不接受模型改写",
+      "每步完成后验证配方要求的输出FACT指标",
+      "错误工具前缀、缺失依赖或缺失输出FACT立即失败且不生成报告"
+    ]
+  },
+  "semantic_report_boundary": {
+    "model_output_allows": [
+      "固定章节",
+      "template_id",
+      "当前轮fact_ids"
+    ],
+    "model_output_forbids": [
+      "title",
+      "narrative",
+      "自由事实句",
+      "自由解释句",
+      "自由建议句",
+      "金额、日期、比例、排名或原因判断"
+    ],
+    "controlled_templates": [
+      "scope_from_facts",
+      "profile_summary",
+      "metric_summary",
+      "peak_period_finding",
+      "ranked_entities_finding",
+      "segment_comparison_finding",
+      "customer_coverage_finding",
+      "tool_evidence_summary",
+      "descriptive_only",
+      "verify_with_additional_data",
+      "data_limitations"
+    ],
+    "fact_signature_checks": [
+      "peak_period_finding必须包含唯一趋势peak_period及同月rank为一的指标FACT",
+      "ranked_entities_finding必须来自单一排名工具、单一指标且rank从一连续",
+      "segment_comparison_finding只能引用compare_segments FACT",
+      "customer_coverage_finding必须同时包含客户数、行覆盖率和金额覆盖率",
+      "固定建议与限制模板不得附加FACT暗示额外结论"
+    ],
+    "program_rendered_boundary_text": [
+      "以上结果仅支持描述性比较，不能证明原因",
+      "建议结合额外数据后再作经营判断",
+      "当前分析不支持利润、因果、预测或自动补货结论"
+    ]
+  },
+  "implementation": {
+    "decision_schema": "src/agent_decision_v2_1.py",
+    "recipe_registry": "src/analysis_recipes_v2_1.py",
+    "semantic_templates": "src/report_semantics_v2_1.py",
+    "decision_prompt": "prompts/decision_gate_prompt_v2_1.md",
+    "semantic_prompt": "prompts/report_semantic_prompt_v2_1.md",
+    "offline_validation_script": "scripts/validate_v2_1_recipe_semantics.py",
+    "online_orchestrator_status": "not_wired_pending_user_freeze"
+  },
+  "offline_validation": {
+    "real_model_called": false,
+    "unit_tests": {
+      "count": 12,
+      "status": "passed"
+    },
+    "real_fact_replay": {
+      "run_id": "v2_1_offline_20260731T154701_683510+0800",
+      "local_evidence_path": "results/raw/v2_1_offline_20260731T154701_683510+0800",
+      "source_correct_fact_run": "agent_online_20260731T134737_394748+0800",
+      "source_failed_v2_run": "agent_v2_online_20260731T144944_474379+0800",
+      "tool_sequence": [
+        "analyze_time_trend",
+        "rank_products"
+      ],
+      "dependency_fact_ids": [
+        "FACT-001"
+      ],
+      "dependent_period": [
+        "2011-11-01",
+        "2011-11-30"
+      ],
+      "semantic_validation": "passed",
+      "wrong_tool_prefix_rejected": true,
+      "overview_as_peak_rejected": true,
+      "unsupported_language_scan_matches": 0
+    },
+    "full_test_count": 119,
+    "full_test_status": "passed"
+  },
+  "remaining_work_after_freeze": [
+    "把V2.1配方和模板接入独立Mock编排器",
+    "验证七个固定分析问题的配方展开与FACT签名",
+    "设计新的在线硬上限入口",
+    "另行取得真实模型调用授权"
+  ],
+  "change_control": {
+    "freeze_requires": [
+      "用户接受模型从直接选工具改为选择分析配方",
+      "用户接受依赖参数由程序绑定",
+      "用户接受报告事实、解释和建议改为受控模板"
+    ],
+    "current_checkpoint": "V2.1边界已冻结，等待用户确认进入独立Mock编排与Q01至Q10离线端到端验证"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.5.6-h3-tool-routing-prompt-v1-candidate-v1",
+  "status": "real_q02_passed_q01_failed_multiple_tool_calls",
+  "created_on": "2026-08-04",
+  "predecessor_prompt": "prompts/native_tool_agent_system_v2_1_revision.md",
+  "candidate_prompt": "prompts/native_tool_agent_system_tool_routing_v1.md",
+  "predecessor_sha256": "7D7C8E8FD0CF54A99CA1A4EF2D6248893CF6FF660DE390EB88F576EB6DACCC6A",
+  "candidate_sha256": "B4E44CE35218BA5446C7F1F22C0594A33308C1342071301F12A8D676424F77F0",
+  "additive_rules": [
+    "TOOL-ROUTE-01",
+    "TOOL-ROUTE-02",
+    "TOOL-ROUTE-03"
+  ],
+  "scope": {
+    "normal_sales_is_precleaned_layer": true,
+    "shortest_necessary_tool_flow": true,
+    "seven_tool_semantic_routing": true,
+    "h2_changed": false,
+    "data_changed": false,
+    "tool_schema_changed": false,
+    "fact_or_report_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "summary_path": "results/raw/tool_routing_prompt_v1_offline_20260804T184141_291151+0800/summary.json",
+    "targeted_tests": "24 passed, 10 subtests passed",
+    "full_tests": "413 passed, 143 subtests passed",
+    "real_model_called": false
+  },
+  "real_validation": {
+    "order": ["Q02", "Q01", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "q02_must_pass_before_remaining_questions": true,
+    "model": "deepseek-v4-flash",
+    "response_attempt_upper_bound": 27,
+    "automatic_retry_count": 0,
+    "failure_immediately_stops": true,
+    "authorized_by_current_user_instruction": true,
+    "run_id": "tool_routing_prompt_v1_real_20260804T184836_685281+0800",
+    "question_ids_executed": ["Q02", "Q01"],
+    "q02_status": "passed_deterministic_pending_manual_review",
+    "q01_status": "failed_stopped",
+    "q01_root_failure": "model_emitted_multiple_tool_calls",
+    "response_attempts": 4,
+    "automatic_retry_performed": false,
+    "response_evidence_recovered_by_question": true
+  }
+}

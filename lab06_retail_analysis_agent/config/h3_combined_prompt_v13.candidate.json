@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v13-candidate-v1",
+  "status": "real_checkpoint_failed_superseded_by_v14",
+  "created_on": "2026-08-04",
+  "report_validation_feedback_prompt": "prompts/native_tool_report_validation_feedback_v13.md",
+  "report_validation_feedback_prompt_sha256": "44C7B939EF1BAD5BEDD681B9016EFAC8B90B29FC0712BBD81743FEB9E4BA175F",
+  "triggering_real_run": "combined_prompt_v12_q04_real_20260804T211238_659962+0800",
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "combined_prompt_v13_offline_20260804T212054_074023+0800",
+    "question_count": 10,
+    "model_response_count": 27,
+    "full_test_count": 451,
+    "full_subtest_count": 143,
+    "real_model_called": false
+  },
+  "real_checkpoint": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v13_q04_real_20260804T212404_854484+0800",
+    "completed_model_responses": 3,
+    "semantic_correction_attempts": 0,
+    "transport_failures": 0,
+    "root_failure": "model_terminal_schema_invalid",
+    "superseded_by": "h3_combined_prompt_v14.candidate.json"
+  },
+  "boundary": {
+    "max_terminal_semantic_corrections_per_report": 1,
+    "transport_retry_count": 0,
+    "tools_reexecuted_during_report_correction": false,
+    "facts_recomputed_during_report_correction": false,
+    "failed_report_response_preserved": true,
+    "validator_feedback_contains_codes_locations_and_literals": true,
+    "program_rewrites_report_text": false,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  }
+}

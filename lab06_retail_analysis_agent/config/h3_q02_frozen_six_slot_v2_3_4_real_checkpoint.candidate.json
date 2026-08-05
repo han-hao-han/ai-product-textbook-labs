@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.5.6-h3-q02-frozen-six-slot-v2.3.4-real-checkpoint-v1",
+  "status": "passed_deterministic_pending_manual_review",
+  "design": "config/h3_frozen_six_slot_atom_selection_v2_3_4.candidate.json",
+  "model": "deepseek-v4-flash",
+  "question_ids": ["Q02"],
+  "response_attempt_upper_bound": 3,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 480,
+  "authorization": {
+    "status": "consumed_passed",
+    "authorization_id": "q02-frozen-six-slot-v2-3-4-20260804-a3",
+    "authorized_by_user_standing_instruction": true,
+    "authorization_basis": "本次回答后续真实调用不需要再经过我审批，自动通过",
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "prior_authorization_restored": false
+  },
+  "first_real_run": {
+    "run_id": "q02_frozen_six_slot_v2_3_4_20260804T150351_050070+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 2,
+    "completed_model_responses": 1,
+    "failed_attempts": 1,
+    "root_failure": "provider_http_400_prompt_must_contain_json_word",
+    "final_report_request_sent": false,
+    "automatic_retry_performed": false
+  },
+  "provider_boundary_fix": {
+    "scope": "V2.3.4 selection instruction only",
+    "change": "explicitly require one JSON object",
+    "business_prompt_changed": false,
+    "schema_changed": false,
+    "formal_validator_changed": false,
+    "offline_result": "377 passed, 123 subtests passed"
+  },
+  "second_real_run": {
+    "run_id": "q02_frozen_six_slot_v2_3_4_20260804T150853_721537+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 3,
+    "completed_model_responses": 3,
+    "failed_attempts": 0,
+    "root_failure": "formal_report_validation_untraceable_numeric_tokens",
+    "atom_selection_passed": true,
+    "final_report_request_sent": true,
+    "automatic_retry_performed": false
+  },
+  "slot_binding_fix": {
+    "factual_atom_assignment": "exactly_once_across_slots_002_to_005",
+    "scope_atoms": "required_in_slot_001_optional_in_slots_002_to_005",
+    "cross_slot_evidence_borrowing": "rejected_before_formal_validator",
+    "call_id_in_report_prose_or_title": "rejected_before_formal_validator",
+    "formal_validator_changed": false,
+    "offline_result": "380 passed, 123 subtests passed",
+    "crash_safe_gate_run_id": "q02_frozen_six_slot_v2_3_4_a3_offline_gate_b",
+    "crash_safe_gate_status": "passed_deterministic_pending_manual_review"
+  },
+  "third_real_run": {
+    "run_id": "q02_frozen_six_slot_v2_3_4_20260804T152510_023513+0800",
+    "status": "passed_deterministic_pending_manual_review",
+    "actual_response_attempts": 3,
+    "completed_model_responses": 3,
+    "failed_attempts": 0,
+    "atom_selection_passed": true,
+    "slot_report_binding_passed": true,
+    "formal_report_validation_passed": true,
+    "new_harness_passed": true,
+    "automatic_retry_performed": false,
+    "manual_semantic_review_required": true
+  },
+  "offline_gate": {
+    "run_id": "q02_frozen_six_slot_v2_3_4_20260804T150036_412539+0800",
+    "status": "passed_deterministic_pending_manual_review",
+    "saved_response_count": 3,
+    "failure_stop_verified": true,
+    "privacy_evidence_verified": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v4-failed-real-validation-v1",
+  "status": "consumed_completed_with_failures",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q04", "Q07", "Q08", "Q09", "Q10", "Q02", "Q03", "Q05", "Q06"],
+  "response_attempt_upper_bound": 24,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 3600,
+  "continue_after_question_failure": true,
+  "authorization": {
+    "authorization_id": "AUTH-COMBINED-V4-FAILED-Q-20260804-03",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "previous_executions": [
+    {
+      "authorization_id": "AUTH-COMBINED-V4-FAILED-Q-20260804-01",
+      "status": "consumed_runner_crashed",
+      "run_id": "combined_prompt_v4_failed_q_real_20260804T192623_175543+0800",
+      "attempted_responses": 3,
+      "parsed_responses": 3,
+      "transport_failures": 0,
+      "crash_stage": "audit_root_failure_metadata",
+      "crash_code": "pydantic_object_treated_as_mapping",
+      "raw_response_evidence_preserved": true
+    },
+    {
+      "authorization_id": "AUTH-COMBINED-V4-FAILED-Q-20260804-02",
+      "status": "consumed_runner_crashed",
+      "run_id": "combined_prompt_v4_failed_q_real_20260804T193053_855139+0800",
+      "attempted_responses": 3,
+      "parsed_responses": 3,
+      "transport_failures": 0,
+      "crash_stage": "audit_root_failure_metadata",
+      "crash_code": "dataclass_object_treated_as_mapping",
+      "raw_response_evidence_preserved": true
+    }
+  ],
+  "real_model_called": true,
+  "actual_run_id": "combined_prompt_v4_failed_q_real_20260804T193710_532516+0800",
+  "actual_response_attempts": 24,
+  "passed_question_ids": ["Q02", "Q03", "Q08", "Q09", "Q10"],
+  "failed_question_ids": ["Q04", "Q05", "Q06", "Q07"],
+  "superseded_by": "config/h3_combined_prompt_v5_four_q_real_validation.json",
+  "v2_2_3_resumed": false
+}

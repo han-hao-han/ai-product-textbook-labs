@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.5.6-h3-q01-q10-batch-a-crash-safe-evidence-boundary-v1",
+  "status": "frozen_by_user_offline_validated_pending_new_real_authorization",
+  "implemented_on": "2026-08-03",
+  "prerequisite": {
+    "interrupted_run_id": "q01_q10_batch_a_flash_real_interrupted_20260803T191246_162141+0800",
+    "interrupted_status": "interrupted_by_outer_timeout_with_evidence_gap",
+    "offline_reinforcement_authorized_by_user": true,
+    "real_model_calls_authorized": false
+  },
+  "scope": {
+    "batch_id": "A",
+    "question_ids": ["Q02", "Q06", "Q08", "Q09", "Q10"],
+    "model": "deepseek-v4-flash",
+    "response_attempt_upper_bound": 8,
+    "automatic_retry_count": 0,
+    "prompt_changed": false,
+    "schema_changed": false,
+    "h2_reference_answers_changed": false,
+    "new_harness_acceptance_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "time_boundaries": {
+    "per_request_timeout_seconds": 120,
+    "batch_internal_timeout_seconds": 1080,
+    "eight_request_maximum_seconds": 960,
+    "local_processing_headroom_seconds": 120,
+    "external_process_timeout_must_exceed_seconds": 1080,
+    "recommended_external_process_timeout_seconds": 1200,
+    "remaining_batch_time_caps_each_request_timeout": true,
+    "batch_deadline_before_attempt_does_not_consume_attempt": true
+  },
+  "persistence_order": [
+    "atomic_attempt_reserved_event_before_transport",
+    "atomic_raw_http_response_before_json_parse",
+    "atomic_parsed_provider_response_after_parse",
+    "atomic_question_checkpoint_after_new_harness",
+    "atomic_batch_checkpoint_after_summary"
+  ],
+  "atomic_storage": {
+    "event_log_is_source_of_truth": true,
+    "run_state_is_recoverable_snapshot": true,
+    "temporary_file_then_atomic_replace": true,
+    "one_event_file_per_transition": true,
+    "existing_run_state_must_not_be_overwritten": true
+  },
+  "recovery": {
+    "read_only_audit_only": true,
+    "automatic_resume_allowed": false,
+    "new_user_authorization_required": true,
+    "reserved_attempt_consumes_authorization": true,
+    "unknown_provider_state_is_not_model_success_or_failure": true
+  },
+  "privacy": {
+    "api_key_saved": false,
+    "authorization_header_value_saved": false,
+    "request_headers_saved": false,
+    "request_body_saved": false,
+    "http_response_body_saved_as_base64": true,
+    "raw_customer_id_exported": false,
+    "local_absolute_paths_saved": false
+  },
+  "implementation": {
+    "journal": "src/q01_q10_batch_a_crash_safe_evidence.py",
+    "deepseek_http_hook": "src/deepseek_client.py",
+    "response_counter_and_deadline": "src/online_native_tool_candidate_v2_1_revision.py",
+    "batch_runner": "src/q01_q10_batch_a_safe_runner.py",
+    "test_file": "tests/test_q01_q10_batch_a_crash_safe_evidence.py",
+    "offline_validation_script": "scripts/validate_q01_q10_batch_a_crash_safe_evidence.py"
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "q01_q10_batch_a_crash_safe_offline_20260803T192647_991240+0800",
+    "evidence_path": "results/raw/q01_q10_batch_a_crash_safe_offline_20260803T192647_991240+0800/summary.json",
+    "reservation_survives_external_termination": true,
+    "termination_recovery_counts": {"reserved": 1, "http_received": 0, "parsed": 0},
+    "raw_http_survives_parse_failure": true,
+    "parse_failure_recovery_counts": {"reserved": 1, "http_received": 1, "parsed": 0},
+    "success_reserved_received_parsed_counts": {"reserved": 8, "http_received": 8, "parsed": 8},
+    "deadline_stops_before_attempt": true,
+    "deadline_underlying_transport_calls": 0,
+    "temporary_files_remaining": 0,
+    "automatic_resume_allowed": false,
+    "new_user_authorization_required": true,
+    "evidence_safety_passed": true,
+    "targeted_test_status": "14_passed",
+    "integration_test_status": "39_passed",
+    "full_test_status": "284_passed_40_subtests_passed",
+    "real_network_opened": false,
+    "real_model_called": false,
+    "api_key_read": false
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-08-03",
+    "per_request_timeout_seconds": 120,
+    "batch_internal_timeout_seconds": 1080,
+    "recommended_external_process_timeout_seconds": 1200,
+    "persistence_order_frozen": true,
+    "atomic_event_log_and_state_snapshot_frozen": true,
+    "raw_http_must_persist_before_parse": true,
+    "automatic_resume_allowed": false,
+    "new_user_authorization_required_after_recovery": true,
+    "freeze_does_not_authorize_real_calls": true,
+    "freeze_does_not_restore_consumed_authorization": true,
+    "v2_2_3_remains_paused": true
+  },
+  "freeze_validation": {
+    "status": "passed",
+    "run_id": "q01_q10_batch_a_crash_safe_offline_20260803T194343_570217+0800",
+    "evidence_path": "results/raw/q01_q10_batch_a_crash_safe_offline_20260803T194343_570217+0800/summary.json",
+    "termination_recovery_counts": {"reserved": 1, "http_received": 0, "parsed": 0},
+    "parse_failure_recovery_counts": {"reserved": 1, "http_received": 1, "parsed": 0},
+    "success_recovery_counts": {"reserved": 8, "http_received": 8, "parsed": 8},
+    "deadline_stops_before_attempt": true,
+    "evidence_safety_passed": true,
+    "targeted_freeze_test_status": "13_passed",
+    "full_test_status": "285_passed_40_subtests_passed",
+    "real_network_opened": false,
+    "real_model_called": false,
+    "api_key_read": false
+  },
+  "next_gate": "逐响应崩溃安全与总时限边界已由用户冻结；任何批次A真实重试仍需新的精确授权。"
+}

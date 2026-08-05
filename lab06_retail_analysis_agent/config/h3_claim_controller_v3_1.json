@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.5.6-h3-claim-controller-v3-1-boundary-v1",
+  "status": "frozen_as_final_report_control_architecture_pending_streamlit_h4",
+  "design_decision": {
+    "fact_scope_method_and_policy_claims": "model_authored_under_claim_local_evidence",
+    "interpretation_and_recommendation": "model_selects_frozen_template_id",
+    "report_title": "model_selects_frozen_template_id",
+    "chart_titles": "model_selects_tool_scoped_frozen_template_id",
+    "program_expands_template_text": true,
+    "model_can_edit_template_text": false
+  },
+  "preserved_boundaries": {
+    "h2_reference_answers_changed": false,
+    "data_changed": false,
+    "seven_tool_schemas_changed": false,
+    "fact_schema_changed": false,
+    "report_schema_changed": false,
+    "frozen_harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "source_failure_question_ids": ["Q02", "Q04", "Q05"],
+  "offline_validation": {
+    "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "status": "passed_deterministic_pending_manual_review",
+    "actual_model_double_responses": 27,
+    "response_attempt_upper_bound": 34,
+    "semantic_corrections": 0,
+    "saved_response_regression_status": "passed",
+    "test_status": "487 passed, 143 subtests passed"
+  },
+  "real_validation": {
+    "q02_checkpoint_status": "passed_deterministic_pending_manual_review",
+    "q02_checkpoint_run_id": "claim_controller_v3_1_q02_real_20260805T142608_352342+0800",
+    "full_status": "passed_deterministic_pending_manual_review",
+    "full_run_id": "claim_controller_v3_1_full_real_20260805T143617_158400+0800",
+    "question_ids_executed": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "actual_response_attempts": 27,
+    "semantic_corrections": 0,
+    "transport_failures": 0,
+    "model_visible_internal_call_values": 0
+  },
+  "manual_quality_review": {
+    "status": "accepted_by_user_with_known_presentation_limitations",
+    "decision": "skip_v3_1_1_presentation_refinement_and_enter_streamlit_h4",
+    "teaching_priority": "agent_selects_whitelisted_tools_and_program_computes_deterministically",
+    "frozen_as_final_report_control_architecture": true,
+    "known_limitations": [
+      "Q01-Q07 result prose is mechanically formatted and some values lack reader-facing field labels",
+      "interpretation and recommendation templates are safe but repetitive",
+      "tool provenance prose may contain generic or mixed-language wording",
+      "Q10 missing_fields may contain cost and profit although the refusal message and boundary codes are correct"
+    ],
+    "accepted_scope": {
+      "tool_routing_mainline_satisfied": true,
+      "deterministic_computation_mainline_satisfied": true,
+      "fact_traceability_mainline_satisfied": true,
+      "streamlit_h4_may_start": true
+    }
+  },
+  "model": "deepseek-v4-flash",
+  "automatic_transport_retry_count": 0
+}

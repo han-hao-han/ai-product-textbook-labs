@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.5.6-h3-report-finalization-boundary-v2",
+  "status": "frozen_by_user_real_validation_failed",
+  "created_on": "2026-07-31",
+  "frozen_on": "2026-07-31",
+  "supersession": {
+    "v1_contract": "config/h3_fact_chart_report_contract.json",
+    "v1_status": "frozen_and_unchanged",
+    "candidate_scope": "仅重设计决策、工具编排与报告最终化边界；不修改冻结FACT、图表数据和七个业务工具",
+    "activation_rule": "边界已由用户冻结；真实模型验证通过前，不替换V1正式路径"
+  },
+  "problem_evidence": {
+    "source_run_id": "agent_online_20260731T134737_394748+0800",
+    "model": "deepseek-v4-pro",
+    "q06": {
+      "tool_sequence_correct": true,
+      "h2_values_correct": true,
+      "v1_report_validation_passed": false,
+      "issue_count": 9,
+      "root_cause": "模型同时承担叙述、数值复写、证据对象生成和JSON转义，单靠Prompt不能稳定满足确定性追溯"
+    },
+    "q08": {
+      "clarification_gate_passed": true
+    },
+    "q09": {
+      "semantic_boundary_correct": true,
+      "strict_json_parse_passed": false,
+      "root_cause": "普通文本模式中的未转义双引号破坏JSON"
+    }
+  },
+  "v2_pipeline": [
+    {
+      "phase": "decision_gate",
+      "model_endpoint": "https://api.deepseek.com/chat/completions",
+      "response_mode": {
+        "type": "json_object"
+      },
+      "output_types": [
+        "clarification",
+        "boundary",
+        "analysis"
+      ],
+      "program_checks": [
+        "严格JSON解析且禁止代码围栏",
+        "仅允许三个冻结decision_type",
+        "analysis仅返回有序required_tools",
+        "工具名必须来自七工具白名单且不得重复",
+        "每轮最多四个工具"
+      ]
+    },
+    {
+      "phase": "strict_tool_execution",
+      "model_endpoint": "https://api.deepseek.com/beta/chat/completions",
+      "response_mode": "native_tool_call",
+      "per_response_schema_exposure": "只暴露当前计划中的下一个工具",
+      "program_checks": [
+        "function.strict必须为true",
+        "发送副本移除DeepSeek strict官方明确不支持的minLength、maxLength、minItems和maxItems，本地冻结Pydantic Schema不变",
+        "一条响应必须且只能包含一个工具调用",
+        "工具名必须等于当前期望工具",
+        "参数经冻结Pydantic Schema再次校验",
+        "程序执行工具并生成当前轮FACT",
+        "依赖式后续参数只读取前序工具结果与FACT"
+      ]
+    },
+    {
+      "phase": "report_plan",
+      "model_endpoint": "https://api.deepseek.com/chat/completions",
+      "response_mode": {
+        "type": "json_object"
+      },
+      "model_input_fact_catalog_excludes": [
+        "value",
+        "display_value",
+        "unit",
+        "analysis_scope中的起止日期与行数",
+        "dimension values",
+        "rank"
+      ],
+      "model_input_fact_catalog_allows": [
+        "fact_id",
+        "fact_type",
+        "metric",
+        "scope_mode",
+        "dimension_names",
+        "selection_role",
+        "source_tool",
+        "call_id"
+      ],
+      "model_output_allows": [
+        "固定六章节",
+        "numeric-free narrative",
+        "当前轮fact_ids选择",
+        "白名单图表请求"
+      ],
+      "model_output_forbids": [
+        "任何阿拉伯数字",
+        "日期、金额、比例、排名或数量复写",
+        "FACT或CALL编号写入自然语言",
+        "模型计算派生指标",
+        "因果、利润、预测、库存或自动补货结论"
+      ]
+    },
+    {
+      "phase": "program_finalization",
+      "model_called": false,
+      "program_injects": [
+        "value",
+        "display_value",
+        "unit",
+        "analysis_scope",
+        "dimensions",
+        "rank",
+        "FACT引用"
+      ],
+      "program_checks": [
+        "FACT存在且属于当前会话轮次",
+        "章节顺序与claim_kind一致",
+        "事实发现、证据说明、有限解释和建议至少引用一个FACT",
+        "图表类型与来源工具CALL兼容",
+        "最终数值只来自规范FACT"
+      ],
+      "manual_review_required": [
+        "有限解释是否越界",
+        "经营建议是否替用户决策"
+      ]
+    }
+  ],
+  "schemas_and_prompts": {
+    "decision_schema": "src/agent_decision_v2.py",
+    "report_plan_schema": "src/report_finalization_v2.py",
+    "decision_prompt": "prompts/decision_gate_prompt_v2.md",
+    "tool_selector_prompt": "prompts/tool_selector_prompt_v2.md",
+    "report_finalizer_prompt": "prompts/report_finalizer_prompt_v2.md",
+    "orchestrator": "src/agent_orchestrator_v2.py",
+    "deepseek_transport": "src/deepseek_client.py"
+  },
+  "frozen_dependencies": {
+    "h2_metric_contract": "config/h2_metric_contract.json",
+    "h2_validation_questions": "config/h2_validation_questions.json",
+    "tool_contract": "config/h3_tool_contract.json",
+    "fact_chart_report_v1_contract": "config/h3_fact_chart_report_contract.json",
+    "session_record_contract": "config/h3_session_record_contract.json",
+    "seven_tool_names_unchanged": true,
+    "fact_schema_unchanged": true,
+    "chart_data_schema_unchanged": true
+  },
+  "model_response_count": {
+    "clarification_or_boundary": 1,
+    "one_tool_analysis": 3,
+    "q06_two_tool_analysis": 4,
+    "maximum_four_tool_analysis": 6,
+    "formula": "decision_gate + one response per tool + report_plan"
+  },
+  "known_tradeoffs": [
+    "分析题比V1多一次结构化决策响应",
+    "strict工具调用使用DeepSeek beta端点",
+    "JSON Output官方文档提示极少数情况下可能返回空content，程序必须按失败记录且不得执行后续阶段",
+    "程序注值保证数值追溯，但解释与建议仍需人工语义验收",
+    "重复引用多个FACT会使报告较长，展示层可在不改变证据内容的前提下做折叠"
+  ],
+  "offline_validation": {
+    "real_model_called": false,
+    "automated_tests": {
+      "command": "python -m unittest tests.test_agent_orchestrator_v2 tests.test_report_finalization_v2 tests.test_deepseek_client",
+      "count": 16,
+      "status": "passed"
+    },
+    "real_fact_replay": {
+      "script": "scripts/validate_report_finalization_v2.py",
+      "source_run_id": "agent_online_20260731T134737_394748+0800",
+      "source_turn_id": "TURN-001",
+      "source_fact_count": 48,
+      "selected_fact_ids": [
+        "FACT-001",
+        "FACT-036",
+        "FACT-040",
+        "FACT-043",
+        "FACT-046"
+      ],
+      "injected_values_observed": [
+        "2011-11",
+        "£1,503,866.78",
+        "£36,905.40",
+        "£34,478.40",
+        "£28,955.54"
+      ],
+      "validation_status": "passed",
+      "local_evidence_path": "results/raw/report_v2_replay_20260731T143011_924974+0800",
+      "privacy_scan": {
+        "customer_id_values_exported": false,
+        "api_key_or_authorization_saved": false,
+        "absolute_paths_saved": false
+      }
+    }
+  },
+  "real_model_validation": {
+    "status": "completed_with_q06_failure",
+    "completed_on": "2026-07-31",
+    "run_id": "agent_v2_online_20260731T144944_474379+0800",
+    "local_evidence_path": "results/raw/agent_v2_online_20260731T144944_474379+0800",
+    "model": "deepseek-v4-pro",
+    "approved_response_upper_bound": 6,
+    "requests_attempted": 6,
+    "responses_completed": 6,
+    "authorization_upper_bound_not_exceeded": true,
+    "usage": {
+      "prompt_tokens": 7672,
+      "completion_tokens": 1247,
+      "total_tokens": 8919
+    },
+    "passed": 2,
+    "failed": 1,
+    "case_results": [
+      {
+        "question_id": "Q06",
+        "status": "failed",
+        "tool_sequence": [
+          "get_sales_overview",
+          "rank_products"
+        ],
+        "expected_tool_sequence": [
+          "analyze_time_trend",
+          "rank_products"
+        ],
+        "report_plan_validation": "passed",
+        "h2_product_ranking_values": "matched",
+        "failure": "销售概览不能确定峰值月份；第二工具虽使用2011-11但不是由peak_period FACT传递。报告把完整月份总体销售额误述为最高月份，并包含没有份额FACT支持的定性结论。"
+      },
+      {
+        "question_id": "Q08",
+        "status": "passed",
+        "tool_sequence": [],
+        "clarification_topics": [
+          "time_range",
+          "metric",
+          "comparison_dimension_or_objects"
+        ]
+      },
+      {
+        "question_id": "Q09",
+        "status": "passed",
+        "tool_sequence": [],
+        "valid_json": true,
+        "missing_fields": [
+          "cost",
+          "profit"
+        ],
+        "supported_alternative": "按销售额或销量进行商品排名"
+      }
+    ],
+    "confirmed_v2_improvements": [
+      "Q09由普通文本非法JSON改为合法JSON Output",
+      "Q06报告计划合法且模型没有复写业务数值",
+      "最终金额、日期、单位、维度、排名和FACT引用全部由程序注入",
+      "Q08维持一次集中澄清且零工具"
+    ],
+    "remaining_failures": [
+      "决策门没有稳定选择满足问题语义的工具能力",
+      "FACT引用存在不等于叙述得到语义支持",
+      "当前程序校验不能识别总体销售额被误述为峰值月销售额",
+      "有限解释仍可能输出没有FACT支持的定性因果暗示"
+    ],
+    "privacy_scan": {
+      "api_key_or_authorization_saved": false,
+      "absolute_paths_saved": false,
+      "customer_id_values_exported": false,
+      "raw_rows_exported": false
+    },
+    "new_authorization_required": true,
+    "conclusion": "V2数值最终化边界有效，但H3整体未通过；必须先重新设计工具计划与语义支持校验，再由用户确认变更。"
+  },
+  "official_sources": [
+    "https://api-docs.deepseek.com/guides/json_mode/",
+    "https://api-docs.deepseek.com/guides/tool_calls/"
+  ],
+  "change_control": {
+    "freeze_requires": [
+      "用户确认V2职责边界",
+      "用户接受分析题新增一次决策响应",
+      "用户接受标准端点JSON Output与beta端点strict工具调用的双端点方案"
+    ],
+    "post_freeze_next_step": "真实验证已完成；不得自动重试",
+    "current_checkpoint": "等待用户决定是否重新打开工具计划与语义支持校验边界"
+  }
+}

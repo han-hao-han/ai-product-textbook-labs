@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.5.6-h3-q02-terminal-revision-implementation-contract-v1",
+  "status": "offline_implementation_full_regression_and_concentrated_audit_completed",
+  "implemented_on": "2026-08-03",
+  "frozen_design": "config/h3_q02_terminal_capacity_truncation_transport_audit_revision_design.candidate.json",
+  "authorization": {
+    "status": "authorized_by_user_and_consumed_by_completed_offline_stage",
+    "ordinary_offline_steps_required_additional_confirmation": false,
+    "implementation_allowed": false,
+    "real_model_calls_allowed": false,
+    "h2_changes_allowed": false,
+    "prompt_changes_allowed": false,
+    "tool_report_fact_chart_schema_changes_allowed": false,
+    "acceptance_root_rule_changes_allowed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resume_allowed": false
+  },
+  "implemented_boundaries": {
+    "terminal_capacity": {
+      "nonterminal_tool_selection_max_tokens": 4096,
+      "report_terminal_max_tokens": 8192,
+      "clarification_or_boundary_terminal_max_tokens": 4096,
+      "selection_is_stage_based": true,
+      "unbounded_output_allowed": false
+    },
+    "truncation_detection": {
+      "checked_before_terminal_json_parse": true,
+      "finish_reason": "length",
+      "primary_stop_stage": "model_response",
+      "primary_stop_code": "terminal_output_truncated",
+      "partial_json_repair_allowed": false,
+      "automatic_retry_count": 0
+    },
+    "harness_short_circuit": {
+      "tool_reference_answer_remains_independent": true,
+      "not_evaluated_status": "not_evaluated_due_to_terminal_output_truncation",
+      "dimensions": ["report_traceability", "report_completeness", "chart_acceptance"],
+      "chart_count_cascade_suppressed": true,
+      "not_evaluated_is_not_passed": true
+    },
+    "transport_audit": {
+      "execution_mode_source": "ValidatedBatchAExecutionAuthority.mode",
+      "counter_source": "BatchACrashSafeJournal.run_state",
+      "counter_fields": ["attempted", "http_responses_received", "parsed_responses", "failed_attempts"],
+      "api_key_value_saved": false,
+      "api_key_source_saved": false,
+      "request_headers_saved": false,
+      "request_body_saved": false
+    }
+  },
+  "implementation_files": {
+    "src/deepseek_client.py": "7b3ede37c9d5edcbe0e9415daa320c0dbc53839a2820e03cbfd7ae98b3943049",
+    "src/online_native_tool_candidate_v2_1_revision.py": "bc6b6aef3aecb3b4822eab90dd25d5a17dd318b1cc5352fc1bf4368181c2f87b",
+    "src/native_tool_agent_v2_1_revision.py": "45388bb6f13909bc2fcd382ae135065c103a3e1782ed500e4c91f3708b18a6c2",
+    "src/native_tool_transport_mock_v2_1_revision.py": "09493df4e8c4d211918f2ea8b5cceaa01d8745ff3e1abf60d5bd6d519cb299e8",
+    "src/fixed_question_validation.py": "d9bbcd6c937549daa2c0bc8d21385b4d648e836d0c0c42703754163b142bfb5c",
+    "src/q01_q10_batch_a_safe_runner.py": "6944f614dd26f50ee3d68b81c322e493f7148a125af0d5e654d0ead2a489e7b3"
+  },
+  "frozen_sources": {
+    "config/h2_validation_questions.json": "8f00953c1e4b6429d9a4c4ae240b430093deb3e8f75d6a4d9c35789e97d0ffcf",
+    "data/raw/h2_reference_answers.json": "d39eee93d841ff8a5f5c5d7943f82a622b338bf2e768dd571b2dd1ec6dda24e2",
+    "prompts/native_tool_report_evidence_guard_v1.md": "38a2bb6c94f718f2a93a3aa09e92570a5cd777117e0dd2fba39ca95780f72d1e",
+    "src/tool_schemas.py": "758ba49675c2d34df7487797e59b654543e36417aa5390844625222ac6b68766",
+    "src/report_validation.py": "ade86a2a37d3fcf7f747da44bc5af4e10dd12ab461a390b33368a56b088a5332",
+    "src/fact_schema.py": "e42f305c10beb6c13f183cc2ad1d80dabb8e5cf2db79e279507eeea6766e07cb"
+  },
+  "offline_evidence": {
+    "saved_q02_regression": {
+      "run_id": "q02_terminal_revision_implementation_20260803T231953_435514+0800",
+      "path": "results/raw/q02_terminal_revision_implementation_20260803T231953_435514+0800/summary.json"
+    },
+    "q01_q10_native_mock": {
+      "run_id": "native_tool_mock_v2_1_revision_20260803T232012_380903+0800",
+      "path": "results/raw/native_tool_mock_v2_1_revision_20260803T232012_380903+0800/summary.json"
+    },
+    "q01_q10_native_transport": {
+      "run_id": "native_tool_transport_v2_1_revision_20260803T232055_120195+0800",
+      "path": "results/raw/native_tool_transport_v2_1_revision_20260803T232055_120195+0800/summary.json"
+    },
+    "q01_q10_acceptance_harness": {
+      "run_id": "acceptance_harness_six_boundary_implementation_20260803T232020_296371+0800",
+      "path": "results/raw/acceptance_harness_six_boundary_implementation_20260803T232020_296371+0800/summary.json"
+    },
+    "batch_a_safe_runner": {
+      "run_id": "q01_q10_batch_a_safe_runner_offline_20260803T232023_871172+0800",
+      "path": "results/raw/q01_q10_batch_a_safe_runner_offline_20260803T232023_871172+0800/summary.json"
+    }
+  },
+  "test_results": {
+    "runtime_targeted": "39_passed_9_subtests_passed",
+    "saved_response_targeted": "6_passed",
+    "full": "334_passed_63_subtests_passed"
+  },
+  "concentrated_audit": {
+    "status": "passed",
+    "run_id": "q02_terminal_revision_concentrated_audit_20260803T232704_631082+0800",
+    "evidence_path": "results/raw/q02_terminal_revision_concentrated_audit_20260803T232704_631082+0800/summary.json",
+    "evidence_checks_passed": 6,
+    "negative_probes_passed": 5,
+    "negative_probes_total": 5,
+    "implementation_hashes_match": true,
+    "frozen_hashes_match": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "post_implementation_design_validation": {
+    "status": "passed",
+    "run_id": "q02_terminal_revision_design_20260803T232800_180963+0800",
+    "evidence_path": "results/raw/q02_terminal_revision_design_20260803T232800_180963+0800/summary.json",
+    "frozen_design_implemented_offline": true,
+    "negative_probes_passed": 9,
+    "negative_probes_total": 9
+  },
+  "persistent_exclusions": {
+    "h2_changed": false,
+    "prompt_changed": false,
+    "schema_changed": false,
+    "acceptance_root_rules_changed": false,
+    "saved_provider_response_changed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "next_gate": "离线实施与集中审计已完成；任何真实复验、批次B或V2.2.3恢复仍需单独授权。"
+}

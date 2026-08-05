@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.5.6-h3-q01-q10-acceptance-harness-revision-design-candidate-v1",
+  "status": "frozen_by_user_offline_validated_not_implemented",
+  "created_on": "2026-08-03",
+  "prerequisite": {
+    "audit_status": "findings_accepted_six_boundaries_reopened_offline_design",
+    "audit_contract": "config/h3_q01_q10_acceptance_harness_audit.candidate.json",
+    "audit_run_id": "q01_q10_acceptance_harness_audit_20260803T170816_187635+0800",
+    "v2_2_3_status": "paused_by_user_pending_q01_q10_acceptance_harness_audit",
+    "h2_questions_status": "frozen_by_user"
+  },
+  "scope": {
+    "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "offline_design_only": true,
+    "h2_reference_answers_changed": false,
+    "current_validator_changed": false,
+    "current_fact_schema_or_builder_changed": false,
+    "current_mock_changed": false,
+    "current_prompt_changed": false,
+    "current_model_control_schema_changed": false,
+    "current_orchestrator_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_calls_allowed": false,
+    "api_key_may_be_read": false
+  },
+  "boundary_1_report_completeness": {
+    "status": "reopened_candidate_designed",
+    "applies_to": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07"],
+    "fixed_evaluation_only": true,
+    "required_manifest_source": "冻结H2 reference_answer的全部标量叶子路径，并为每个路径声明FACT、REQUEST或POLICY来源。",
+    "required_leaf_counts": {"Q01": 7, "Q02": 27, "Q03": 23, "Q04": 7, "Q05": 14, "Q06": 20, "Q07": 12},
+    "content_check_uses": [
+      "结构化evidence引用",
+      "被引用FACT的value、metric和dimensions",
+      "被引用REQUEST参数",
+      "被引用POLICY代码"
+    ],
+    "exact_natural_language_sentence_match_required": false,
+    "report_validation_status_alone_is_sufficient": false,
+    "tool_result_matches_reference_answer_alone_is_sufficient": false,
+    "all_required_manifest_items_must_be_covered": true,
+    "missing_item_result": "content_acceptance_failed",
+    "program_may_not_generate_missing_claim": true,
+    "manual_checklist_is_not_auto_completed": true
+  },
+  "boundary_2_provenance": {
+    "status": "reopened_candidate_designed",
+    "source_types": {
+      "FACT": "Pandas工具计算、聚合、排名和范围事实。",
+      "REQUEST": "程序从已校验用户问题或澄清答案中提取的参数，不是模型计算。",
+      "POLICY": "程序冻结的隐私、能力边界和数据限制代码。"
+    },
+    "candidate_request_record": {
+      "id_format": "REQUEST-<三位以上序号>",
+      "required_fields": ["request_id", "session_id", "turn_id", "parameter_name", "value", "source"],
+      "source_literal": "validated_user_input",
+      "model_may_create_or_change": false,
+      "program_may_infer_unstated_business_parameter": false
+    },
+    "candidate_policy_record": {
+      "id_format": "POLICY-<三位以上序号>",
+      "required_fields": ["policy_id", "code", "message"],
+      "model_may_create_or_change": false
+    },
+    "affected_request_questions": ["Q02", "Q03", "Q04", "Q06"],
+    "request_examples": [
+      {"question_id": "Q02", "parameter_name": "top_n", "value": "5"},
+      {"question_id": "Q03", "parameter_name": "top_n", "value": "5"},
+      {"question_id": "Q04", "parameter_name": "excluded_period", "value": "2011-12"},
+      {"question_id": "Q06", "parameter_name": "top_n", "value": "3"}
+    ],
+    "candidate_report_evidence_union": ["FACT", "REQUEST", "POLICY"],
+    "future_schema_change_requires_user_freeze": true,
+    "current_report_schema_changed": false
+  },
+  "boundary_3_rank_semantics": {
+    "status": "reopened_candidate_designed",
+    "selected_route": "rank_only_on_selected_metric_fact",
+    "invariant": "FACT.rank不为空时，该FACT.metric必须等于工具调用的排序metric。",
+    "associated_non_selected_metrics_rank": null,
+    "new_rank_metric_field_required": false,
+    "reason": "销售额FACT自身携带维度和rank已足够证明销售额名次；销量与订单数不应继承销售额名次。",
+    "affected_questions": ["Q02", "Q03", "Q06"],
+    "current_ambiguous_fact_counts": {"Q02": 10, "Q03": 10, "Q06": 6},
+    "historical_records_must_not_be_rewritten": true,
+    "future_runs_regenerate_facts_from_unchanged_tool_results": true,
+    "fact_schema_change_required": false,
+    "fact_builder_change_requires_user_freeze": true
+  },
+  "boundary_4_semantic_rules": {
+    "status": "reopened_candidate_designed",
+    "deterministic_hard_fail": [
+      "统计显著或显著性检验等明确统计断言没有统计FACT",
+      "报告给出客单价数值但同一claim没有average_order_value FACT",
+      "最高、第一等排名断言没有同一metric的rank=1 FACT",
+      "数值、日期和排名没有FACT或REQUEST来源",
+      "模型自行生成新比例、增长率、客单价或其他派生指标",
+      "跨轮FACT、未知FACT或引用字段篡改"
+    ],
+    "human_review_flags": [
+      "普通显著、明显等非统计程度词",
+      "高客单价等缺少冻结阈值的程度分类",
+      "走量型、走量主力等经营分类",
+      "旺季、季节性等解释",
+      "库存、补货、定价、物流等行动建议",
+      "因果或效果暗示"
+    ],
+    "plain_significant_is_not_statistical_hard_fail": true,
+    "product_classification_is_not_deterministic_hard_fail": true,
+    "unsupported_average_order_value_number_remains_hard_fail": true,
+    "human_flags_do_not_change_deterministic_status": true,
+    "human_remains_final_decision_maker": true
+  },
+  "boundary_5_mock_responsibility": {
+    "status": "reopened_candidate_designed",
+    "mock_decision_source": "scripted_by_question_id",
+    "mock_may_claim_real_model_understanding": false,
+    "replace_single_pass_with": [
+      "protocol_mock_status",
+      "dataflow_mock_status",
+      "tool_reference_answer_status",
+      "report_content_acceptance_status",
+      "manual_review_status",
+      "real_model_validation_status"
+    ],
+    "current_generic_mock_report_may_pass_content_acceptance": false,
+    "adversarial_fixtures_required": [
+      "工具结果正确但报告漏字段",
+      "FACT正确但使用错误rank语义",
+      "澄清topics正确但消息为空泛",
+      "拒答状态正确但替代方案错误",
+      "拒答状态正确但文本承诺预测或自动补货"
+    ],
+    "offline_mock_success_label": "protocol_and_dataflow_passed",
+    "real_not_run_label": "current_model_real_status_unknown"
+  },
+  "boundary_6_control_content": {
+    "status": "reopened_candidate_designed",
+    "Q08": {
+      "deterministic": ["无工具调用", "只澄清一次", "topics精确覆盖time_range、metric、comparison_dimension_or_objects"],
+      "manual": ["消息是否清晰地向用户提出三个主题"],
+      "candidate_status": "passed_deterministic_pending_manual_review"
+    },
+    "Q09": {
+      "deterministic": ["无工具调用", "boundary终态", "missing_fields精确为cost和profit", "supported_alternative精确为按销售额或销量进行商品排名", "不生成利润或利润率数值"],
+      "manual": ["拒答说明是否清楚且没有暗示利润原因"],
+      "candidate_status": "passed_deterministic_pending_manual_review"
+    },
+    "Q10": {
+      "deterministic": ["无工具调用", "boundary终态", "候选boundary_codes同时包含forecasting_unsupported和automatic_replenishment_unsupported", "supported_alternative精确为展示历史月度销售趋势并标记2011-12不完整", "不生成预测数值或自动补货动作"],
+      "manual": ["限制说明是否具体且不替用户决策"],
+      "candidate_status": "passed_deterministic_pending_manual_review",
+      "future_control_schema_addition": {"field": "boundary_codes", "enum_values": ["forecasting_unsupported", "automatic_replenishment_unsupported"]}
+    },
+    "future_control_schema_change_requires_user_freeze": true,
+    "current_control_schema_changed": false
+  },
+  "combined_acceptance_state_candidate": {
+    "automatic_dimensions": ["protocol", "dataflow", "tool_reference_answer", "report_traceability", "report_completeness", "control_content"],
+    "manual_dimensions": ["business_interpretation", "recommendation", "clarification_clarity", "boundary_explanation_clarity"],
+    "fully_accepted_requires_all_automatic_pass_and_manual_complete": true,
+    "automatic_pass_with_pending_manual_must_not_be_named_fully_passed": true,
+    "mock_pass_must_not_be_named_real_model_pass": true
+  },
+  "implementation_order_candidate": [
+    "先拆分验收状态命名并补负向测试，不改变业务结果",
+    "修正rank只属于排序metric并回归H2工具结果",
+    "引入REQUEST与POLICY来源候选Schema和报告引用",
+    "实现Q01至Q07固定问题内容完整性manifest",
+    "调整语义硬规则与人工标记分界",
+    "实现Q08至Q10控制内容检查及Q10 boundary_codes"
+  ],
+  "offline_validation": {
+    "run_id": "q01_q10_acceptance_harness_revision_design_20260803T173131_512481+0800",
+    "evidence_path": "results/raw/q01_q10_acceptance_harness_revision_design_20260803T173131_512481+0800/summary.json",
+    "status": "passed",
+    "candidate_result": "design_ready_not_implemented",
+    "manifest_leaf_counts": {"Q01": 7, "Q02": 27, "Q03": 23, "Q04": 7, "Q05": 14, "Q06": 20, "Q07": 12},
+    "current_ambiguous_rank_counts": {"Q02": 10, "Q03": 10, "Q06": 6},
+    "negative_probe_passed": 9,
+    "negative_probe_total": 9,
+    "targeted_test_status": "19_passed_8_subtests_passed",
+    "full_test_status": "247_passed_37_subtests_passed",
+    "source_files_unchanged": true,
+    "implementation_performed": false,
+    "h2_reference_answers_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "authorization": {
+    "candidate_is_not_frozen": false,
+    "design_frozen_by_user": true,
+    "implementation_allowed": false,
+    "h2_reference_answers_may_change": false,
+    "v2_2_3_may_resume": false,
+    "real_model_calls_allowed": false
+  },
+  "user_freeze": {
+    "frozen_on": "2026-08-03",
+    "frozen_boundaries": [
+      "report_completeness",
+      "request_and_policy_provenance",
+      "rank_semantics",
+      "semantic_hard_rule_vs_manual_review",
+      "mock_responsibility_and_status_naming",
+      "clarification_and_refusal_content"
+    ],
+    "freeze_does_not_authorize_implementation": true,
+    "freeze_does_not_authorize_real_model_calls": true,
+    "h2_reference_answers_remain_frozen_unchanged": true,
+    "v2_2_3_remains_paused": true
+  },
+  "next_gate": "等待用户单独授权进入六项修订的离线实施阶段；冻结不授权实现或真实模型调用。",
+  "change_control": "修改来源类型、rank不变量、语义分界、Mock职责、内容验收、控制Schema候选、H2参考答案、V2.2.3状态或真实调用权限，必须重新得到用户确认。"
+}

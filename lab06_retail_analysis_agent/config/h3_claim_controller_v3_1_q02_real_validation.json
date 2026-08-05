@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.5.6-h3-claim-controller-v3-1-q02-real-validation-v1",
+  "status": "passed_deterministic_pending_manual_review",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q02"],
+  "response_attempt_upper_bound": 4,
+  "automatic_transport_retry_count": 0,
+  "authorization": {
+    "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-1-Q02-20260805-01",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "result_run_id": "claim_controller_v3_1_q02_real_20260805T142608_352342+0800",
+  "actual_response_attempts": 3,
+  "semantic_correction_attempts": 0,
+  "passed_question_ids": ["Q02"],
+  "failed_question_ids": [],
+  "real_model_called": true,
+  "v2_2_3_resumed": false
+}

@@ -1,0 +1,3392 @@
+{
+  "schema_version": "1.5.6-h3-session-record-contract-v1",
+  "status": "frozen_by_user",
+  "frozen_on": "2026-07-31",
+  "v2_2_2_additive_extension": {
+    "status": "frozen_by_user_offline_validated",
+    "added_on": "2026-08-03",
+    "run_record_retains_manual_review_flags": true,
+    "existing_run_record_fields_changed": false,
+    "model_control_schema_changed": false
+  },
+  "acceptance_harness_six_boundary_extension": {
+    "status": "frozen_by_user_implemented_offline",
+    "implemented_on": "2026-08-03",
+    "report_validation_adds_request_and_policy_ids": true,
+    "boundary_response_adds_boundary_codes": true,
+    "existing_historical_records_rewritten": false,
+    "h2_reference_answers_changed": false
+  },
+  "multi_turn": {
+    "effective_conditions_schema": {
+      "$defs": {
+        "FilterConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "excluded_country": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excluded Country"
+            }
+          },
+          "required": [
+            "excluded_country"
+          ],
+          "title": "FilterConditions",
+          "type": "object"
+        },
+        "TimeRangeCondition": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          "required": [
+            "mode",
+            "start_date",
+            "end_date"
+          ],
+          "title": "TimeRangeCondition",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "time_range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimeRangeCondition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "metric": {
+          "anyOf": [
+            {
+              "enum": [
+                "sales_amount",
+                "sales_quantity",
+                "order_count",
+                "average_order_value",
+                "customer_count"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Metric"
+        },
+        "analysis_object": {
+          "anyOf": [
+            {
+              "enum": [
+                "sales",
+                "product",
+                "region",
+                "time",
+                "customer",
+                "segments"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Analysis Object"
+        },
+        "comparison_objects": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Comparison Objects"
+        },
+        "filters": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FilterConditions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "top_n": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Top N"
+        }
+      },
+      "required": [
+        "time_range",
+        "metric",
+        "analysis_object",
+        "comparison_objects",
+        "filters",
+        "top_n"
+      ],
+      "title": "EffectiveConditions",
+      "type": "object"
+    },
+    "condition_operation_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "enum": [
+            "time_range",
+            "metric",
+            "analysis_object",
+            "comparison_objects",
+            "filters",
+            "top_n"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "set",
+            "remove"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "field",
+        "operation",
+        "value"
+      ],
+      "title": "ConditionOperation",
+      "type": "object"
+    },
+    "condition_resolution_schema": {
+      "$defs": {
+        "ConditionChange": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "inherited",
+                "added",
+                "modified",
+                "removed"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "previous_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Previous Value"
+            },
+            "current_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Current Value"
+            }
+          },
+          "required": [
+            "field",
+            "status",
+            "previous_value",
+            "current_value"
+          ],
+          "title": "ConditionChange",
+          "type": "object"
+        },
+        "ConditionOperation": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "operation": {
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "title": "Operation",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Value"
+            }
+          },
+          "required": [
+            "field",
+            "operation",
+            "value"
+          ],
+          "title": "ConditionOperation",
+          "type": "object"
+        },
+        "EffectiveConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "time_range": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/TimeRangeCondition"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metric": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales_amount",
+                    "sales_quantity",
+                    "order_count",
+                    "average_order_value",
+                    "customer_count"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Metric"
+            },
+            "analysis_object": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales",
+                    "product",
+                    "region",
+                    "time",
+                    "customer",
+                    "segments"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Analysis Object"
+            },
+            "comparison_objects": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Comparison Objects"
+            },
+            "filters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/FilterConditions"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "top_n": {
+              "anyOf": [
+                {
+                  "maximum": 10,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Top N"
+            }
+          },
+          "required": [
+            "time_range",
+            "metric",
+            "analysis_object",
+            "comparison_objects",
+            "filters",
+            "top_n"
+          ],
+          "title": "EffectiveConditions",
+          "type": "object"
+        },
+        "FilterConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "excluded_country": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excluded Country"
+            }
+          },
+          "required": [
+            "excluded_country"
+          ],
+          "title": "FilterConditions",
+          "type": "object"
+        },
+        "TimeRangeCondition": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          "required": [
+            "mode",
+            "start_date",
+            "end_date"
+          ],
+          "title": "TimeRangeCondition",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-condition-resolution-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "previous": {
+          "$ref": "#/$defs/EffectiveConditions"
+        },
+        "operations": {
+          "items": {
+            "$ref": "#/$defs/ConditionOperation"
+          },
+          "title": "Operations",
+          "type": "array"
+        },
+        "effective": {
+          "$ref": "#/$defs/EffectiveConditions"
+        },
+        "changes": {
+          "items": {
+            "$ref": "#/$defs/ConditionChange"
+          },
+          "title": "Changes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "previous",
+        "operations",
+        "effective",
+        "changes"
+      ],
+      "title": "ConditionResolution",
+      "type": "object"
+    },
+    "change_labels": [
+      "inherited",
+      "added",
+      "modified",
+      "removed"
+    ],
+    "cross_turn_comparison": "当前轮必须重新调用工具，historical_fact_ids_used必须为空",
+    "historical_reports_merged": false,
+    "provider_managed_conversation": false
+  },
+  "run_record": {
+    "tool_call_schema": {
+      "$defs": {
+        "JsonValue": {}
+      },
+      "additionalProperties": false,
+      "properties": {
+        "call_id": {
+          "pattern": "^CALL-\\d{3,}$",
+          "title": "Call Id",
+          "type": "string"
+        },
+        "analysis_target": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Analysis Target",
+          "type": "string"
+        },
+        "reason_summary": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "tool_name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "arguments": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Arguments",
+          "type": "object"
+        },
+        "model_selected": {
+          "title": "Model Selected",
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "succeeded",
+            "failed",
+            "rejected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "result_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result Path"
+        },
+        "error_stage": {
+          "anyOf": [
+            {
+              "enum": [
+                "model_response",
+                "tool_name",
+                "argument_schema",
+                "tool_execution",
+                "fact_generation",
+                "chart_generation",
+                "report_validation"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Stage"
+        },
+        "error_message": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Message"
+        }
+      },
+      "required": [
+        "call_id",
+        "analysis_target",
+        "reason_summary",
+        "tool_name",
+        "arguments",
+        "model_selected",
+        "status",
+        "result_path",
+        "error_stage",
+        "error_message"
+      ],
+      "title": "ToolCallRecord",
+      "type": "object"
+    },
+    "turn_schema": {
+      "$defs": {
+        "AnalysisScope": {
+          "additionalProperties": false,
+          "properties": {
+            "fact_layer": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Fact Layer",
+              "type": "string"
+            },
+            "period": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Period",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "row_count": {
+              "minimum": 0,
+              "title": "Row Count",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "fact_layer",
+            "period",
+            "start_date",
+            "end_date",
+            "row_count"
+          ],
+          "title": "AnalysisScope",
+          "type": "object"
+        },
+        "ChartData": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-chart-data-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "chart_id": {
+              "pattern": "^CHART-\\d{3,}$",
+              "title": "Chart Id",
+              "type": "string"
+            },
+            "session_id": {
+              "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+              "title": "Session Id",
+              "type": "string"
+            },
+            "turn_id": {
+              "pattern": "^TURN-\\d{3,}$",
+              "title": "Turn Id",
+              "type": "string"
+            },
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "chart_type": {
+              "enum": [
+                "monthly_line",
+                "vertical_bar",
+                "top_n_horizontal_bar",
+                "two_segment_share_bar"
+              ],
+              "title": "Chart Type",
+              "type": "string"
+            },
+            "title": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Title",
+              "type": "string"
+            },
+            "metric": {
+              "enum": [
+                "sales_amount",
+                "sales_quantity",
+                "order_count",
+                "average_order_value",
+                "customer_count",
+                "sales_row_coverage",
+                "sales_amount_coverage",
+                "sales_amount_share",
+                "source_rows",
+                "exact_duplicate_rows_after_first",
+                "rows_after_keep_first",
+                "sales_fact_rows",
+                "exception_rows",
+                "known_customer_rows",
+                "record_class_rows",
+                "time_minimum",
+                "time_maximum",
+                "incomplete_period",
+                "peak_period",
+                "top_n"
+              ],
+              "title": "Metric",
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "GBP",
+                "items",
+                "orders",
+                "GBP_per_order",
+                "customers",
+                "ratio",
+                "rows",
+                "ISO-8601_datetime",
+                "calendar_month",
+                "rank_count"
+              ],
+              "title": "Unit",
+              "type": "string"
+            },
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Categories",
+              "type": "array"
+            },
+            "series": {
+              "items": {
+                "$ref": "#/$defs/ChartSeries"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "title": "Series",
+              "type": "array"
+            },
+            "source_tool": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Source Tool",
+              "type": "string"
+            },
+            "source_fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Source Fact Ids",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "chart_id",
+            "session_id",
+            "turn_id",
+            "call_id",
+            "chart_type",
+            "title",
+            "metric",
+            "unit",
+            "categories",
+            "series",
+            "source_tool",
+            "source_fact_ids"
+          ],
+          "title": "ChartData",
+          "type": "object"
+        },
+        "ChartSeries": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Values",
+              "type": "array"
+            },
+            "fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Fact Ids",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "values",
+            "fact_ids"
+          ],
+          "title": "ChartSeries",
+          "type": "object"
+        },
+        "ConditionChange": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "inherited",
+                "added",
+                "modified",
+                "removed"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "previous_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Previous Value"
+            },
+            "current_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Current Value"
+            }
+          },
+          "required": [
+            "field",
+            "status",
+            "previous_value",
+            "current_value"
+          ],
+          "title": "ConditionChange",
+          "type": "object"
+        },
+        "ConditionOperation": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "operation": {
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "title": "Operation",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Value"
+            }
+          },
+          "required": [
+            "field",
+            "operation",
+            "value"
+          ],
+          "title": "ConditionOperation",
+          "type": "object"
+        },
+        "ConditionResolution": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-condition-resolution-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "previous": {
+              "$ref": "#/$defs/EffectiveConditions"
+            },
+            "operations": {
+              "items": {
+                "$ref": "#/$defs/ConditionOperation"
+              },
+              "title": "Operations",
+              "type": "array"
+            },
+            "effective": {
+              "$ref": "#/$defs/EffectiveConditions"
+            },
+            "changes": {
+              "items": {
+                "$ref": "#/$defs/ConditionChange"
+              },
+              "title": "Changes",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "previous",
+            "operations",
+            "effective",
+            "changes"
+          ],
+          "title": "ConditionResolution",
+          "type": "object"
+        },
+        "EffectiveConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "time_range": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/TimeRangeCondition"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metric": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales_amount",
+                    "sales_quantity",
+                    "order_count",
+                    "average_order_value",
+                    "customer_count"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Metric"
+            },
+            "analysis_object": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales",
+                    "product",
+                    "region",
+                    "time",
+                    "customer",
+                    "segments"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Analysis Object"
+            },
+            "comparison_objects": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Comparison Objects"
+            },
+            "filters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/FilterConditions"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "top_n": {
+              "anyOf": [
+                {
+                  "maximum": 10,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Top N"
+            }
+          },
+          "required": [
+            "time_range",
+            "metric",
+            "analysis_object",
+            "comparison_objects",
+            "filters",
+            "top_n"
+          ],
+          "title": "EffectiveConditions",
+          "type": "object"
+        },
+        "FactDimension": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "enum": [
+                "stock_code",
+                "product_name",
+                "country",
+                "month",
+                "segment",
+                "profile_section",
+                "record_class"
+              ],
+              "title": "Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "value"
+          ],
+          "title": "FactDimension",
+          "type": "object"
+        },
+        "FactRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-fact-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "fact_id": {
+              "pattern": "^FACT-\\d{3,}$",
+              "title": "Fact Id",
+              "type": "string"
+            },
+            "session_id": {
+              "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+              "title": "Session Id",
+              "type": "string"
+            },
+            "turn_id": {
+              "pattern": "^TURN-\\d{3,}$",
+              "title": "Turn Id",
+              "type": "string"
+            },
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "fact_type": {
+              "enum": [
+                "metric",
+                "ranked_metric",
+                "coverage",
+                "period_marker",
+                "profile_count",
+                "selection_limit"
+              ],
+              "title": "Fact Type",
+              "type": "string"
+            },
+            "metric": {
+              "enum": [
+                "sales_amount",
+                "sales_quantity",
+                "order_count",
+                "average_order_value",
+                "customer_count",
+                "sales_row_coverage",
+                "sales_amount_coverage",
+                "sales_amount_share",
+                "source_rows",
+                "exact_duplicate_rows_after_first",
+                "rows_after_keep_first",
+                "sales_fact_rows",
+                "exception_rows",
+                "known_customer_rows",
+                "record_class_rows",
+                "time_minimum",
+                "time_maximum",
+                "incomplete_period",
+                "peak_period",
+                "top_n"
+              ],
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "display_value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Display Value",
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "GBP",
+                "items",
+                "orders",
+                "GBP_per_order",
+                "customers",
+                "ratio",
+                "rows",
+                "ISO-8601_datetime",
+                "calendar_month",
+                "rank_count"
+              ],
+              "title": "Unit",
+              "type": "string"
+            },
+            "analysis_scope": {
+              "$ref": "#/$defs/AnalysisScope"
+            },
+            "dimensions": {
+              "items": {
+                "$ref": "#/$defs/FactDimension"
+              },
+              "title": "Dimensions",
+              "type": "array"
+            },
+            "rank": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rank"
+            },
+            "source_tool": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Source Tool",
+              "type": "string"
+            },
+            "source_result_path": {
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Source Result Path",
+              "type": "string"
+            }
+          },
+          "required": [
+            "schema_version",
+            "fact_id",
+            "session_id",
+            "turn_id",
+            "call_id",
+            "fact_type",
+            "metric",
+            "value",
+            "display_value",
+            "unit",
+            "analysis_scope",
+            "dimensions",
+            "rank",
+            "source_tool",
+            "source_result_path"
+          ],
+          "title": "FactRecord",
+          "type": "object"
+        },
+        "FailureRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "failure_id": {
+              "pattern": "^FAIL-\\d{3,}$",
+              "title": "Failure Id",
+              "type": "string"
+            },
+            "call_id": {
+              "anyOf": [
+                {
+                  "pattern": "^CALL-\\d{3,}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Call Id"
+            },
+            "stage": {
+              "enum": [
+                "model_response",
+                "tool_name",
+                "argument_schema",
+                "tool_execution",
+                "fact_generation",
+                "chart_generation",
+                "report_validation",
+                "import_validation",
+                "export_validation"
+              ],
+              "title": "Stage",
+              "type": "string"
+            },
+            "error_type": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Error Type",
+              "type": "string"
+            },
+            "message": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "title": "Message",
+              "type": "string"
+            },
+            "raw_response_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Raw Response Path"
+            }
+          },
+          "required": [
+            "failure_id",
+            "call_id",
+            "stage",
+            "error_type",
+            "message",
+            "raw_response_path"
+          ],
+          "title": "FailureRecord",
+          "type": "object"
+        },
+        "FilterConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "excluded_country": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excluded Country"
+            }
+          },
+          "required": [
+            "excluded_country"
+          ],
+          "title": "FilterConditions",
+          "type": "object"
+        },
+        "JsonValue": {},
+        "ReportIssue": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "location": {
+              "title": "Location",
+              "type": "string"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "location",
+            "message"
+          ],
+          "title": "ReportIssue",
+          "type": "object"
+        },
+        "ReportValidationResult": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-report-validation-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "issues": {
+              "items": {
+                "$ref": "#/$defs/ReportIssue"
+              },
+              "title": "Issues",
+              "type": "array"
+            },
+            "referenced_fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Fact Ids",
+              "type": "array"
+            },
+            "referenced_request_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Request Ids",
+              "type": "array"
+            },
+            "referenced_policy_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Policy Ids",
+              "type": "array"
+            },
+            "deterministic_checks": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Deterministic Checks",
+              "type": "array"
+            },
+            "manual_review_flags": {
+              "items": {
+                "$ref": "#/$defs/ReportIssue"
+              },
+              "title": "Manual Review Flags",
+              "type": "array"
+            },
+            "manual_review_required_sections": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Manual Review Required Sections",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "status",
+            "issues",
+            "referenced_fact_ids",
+            "deterministic_checks",
+            "manual_review_required_sections"
+          ],
+          "title": "ReportValidationResult",
+          "type": "object"
+        },
+        "TimeRangeCondition": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          "required": [
+            "mode",
+            "start_date",
+            "end_date"
+          ],
+          "title": "TimeRangeCondition",
+          "type": "object"
+        },
+        "ToolCallRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "analysis_target": {
+              "maxLength": 300,
+              "minLength": 1,
+              "title": "Analysis Target",
+              "type": "string"
+            },
+            "reason_summary": {
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Reason Summary",
+              "type": "string"
+            },
+            "tool_name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Tool Name",
+              "type": "string"
+            },
+            "arguments": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "title": "Arguments",
+              "type": "object"
+            },
+            "model_selected": {
+              "title": "Model Selected",
+              "type": "boolean"
+            },
+            "status": {
+              "enum": [
+                "succeeded",
+                "failed",
+                "rejected"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "result_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Result Path"
+            },
+            "error_stage": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "model_response",
+                    "tool_name",
+                    "argument_schema",
+                    "tool_execution",
+                    "fact_generation",
+                    "chart_generation",
+                    "report_validation"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Stage"
+            },
+            "error_message": {
+              "anyOf": [
+                {
+                  "maxLength": 1000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Message"
+            }
+          },
+          "required": [
+            "call_id",
+            "analysis_target",
+            "reason_summary",
+            "tool_name",
+            "arguments",
+            "model_selected",
+            "status",
+            "result_path",
+            "error_stage",
+            "error_message"
+          ],
+          "title": "ToolCallRecord",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-turn-run-record-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session_id": {
+          "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "turn_id": {
+          "pattern": "^TURN-\\d{3,}$",
+          "title": "Turn Id",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "execution_mode": {
+          "enum": [
+            "online_agent",
+            "offline_tool_experience",
+            "deterministic_validation"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "original_question": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Original Question",
+          "type": "string"
+        },
+        "clarification_question": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Clarification Question"
+        },
+        "clarification_answer": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Clarification Answer"
+        },
+        "condition_resolution": {
+          "$ref": "#/$defs/ConditionResolution"
+        },
+        "tool_calls": {
+          "items": {
+            "$ref": "#/$defs/ToolCallRecord"
+          },
+          "maxItems": 4,
+          "title": "Tool Calls",
+          "type": "array"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/FactRecord"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "charts": {
+          "items": {
+            "$ref": "#/$defs/ChartData"
+          },
+          "title": "Charts",
+          "type": "array"
+        },
+        "report_markdown": {
+          "anyOf": [
+            {
+              "maxLength": 30000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Report Markdown"
+        },
+        "report_validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportValidationResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/FailureRecord"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "cross_turn_comparison": {
+          "title": "Cross Turn Comparison",
+          "type": "boolean"
+        },
+        "historical_fact_ids_used": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Historical Fact Ids Used",
+          "type": "array"
+        },
+        "raw_model_response_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Raw Model Response Path"
+        },
+        "parsed_tool_calls_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parsed Tool Calls Path"
+        },
+        "real_model_called": {
+          "title": "Real Model Called",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "session_id",
+        "turn_id",
+        "created_at",
+        "execution_mode",
+        "original_question",
+        "clarification_question",
+        "clarification_answer",
+        "condition_resolution",
+        "tool_calls",
+        "facts",
+        "charts",
+        "report_markdown",
+        "report_validation",
+        "failures",
+        "cross_turn_comparison",
+        "historical_fact_ids_used",
+        "raw_model_response_path",
+        "parsed_tool_calls_path",
+        "real_model_called"
+      ],
+      "title": "TurnRunRecord",
+      "type": "object"
+    },
+    "session_schema": {
+      "$defs": {
+        "AnalysisScope": {
+          "additionalProperties": false,
+          "properties": {
+            "fact_layer": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Fact Layer",
+              "type": "string"
+            },
+            "period": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Period",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "row_count": {
+              "minimum": 0,
+              "title": "Row Count",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "fact_layer",
+            "period",
+            "start_date",
+            "end_date",
+            "row_count"
+          ],
+          "title": "AnalysisScope",
+          "type": "object"
+        },
+        "ChartData": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-chart-data-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "chart_id": {
+              "pattern": "^CHART-\\d{3,}$",
+              "title": "Chart Id",
+              "type": "string"
+            },
+            "session_id": {
+              "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+              "title": "Session Id",
+              "type": "string"
+            },
+            "turn_id": {
+              "pattern": "^TURN-\\d{3,}$",
+              "title": "Turn Id",
+              "type": "string"
+            },
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "chart_type": {
+              "enum": [
+                "monthly_line",
+                "vertical_bar",
+                "top_n_horizontal_bar",
+                "two_segment_share_bar"
+              ],
+              "title": "Chart Type",
+              "type": "string"
+            },
+            "title": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Title",
+              "type": "string"
+            },
+            "metric": {
+              "enum": [
+                "sales_amount",
+                "sales_quantity",
+                "order_count",
+                "average_order_value",
+                "customer_count",
+                "sales_row_coverage",
+                "sales_amount_coverage",
+                "sales_amount_share",
+                "source_rows",
+                "exact_duplicate_rows_after_first",
+                "rows_after_keep_first",
+                "sales_fact_rows",
+                "exception_rows",
+                "known_customer_rows",
+                "record_class_rows",
+                "time_minimum",
+                "time_maximum",
+                "incomplete_period",
+                "peak_period",
+                "top_n"
+              ],
+              "title": "Metric",
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "GBP",
+                "items",
+                "orders",
+                "GBP_per_order",
+                "customers",
+                "ratio",
+                "rows",
+                "ISO-8601_datetime",
+                "calendar_month",
+                "rank_count"
+              ],
+              "title": "Unit",
+              "type": "string"
+            },
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Categories",
+              "type": "array"
+            },
+            "series": {
+              "items": {
+                "$ref": "#/$defs/ChartSeries"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "title": "Series",
+              "type": "array"
+            },
+            "source_tool": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Source Tool",
+              "type": "string"
+            },
+            "source_fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Source Fact Ids",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "chart_id",
+            "session_id",
+            "turn_id",
+            "call_id",
+            "chart_type",
+            "title",
+            "metric",
+            "unit",
+            "categories",
+            "series",
+            "source_tool",
+            "source_fact_ids"
+          ],
+          "title": "ChartData",
+          "type": "object"
+        },
+        "ChartSeries": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Values",
+              "type": "array"
+            },
+            "fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Fact Ids",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "values",
+            "fact_ids"
+          ],
+          "title": "ChartSeries",
+          "type": "object"
+        },
+        "ConditionChange": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "inherited",
+                "added",
+                "modified",
+                "removed"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "previous_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Previous Value"
+            },
+            "current_value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Current Value"
+            }
+          },
+          "required": [
+            "field",
+            "status",
+            "previous_value",
+            "current_value"
+          ],
+          "title": "ConditionChange",
+          "type": "object"
+        },
+        "ConditionOperation": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "enum": [
+                "time_range",
+                "metric",
+                "analysis_object",
+                "comparison_objects",
+                "filters",
+                "top_n"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "operation": {
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "title": "Operation",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Value"
+            }
+          },
+          "required": [
+            "field",
+            "operation",
+            "value"
+          ],
+          "title": "ConditionOperation",
+          "type": "object"
+        },
+        "ConditionResolution": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-condition-resolution-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "previous": {
+              "$ref": "#/$defs/EffectiveConditions"
+            },
+            "operations": {
+              "items": {
+                "$ref": "#/$defs/ConditionOperation"
+              },
+              "title": "Operations",
+              "type": "array"
+            },
+            "effective": {
+              "$ref": "#/$defs/EffectiveConditions"
+            },
+            "changes": {
+              "items": {
+                "$ref": "#/$defs/ConditionChange"
+              },
+              "title": "Changes",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "previous",
+            "operations",
+            "effective",
+            "changes"
+          ],
+          "title": "ConditionResolution",
+          "type": "object"
+        },
+        "EffectiveConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "time_range": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/TimeRangeCondition"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metric": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales_amount",
+                    "sales_quantity",
+                    "order_count",
+                    "average_order_value",
+                    "customer_count"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Metric"
+            },
+            "analysis_object": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales",
+                    "product",
+                    "region",
+                    "time",
+                    "customer",
+                    "segments"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Analysis Object"
+            },
+            "comparison_objects": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Comparison Objects"
+            },
+            "filters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/FilterConditions"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "top_n": {
+              "anyOf": [
+                {
+                  "maximum": 10,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Top N"
+            }
+          },
+          "required": [
+            "time_range",
+            "metric",
+            "analysis_object",
+            "comparison_objects",
+            "filters",
+            "top_n"
+          ],
+          "title": "EffectiveConditions",
+          "type": "object"
+        },
+        "FactDimension": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "enum": [
+                "stock_code",
+                "product_name",
+                "country",
+                "month",
+                "segment",
+                "profile_section",
+                "record_class"
+              ],
+              "title": "Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "value"
+          ],
+          "title": "FactDimension",
+          "type": "object"
+        },
+        "FactRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-fact-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "fact_id": {
+              "pattern": "^FACT-\\d{3,}$",
+              "title": "Fact Id",
+              "type": "string"
+            },
+            "session_id": {
+              "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+              "title": "Session Id",
+              "type": "string"
+            },
+            "turn_id": {
+              "pattern": "^TURN-\\d{3,}$",
+              "title": "Turn Id",
+              "type": "string"
+            },
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "fact_type": {
+              "enum": [
+                "metric",
+                "ranked_metric",
+                "coverage",
+                "period_marker",
+                "profile_count",
+                "selection_limit"
+              ],
+              "title": "Fact Type",
+              "type": "string"
+            },
+            "metric": {
+              "enum": [
+                "sales_amount",
+                "sales_quantity",
+                "order_count",
+                "average_order_value",
+                "customer_count",
+                "sales_row_coverage",
+                "sales_amount_coverage",
+                "sales_amount_share",
+                "source_rows",
+                "exact_duplicate_rows_after_first",
+                "rows_after_keep_first",
+                "sales_fact_rows",
+                "exception_rows",
+                "known_customer_rows",
+                "record_class_rows",
+                "time_minimum",
+                "time_maximum",
+                "incomplete_period",
+                "peak_period",
+                "top_n"
+              ],
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "display_value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Display Value",
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "GBP",
+                "items",
+                "orders",
+                "GBP_per_order",
+                "customers",
+                "ratio",
+                "rows",
+                "ISO-8601_datetime",
+                "calendar_month",
+                "rank_count"
+              ],
+              "title": "Unit",
+              "type": "string"
+            },
+            "analysis_scope": {
+              "$ref": "#/$defs/AnalysisScope"
+            },
+            "dimensions": {
+              "items": {
+                "$ref": "#/$defs/FactDimension"
+              },
+              "title": "Dimensions",
+              "type": "array"
+            },
+            "rank": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rank"
+            },
+            "source_tool": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Source Tool",
+              "type": "string"
+            },
+            "source_result_path": {
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Source Result Path",
+              "type": "string"
+            }
+          },
+          "required": [
+            "schema_version",
+            "fact_id",
+            "session_id",
+            "turn_id",
+            "call_id",
+            "fact_type",
+            "metric",
+            "value",
+            "display_value",
+            "unit",
+            "analysis_scope",
+            "dimensions",
+            "rank",
+            "source_tool",
+            "source_result_path"
+          ],
+          "title": "FactRecord",
+          "type": "object"
+        },
+        "FailureRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "failure_id": {
+              "pattern": "^FAIL-\\d{3,}$",
+              "title": "Failure Id",
+              "type": "string"
+            },
+            "call_id": {
+              "anyOf": [
+                {
+                  "pattern": "^CALL-\\d{3,}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Call Id"
+            },
+            "stage": {
+              "enum": [
+                "model_response",
+                "tool_name",
+                "argument_schema",
+                "tool_execution",
+                "fact_generation",
+                "chart_generation",
+                "report_validation",
+                "import_validation",
+                "export_validation"
+              ],
+              "title": "Stage",
+              "type": "string"
+            },
+            "error_type": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Error Type",
+              "type": "string"
+            },
+            "message": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "title": "Message",
+              "type": "string"
+            },
+            "raw_response_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Raw Response Path"
+            }
+          },
+          "required": [
+            "failure_id",
+            "call_id",
+            "stage",
+            "error_type",
+            "message",
+            "raw_response_path"
+          ],
+          "title": "FailureRecord",
+          "type": "object"
+        },
+        "FilterConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "excluded_country": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excluded Country"
+            }
+          },
+          "required": [
+            "excluded_country"
+          ],
+          "title": "FilterConditions",
+          "type": "object"
+        },
+        "JsonValue": {},
+        "ReportIssue": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "location": {
+              "title": "Location",
+              "type": "string"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "location",
+            "message"
+          ],
+          "title": "ReportIssue",
+          "type": "object"
+        },
+        "ReportValidationResult": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-report-validation-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "issues": {
+              "items": {
+                "$ref": "#/$defs/ReportIssue"
+              },
+              "title": "Issues",
+              "type": "array"
+            },
+            "referenced_fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Fact Ids",
+              "type": "array"
+            },
+            "referenced_request_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Request Ids",
+              "type": "array"
+            },
+            "referenced_policy_ids": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Referenced Policy Ids",
+              "type": "array"
+            },
+            "deterministic_checks": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Deterministic Checks",
+              "type": "array"
+            },
+            "manual_review_flags": {
+              "items": {
+                "$ref": "#/$defs/ReportIssue"
+              },
+              "title": "Manual Review Flags",
+              "type": "array"
+            },
+            "manual_review_required_sections": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Manual Review Required Sections",
+              "type": "array"
+            }
+          },
+          "required": [
+            "schema_version",
+            "status",
+            "issues",
+            "referenced_fact_ids",
+            "deterministic_checks",
+            "manual_review_required_sections"
+          ],
+          "title": "ReportValidationResult",
+          "type": "object"
+        },
+        "TimeRangeCondition": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          "required": [
+            "mode",
+            "start_date",
+            "end_date"
+          ],
+          "title": "TimeRangeCondition",
+          "type": "object"
+        },
+        "ToolCallRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "call_id": {
+              "pattern": "^CALL-\\d{3,}$",
+              "title": "Call Id",
+              "type": "string"
+            },
+            "analysis_target": {
+              "maxLength": 300,
+              "minLength": 1,
+              "title": "Analysis Target",
+              "type": "string"
+            },
+            "reason_summary": {
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Reason Summary",
+              "type": "string"
+            },
+            "tool_name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Tool Name",
+              "type": "string"
+            },
+            "arguments": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "title": "Arguments",
+              "type": "object"
+            },
+            "model_selected": {
+              "title": "Model Selected",
+              "type": "boolean"
+            },
+            "status": {
+              "enum": [
+                "succeeded",
+                "failed",
+                "rejected"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "result_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Result Path"
+            },
+            "error_stage": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "model_response",
+                    "tool_name",
+                    "argument_schema",
+                    "tool_execution",
+                    "fact_generation",
+                    "chart_generation",
+                    "report_validation"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Stage"
+            },
+            "error_message": {
+              "anyOf": [
+                {
+                  "maxLength": 1000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Message"
+            }
+          },
+          "required": [
+            "call_id",
+            "analysis_target",
+            "reason_summary",
+            "tool_name",
+            "arguments",
+            "model_selected",
+            "status",
+            "result_path",
+            "error_stage",
+            "error_message"
+          ],
+          "title": "ToolCallRecord",
+          "type": "object"
+        },
+        "TurnRunRecord": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.5.6-h3-turn-run-record-v1",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "session_id": {
+              "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+              "title": "Session Id",
+              "type": "string"
+            },
+            "turn_id": {
+              "pattern": "^TURN-\\d{3,}$",
+              "title": "Turn Id",
+              "type": "string"
+            },
+            "created_at": {
+              "title": "Created At",
+              "type": "string"
+            },
+            "execution_mode": {
+              "enum": [
+                "online_agent",
+                "offline_tool_experience",
+                "deterministic_validation"
+              ],
+              "title": "Execution Mode",
+              "type": "string"
+            },
+            "original_question": {
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Original Question",
+              "type": "string"
+            },
+            "clarification_question": {
+              "anyOf": [
+                {
+                  "maxLength": 1000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Clarification Question"
+            },
+            "clarification_answer": {
+              "anyOf": [
+                {
+                  "maxLength": 1000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Clarification Answer"
+            },
+            "condition_resolution": {
+              "$ref": "#/$defs/ConditionResolution"
+            },
+            "tool_calls": {
+              "items": {
+                "$ref": "#/$defs/ToolCallRecord"
+              },
+              "maxItems": 4,
+              "title": "Tool Calls",
+              "type": "array"
+            },
+            "facts": {
+              "items": {
+                "$ref": "#/$defs/FactRecord"
+              },
+              "title": "Facts",
+              "type": "array"
+            },
+            "charts": {
+              "items": {
+                "$ref": "#/$defs/ChartData"
+              },
+              "title": "Charts",
+              "type": "array"
+            },
+            "report_markdown": {
+              "anyOf": [
+                {
+                  "maxLength": 30000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Report Markdown"
+            },
+            "report_validation": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ReportValidationResult"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "failures": {
+              "items": {
+                "$ref": "#/$defs/FailureRecord"
+              },
+              "title": "Failures",
+              "type": "array"
+            },
+            "cross_turn_comparison": {
+              "title": "Cross Turn Comparison",
+              "type": "boolean"
+            },
+            "historical_fact_ids_used": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Historical Fact Ids Used",
+              "type": "array"
+            },
+            "raw_model_response_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Raw Model Response Path"
+            },
+            "parsed_tool_calls_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Parsed Tool Calls Path"
+            },
+            "real_model_called": {
+              "title": "Real Model Called",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "schema_version",
+            "session_id",
+            "turn_id",
+            "created_at",
+            "execution_mode",
+            "original_question",
+            "clarification_question",
+            "clarification_answer",
+            "condition_resolution",
+            "tool_calls",
+            "facts",
+            "charts",
+            "report_markdown",
+            "report_validation",
+            "failures",
+            "cross_turn_comparison",
+            "historical_fact_ids_used",
+            "raw_model_response_path",
+            "parsed_tool_calls_path",
+            "real_model_called"
+          ],
+          "title": "TurnRunRecord",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-session-run-record-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session_id": {
+          "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "execution_mode": {
+          "enum": [
+            "online_agent",
+            "offline_tool_experience",
+            "deterministic_validation"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        },
+        "dataset_name": {
+          "const": "UCI Online Retail",
+          "title": "Dataset Name",
+          "type": "string"
+        },
+        "dataset_id": {
+          "const": 352,
+          "title": "Dataset Id",
+          "type": "integer"
+        },
+        "workbook_sha256": {
+          "const": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d",
+          "title": "Workbook Sha256",
+          "type": "string"
+        },
+        "metric_contract_version": {
+          "const": "1.5.6-h2-metric-contract-v1",
+          "title": "Metric Contract Version",
+          "type": "string"
+        },
+        "model_provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model Provider"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model Id"
+        },
+        "real_model_called": {
+          "title": "Real Model Called",
+          "type": "boolean"
+        },
+        "turns": {
+          "items": {
+            "$ref": "#/$defs/TurnRunRecord"
+          },
+          "minItems": 1,
+          "title": "Turns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "session_id",
+        "execution_mode",
+        "created_at",
+        "updated_at",
+        "dataset_name",
+        "dataset_id",
+        "workbook_sha256",
+        "metric_contract_version",
+        "model_provider",
+        "model_id",
+        "real_model_called",
+        "turns"
+      ],
+      "title": "SessionRunRecord",
+      "type": "object"
+    },
+    "maximum_tool_calls_per_turn": 4,
+    "per_turn_is_independent": true,
+    "failed_stage_is_retained": true,
+    "raw_response_body_embedded": false,
+    "raw_response_relative_path_may_be_retained": true
+  },
+  "offline_mode": {
+    "policy": {
+      "mode": "offline_tool_experience",
+      "user_visible_label": "工具层体验",
+      "allowed": [
+        "view_data_profile",
+        "view_metric_contract",
+        "run_manual_whitelist_tool",
+        "view_structured_results",
+        "view_facts_and_charts",
+        "view_reference_answers",
+        "import_run_record"
+      ],
+      "disabled": [
+        "natural_language_understanding",
+        "model_tool_selection",
+        "autonomous_multi_tool_calls",
+        "multi_turn_conversation",
+        "ai_business_report"
+      ],
+      "may_claim_agent_behavior": false
+    },
+    "allowed": [
+      "view_data_profile",
+      "view_metric_contract",
+      "run_manual_whitelist_tool",
+      "view_structured_results",
+      "view_facts_and_charts",
+      "view_reference_answers",
+      "import_run_record"
+    ],
+    "disabled": [
+      "natural_language_understanding",
+      "model_tool_selection",
+      "autonomous_multi_tool_calls",
+      "multi_turn_conversation",
+      "ai_business_report"
+    ],
+    "must_not_claim_agent_behavior": true
+  },
+  "export_and_import": {
+    "filenames": [
+      "run_record.json",
+      "business_report.md",
+      "facts.csv",
+      "chart_data.json"
+    ],
+    "file_count": 4,
+    "overwrite_existing_files": false,
+    "import_is_view_only": true,
+    "security_checks": [
+      "禁止API Key和Authorization",
+      "禁止原始CustomerID字段",
+      "禁止绝对路径",
+      "禁止原始数据行",
+      "Pydantic Schema重新校验"
+    ]
+  },
+  "change_control": "用户冻结后，修改条件字段、变更标签、运行记录字段、离线能力或导出文件必须重新确认。"
+}

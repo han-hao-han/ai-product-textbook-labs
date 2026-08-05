@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v8-candidate-v1",
+  "status": "full_real_batch_completed_with_failures_superseded_by_v9",
+  "created_on": "2026-08-04",
+  "tool_argument_guard": "prompts/native_tool_argument_json_guard_v7.md",
+  "terminal_summary_instruction": "prompts/native_tool_terminal_summary_coverage_v8.md",
+  "terminal_summary_instruction_sha256": "AA9635A999CBB879F577D9D27C41C88C45F9C116ACD1159C4525F8316341B5DF",
+  "triggering_real_run": "combined_prompt_v7_q04_q07_real_20260804T201041_607788+0800",
+  "boundary": {
+    "incomplete_period_claim_isolated": true,
+    "summary_fact_selection_deterministic": true,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "program_authored_claim_text": false,
+    "model_still_selects_atom_ids": true,
+    "model_still_writes_report": true,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "summary_path": "results/raw/combined_prompt_v8_offline_20260804T201545_718992+0800/summary.json",
+    "real_model_called": false
+  },
+  "q04_real_validation": {
+    "status": "passed_deterministic_pending_manual_review",
+    "run_id": "combined_prompt_v8_q04_real_20260804T201857_384569+0800",
+    "actual_responses": 3,
+    "transport_failures": 0
+  },
+  "full_real_validation": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v8_full_real_20260804T202422_708058+0800",
+    "passed_question_ids": ["Q01", "Q02", "Q03", "Q07", "Q08", "Q09"],
+    "failed_question_ids": ["Q04", "Q05", "Q06", "Q10"],
+    "actual_responses": 27,
+    "transport_failures": 0,
+    "superseded_by": "config/h3_combined_prompt_v9.candidate.json"
+  }
+}

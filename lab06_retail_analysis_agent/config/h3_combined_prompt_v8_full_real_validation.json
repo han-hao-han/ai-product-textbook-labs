@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v8-full-real-validation-v1",
+  "status": "consumed_completed_with_failures",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+  "response_attempt_upper_bound": 27,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 3600,
+  "continue_after_question_failure": true,
+  "authorization": {
+    "authorization_id": "AUTH-COMBINED-V8-Q01-Q10-20260804-01",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "real_model_called": true,
+  "actual_run_id": "combined_prompt_v8_full_real_20260804T202422_708058+0800",
+  "actual_response_attempts": 27,
+  "passed_question_ids": ["Q01", "Q02", "Q03", "Q07", "Q08", "Q09"],
+  "failed_question_ids": ["Q04", "Q05", "Q06", "Q10"],
+  "superseded_by": "config/h3_combined_prompt_v9_four_q_real_validation.json",
+  "v2_2_3_resumed": false
+}

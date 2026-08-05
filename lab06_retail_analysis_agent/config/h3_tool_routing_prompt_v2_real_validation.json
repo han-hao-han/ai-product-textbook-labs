@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.5.6-h3-tool-routing-prompt-v2-real-validation-v1",
+  "status": "consumed_failed_superseded",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q02", "Q01", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+  "response_attempt_upper_bound": 27,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 3600,
+  "q02_must_pass_before_remaining_questions": true,
+  "failure_immediately_stops": true,
+  "authorization": {
+    "authorization_id": "AUTH-TOOL-ROUTING-V2-Q01-Q10-20260804-01",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "real_model_called": true,
+  "actual_run_id": "tool_routing_prompt_v2_real_20260804T185814_034236+0800",
+  "actual_response_attempts": 6,
+  "failed_question_id": "Q01",
+  "root_failure_code": "derived_metric_fact_missing",
+  "superseded_by": "config/h3_combined_prompt_v3_real_validation.json",
+  "v2_2_3_resumed": false
+}

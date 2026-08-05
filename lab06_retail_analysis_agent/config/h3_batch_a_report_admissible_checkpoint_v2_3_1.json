@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.5.6-h3-batch-a-report-admissible-checkpoint-v2.3.1-v1",
+  "status": "consumed_by_failed_stopped_run",
+  "created_on": "2026-08-04",
+  "boundary": {
+    "design": "config/h3_report_admissible_evidence_projection_v2_3_1.candidate.json",
+    "candidate": "src/online_native_tool_candidate_v2_3_1.py",
+    "question_ids_in_order": [
+      "Q02",
+      "Q06",
+      "Q08",
+      "Q09",
+      "Q10"
+    ],
+    "q02_must_pass_before_later_questions": true,
+    "stop_on_first_failure": true,
+    "model": "deepseek-v4-flash",
+    "response_attempt_upper_bound": 8,
+    "expected_success_attempts": {
+      "Q02": 2,
+      "Q06": 3,
+      "Q08": 1,
+      "Q09": 1,
+      "Q10": 1
+    },
+    "automatic_retry_count": 0,
+    "per_request_timeout_seconds": 120,
+    "batch_internal_timeout_seconds": 1080,
+    "external_process_timeout_seconds": 1200
+  },
+  "authorization": {
+    "authorization_id": "batch-a-report-admissible-v2-3-1-20260804-a1",
+    "authorized_by_user_current_turn": true,
+    "authorization_note": "User authorized one concentrated real checkpoint: Q02 first, then Q06/Q08/Q09/Q10 only after Q02 passes.",
+    "single_execution_only": true,
+    "consumed": true,
+    "real_model_calls_allowed": false,
+    "authorizes_batch_b": false,
+    "v2_2_3_resume_authorized": false,
+    "consumed_at": "2026-08-04T13:11:20.352584+08:00",
+    "consumed_run_id": "batch_a_report_admissible_v2_3_1_20260804T131120_351077+0800"
+  },
+  "offline_prerequisites": {
+    "report_admissible_validation_status": "passed",
+    "question_count": 10,
+    "mock_response_count": 20,
+    "full_test_status": "347_passed_83_subtests_passed",
+    "real_model_called": false
+  },
+  "scope_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "prompt_changed": false,
+    "seven_tool_schema_changed": false,
+    "fact_or_report_schema_changed": false,
+    "acceptance_root_rules_changed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "real_validation": {
+    "run_id": "batch_a_report_admissible_v2_3_1_20260804T131120_351077+0800",
+    "summary_path": "results/raw/batch_a_report_admissible_v2_3_1_20260804T131120_351077+0800/summary.json",
+    "status": "failed_stopped",
+    "automatic_retry_performed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  }
+}

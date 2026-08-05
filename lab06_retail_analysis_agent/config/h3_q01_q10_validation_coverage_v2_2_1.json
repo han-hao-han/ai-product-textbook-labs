@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.5.6-h3-q01-q10-validation-coverage-v2.2.1-v1",
+  "created_on": "2026-08-03",
+  "conclusion": "Q01-Q10离线Mock与离线传输均通过，但不能据此断言其余案例没有真实模型问题。",
+  "shared_offline_evidence": {
+    "native_mock_run_id": "native_tool_mock_v2_1_revision_20260731T200116_491980+0800",
+    "native_mock_passed": 10,
+    "native_mock_total": 10,
+    "offline_transport_run_id": "native_tool_transport_v2_1_revision_20260731T200119_772011+0800",
+    "offline_transport_passed": 10,
+    "offline_transport_total": 10,
+    "real_model_called": false
+  },
+  "real_evidence_scope_note": "历史V2编排器结果不等于当前独立原生工具主线与deepseek-v4-flash组合已验证。",
+  "questions": [
+    {"question_id":"Q01","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q02","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q03","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q04","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q05","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q06","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"failed","terminal_json_real_status":"passed","known_issue":"report_numeric_trace_and_manual_semantic_overreach","evidence_run_id":"q06_v2_2_1_flash_real_revalidation_20260803T153719_794668+0800","conclusion":"终态JSON已真实通过，报告确定性追溯与人工语义边界失败"},
+    {"question_id":"Q07","terminal_type":"report","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"},
+    {"question_id":"Q08","terminal_type":"clarification","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","historical_v2_pro_real":"passed_once","historical_run_id":"agent_v2_online_20260731T144944_474379+0800","known_issue":"historical_success_not_current_mainline_evidence","conclusion":"当前主线真实状态未知"},
+    {"question_id":"Q09","terminal_type":"boundary","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","historical_v2_pro_real":"passed_once_after_earlier_invalid_json","historical_pass_run_id":"agent_v2_online_20260731T144944_474379+0800","historical_failure_run_id":"agent_online_20260731T134737_394748+0800","known_issue":"historical_invalid_json","conclusion":"存在真实序列化风险，当前主线未验证"},
+    {"question_id":"Q10","terminal_type":"boundary","offline_mock":"passed","offline_transport":"passed","current_native_flash_real":"not_run","known_issue":"none_observed_offline","conclusion":"真实状态未知"}
+  ],
+  "risk_groups": {
+    "report_terminal_json": ["Q01","Q02","Q03","Q04","Q05","Q06","Q07"],
+    "zero_tool_control_json": ["Q08","Q09","Q10"],
+    "known_real_json_failure": ["Q09"],
+    "known_real_report_validation_failure": ["Q06"]
+  },
+  "authorization": {
+    "real_model_calls_allowed": false,
+    "coverage_matrix_does_not_authorize_calls": true
+  }
+}

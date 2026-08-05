@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.5.6-h3-q06-report-terminal-boundary-v2.2-candidate-v1",
+  "status": "frozen_by_user_pending_separate_real_authorization",
+  "created_on": "2026-07-31",
+  "scope": {
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-flash",
+    "prompt_changed": false,
+    "provider_schema_changed": false,
+    "data_changed": false,
+    "acceptance_rules_changed": false,
+    "seven_tool_whitelist_changed": false,
+    "h2_metrics_changed": false
+  },
+  "observed_evidence": {
+    "pro_run_id": "q06_real_revalidation_20260731T205826_757539+0800",
+    "flash_run_id": "q06_flash_comparison_20260731T212358_465050+0800",
+    "both_first_two_tool_calls_passed": true,
+    "both_third_responses_selected_get_data_profile": true,
+    "extra_tool_executed": false,
+    "root_cause": "terminal response still exposed seven tools with tool_choice=auto while the prompt required a no-tool report"
+  },
+  "redesigned_protocol": {
+    "response_1": {
+      "tool_visibility": 7,
+      "tool_choice": "auto",
+      "model_responsibility": "select analyze_time_trend and generate arguments"
+    },
+    "response_2": {
+      "tool_visibility": 7,
+      "tool_choice": "auto",
+      "model_responsibility": "read peak_period FACT, select rank_products and generate dates"
+    },
+    "terminal_trigger": {
+      "question_id": "Q06",
+      "executed_tool_sequence": ["analyze_time_trend", "rank_products"],
+      "required_tool_result_message_count": 2,
+      "program_may_synthesize_tool_or_arguments": false
+    },
+    "response_3": {
+      "tool_visibility": 7,
+      "tool_choice": "none",
+      "response_format_added": false,
+      "model_responsibility": "organize the FACT-grounded report and chart requests",
+      "program_responsibility": "validate report FACTs and build charts from the two executed calls"
+    }
+  },
+  "mainline_compatibility": {
+    "model_selects_business_tools": true,
+    "model_generates_business_tool_arguments": true,
+    "pandas_performs_all_business_calculation": true,
+    "program_controls_tool_permission_state": true,
+    "program_preselects_business_tool": false,
+    "program_generates_report_numbers": false,
+    "model_organizes_report": true,
+    "program_validates_fact_trace": true
+  },
+  "official_provider_support": {
+    "source": "https://api-docs.deepseek.com/api/create-chat-completion/",
+    "tool_choice_none_supported": true,
+    "meaning": "the model will not call any tool and instead generates a message"
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "q06_report_terminal_boundary_offline_20260731T214924_513143+0800",
+    "evidence_path": "results/raw/q06_report_terminal_boundary_offline_20260731T214924_513143+0800",
+    "legacy_auto_case_required": true,
+    "terminal_none_case_required": true,
+    "legacy_auto_case_status": "failed_extra_get_data_profile_reproduced",
+    "terminal_none_case_status": "completed_fixed_validation_and_report_passed",
+    "legacy_tool_choices": ["auto", "auto", "auto"],
+    "redesigned_tool_choices": ["auto", "auto", "none"],
+    "redesigned_chart_count": 2,
+    "redesigned_report_validation_status": "passed",
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false
+  },
+  "authorization": {
+    "real_model_calls_allowed": false,
+    "new_exact_user_authorization_required": true,
+    "prior_flash_authorization_reusable": false
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-07-31",
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-flash",
+    "tool_choice_sequence": ["auto", "auto", "none"],
+    "tool_visibility_each_response": 7,
+    "freeze_does_not_authorize_real_calls": true,
+    "prompt_schema_data_acceptance_unchanged": true
+  },
+  "change_control": "修改Q06终态触发条件、终态tool_choice、七工具可见性、Prompt、Schema、数据、验收规则或真实调用权限，必须重新得到用户确认。"
+}

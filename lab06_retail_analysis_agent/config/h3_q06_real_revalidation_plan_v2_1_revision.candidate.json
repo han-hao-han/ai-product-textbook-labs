@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.5.6-h3-q06-real-revalidation-plan-v2.1-revision-v1",
+  "status": "frozen_real_revalidation_failed_after_three_responses_extra_tool_call_pending_user_decision",
+  "created_on": "2026-07-31",
+  "trigger": {
+    "failed_run_id": "native_tool_real_validation_20260731T191804_743244+0800",
+    "failed_question_id": "Q06",
+    "observed_failure": "模型正确选择analyze_time_trend，但输出字符串null和monthly；程序在工具执行前拒绝。",
+    "remediation_contract": "config/h3_deepseek_provider_schema_adapter_v2_1_revision.json",
+    "remediation_status_required": "frozen_by_user"
+  },
+  "objective": {
+    "primary": "用单题Q06验证冻结的DeepSeek提供方Schema适配是否支持完整的原生两工具FACT依赖链和可追溯报告。",
+    "must_observe": [
+      "第一响应原始参数逐字使用__NONE__和month",
+      "第一响应规范化参数把两个__NONE__显式转换为内部None",
+      "第二响应读取第一工具peak_period FACT后生成2011-11完整月日期",
+      "第三响应基于两个CALL的FACT生成并通过程序最终化的报告"
+    ],
+    "not_claimed": [
+      "不复验Q08或Q09",
+      "不重新验证H2清洗与指标计算",
+      "不把单题一次成功推广为DeepSeek V4 Pro普遍稳定",
+      "不因程序规范化成功而忽略模型原始参数是否符合提供方Schema",
+      "不自动冻结H3或通过人工验收"
+    ]
+  },
+  "model_protocol": {
+    "provider": "DeepSeek",
+    "requested_model": "deepseek-v4-pro",
+    "accepted_response_models": ["deepseek-v4-pro"],
+    "endpoint": "https://api.deepseek.com/beta/chat/completions",
+    "api_protocol": "OpenAI-compatible Chat Completions native tool_calls",
+    "tool_choice": "auto",
+    "tool_visibility_per_response": 7,
+    "thinking": {"type": "disabled"},
+    "temperature": 0,
+    "stream": false,
+    "standard_json_gate_allowed": false,
+    "recipe_router_allowed": false
+  },
+  "case_gate": {
+    "question_ids": ["Q06"],
+    "expected_terminal_status": "completed",
+    "expected_response_attempts": 3,
+    "expected_tool_sequence": ["analyze_time_trend", "rank_products"],
+    "response_gates": [
+      {
+        "response_index": 1,
+        "expected_action": "tool_call",
+        "expected_tool": "analyze_time_trend",
+        "required_provider_arguments": {
+          "period": "complete_months_only",
+          "start_date": "__NONE__",
+          "end_date": "__NONE__",
+          "grain": "month",
+          "metric": "sales_amount",
+          "exclude_incomplete_periods": true
+        },
+        "required_normalized_arguments": {
+          "period": "complete_months_only",
+          "start_date": null,
+          "end_date": null,
+          "grain": "month",
+          "metric": "sales_amount",
+          "exclude_incomplete_periods": true
+        }
+      },
+      {
+        "response_index": 2,
+        "expected_action": "tool_call",
+        "expected_tool": "rank_products",
+        "required_fact_dependency": {
+          "source_tool": "analyze_time_trend",
+          "source_metric": "peak_period",
+          "source_value": "2011-11"
+        },
+        "required_provider_arguments": {
+          "period": "custom",
+          "start_date": "2011-11-01",
+          "end_date": "2011-11-30",
+          "metric": "sales_amount",
+          "top_n": 3
+        }
+      },
+      {
+        "response_index": 3,
+        "expected_action": "control_response",
+        "expected_tool": null,
+        "required_tool_result_messages_seen": 2
+      }
+    ],
+    "program_acceptance": [
+      "三次响应均看到完整七工具",
+      "模型原始参数、规范化参数和执行参数分别可追踪",
+      "两个工具调用均通过白名单、Pydantic和Q06冻结语义校验",
+      "Q06固定答案验证通过",
+      "报告校验通过并引用CALL-001和CALL-002的FACT",
+      "月度趋势图和商品Top3图分别与对应工具数据同源",
+      "三个Provider原始响应、响应model字段、usage和耗时均保存"
+    ],
+    "manual_acceptance": [
+      "报告清楚区分峰值月份事实与该月商品排名",
+      "有限解释没有把描述性峰值写成因果关系",
+      "建议没有声称显著性、利润、预测或自动决策"
+    ]
+  },
+  "hard_limits": {
+    "response_attempt_upper_bound": 3,
+    "reserve_attempt_before_transport": true,
+    "automatic_retry_count": 0,
+    "parallel_requests": false,
+    "stop_on_first_failure": true,
+    "continue_after_transport_error": false,
+    "continue_after_schema_or_semantic_failure": false,
+    "unused_attempt_capacity_reusable": false,
+    "expected_endpoint_counts_if_pass": {
+      "beta_strict_tool": 3,
+      "standard_json": 0,
+      "total": 3
+    }
+  },
+  "authorization": {
+    "real_model_calls_allowed_by_this_plan": false,
+    "api_key_may_be_read_during_design_or_preflight": false,
+    "network_may_be_opened_during_design_or_preflight": false,
+    "separate_user_freeze_required": true,
+    "separate_user_call_authorization_required": true,
+    "future_authorization_must_name_question_ids": ["Q06"],
+    "future_authorization_must_name_model": "deepseek-v4-pro",
+    "future_authorization_must_name_response_attempt_upper_bound": 3,
+    "future_authorization_must_name_automatic_retry_count": 0,
+    "runner_confirmation_constant": "I_AUTHORIZE_Q06_PROVIDER_SCHEMA_REVALIDATION",
+    "prior_five_response_authorization_reusable": false
+  },
+  "failure_and_stop_rules": [
+    "第一响应原始参数不是精确__NONE__和month时立即失败，即使规范化后可执行也不得判为适配验证通过",
+    "任一响应出现HTTP、超时、非法JSON、错误模型名、错误工具、错误参数、Schema或语义失败时立即停止",
+    "响应尝试在进入传输前计数，达到3次后不得继续",
+    "失败后不自动重试，未使用的响应容量不得复用",
+    "失败记录必须保留已收到的Provider原始响应、原始参数、规范化参数和错误阶段",
+    "任何隐私或安全扫描失败立即判为失败"
+  ],
+  "privacy_boundary": {
+    "raw_retail_rows_sent": false,
+    "customer_id_values_sent": false,
+    "api_key_saved": false,
+    "authorization_header_saved": false,
+    "request_body_saved": false,
+    "local_absolute_paths_saved": false,
+    "model_receives": [
+      "Q06冻结问题文本",
+      "完整七工具名称、说明和适配后的strict参数Schema",
+      "当前轮已验证的聚合工具结果与FACT",
+      "最终报告控制Schema"
+    ]
+  },
+  "evidence_to_save_locally": [
+    "运行汇总、实际响应尝试次数和停止原因",
+    "三次或失败前全部Provider原始响应",
+    "每步模型原始参数与规范化参数",
+    "Provider返回model字段、真实usage和逐步耗时",
+    "工具聚合结果、CALL、FACT和图表数据",
+    "报告草稿、校验结果与最终报告",
+    "Q06固定问题验证结果",
+    "人工检查项与隐私安全扫描"
+  ],
+  "stage_acceptance": {
+    "all_program_gates_must_pass": true,
+    "manual_review_required": true,
+    "transport_success_alone_does_not_pass": true,
+    "normalized_arguments_alone_do_not_pass_provider_adapter_gate": true,
+    "single_pass_does_not_establish_general_model_reliability": true,
+    "h3_may_be_frozen_automatically": false,
+    "user_confirmation_required_after_results": true
+  },
+  "implementation_boundary": {
+    "guarded_runner_status": "implemented_and_offline_guard_validated",
+    "guarded_runner": "scripts/run_q06_real_revalidation_v2_1_revision.py",
+    "guarded_runner_test": "tests/test_q06_real_revalidation_runner_v2_1_revision.py",
+    "guarded_runner_offline_validation": "scripts/validate_q06_real_revalidation_runner_v2_1_revision.py",
+    "authorization_checked_before_api_key_read": true,
+    "real_transport_requires_validated_execution_authority": true,
+    "response_attempt_reserved_before_transport": true,
+    "failure_evidence_saved": true,
+    "provider_and_normalized_arguments_saved": true,
+    "real_model_called_during_runner_validation": false,
+    "existing_three_question_runner_must_not_be_reused_without_new_exact_guards": true,
+    "offline_preflight_required_before_user_freeze": true
+  },
+  "runner_offline_validation": {
+    "status": "passed",
+    "run_id": "q06_real_runner_offline_validation_20260731T205311_148965+0800",
+    "local_evidence_path": "results/raw/q06_real_runner_offline_validation_20260731T205311_148965+0800",
+    "authorization_gate_blocked_before_api_key_read": true,
+    "core_real_transport_blocked_without_validated_authority": true,
+    "success_response_attempts": 3,
+    "success_transport_requests": 3,
+    "success_provider_raw_response_count": 3,
+    "success_provider_usage_response_count": 3,
+    "success_evidence_files": ["Q06.json", "summary.json"],
+    "failure_response_attempts": 1,
+    "failure_transport_requests": 1,
+    "failure_provider_raw_response_count": 1,
+    "failure_provider_usage_response_count": 1,
+    "failure_tool_calls_executed": 0,
+    "failure_evidence_files": ["Q06.json", "summary.json"],
+    "privacy_evidence_guard_passed": true,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false,
+    "real_model_calls_allowed": false
+  },
+  "offline_preflight": {
+    "status": "passed",
+    "run_id": "q06_real_revalidation_plan_preflight_20260731T202212_959125+0800",
+    "local_evidence_path": "results/raw/q06_real_revalidation_plan_preflight_20260731T202212_959125+0800",
+    "actual_response_attempts": 3,
+    "actual_beta_requests": 3,
+    "actual_standard_json_requests": 0,
+    "tool_sequence": ["analyze_time_trend", "rank_products"],
+    "fact_count": 15,
+    "chart_count": 2,
+    "fixed_question_validation_status": "passed",
+    "report_validation_status": "passed",
+    "provider_schema_audit": {
+      "tool_count": 7,
+      "null_type_count": 0,
+      "nonnumeric_const_count": 0,
+      "none_sentinel_enum_count": 13,
+      "passed": true
+    },
+    "provider_and_normalized_trace_status": "passed",
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false,
+    "real_model_calls_allowed": false
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-07-31",
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-pro",
+    "response_attempt_upper_bound": 3,
+    "automatic_retry_count": 0,
+    "freeze_does_not_authorize_real_calls": true,
+    "prior_five_response_authorization_reusable": false
+  },
+  "compatible_authorization": {
+    "status": "consumed_by_failed_run",
+    "authorized_on": "2026-07-31",
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-pro",
+    "response_attempt_upper_bound": 3,
+    "automatic_retry_count": 0,
+    "authorization_matches_frozen_plan": true,
+    "prior_five_response_authorization_reused": false,
+    "actual_response_attempts": 3,
+    "unused_attempt_capacity_not_reusable": 0
+  },
+  "real_validation": {
+    "status": "failed_after_three_completed_responses",
+    "run_id": "q06_real_revalidation_20260731T205826_757539+0800",
+    "local_evidence_path": "results/raw/q06_real_revalidation_20260731T205826_757539+0800",
+    "question_ids_executed": ["Q06"],
+    "model": "deepseek-v4-pro",
+    "response_attempt_upper_bound": 3,
+    "actual_response_attempts": 3,
+    "completed_model_responses": 3,
+    "failed_transport_attempts": 0,
+    "automatic_retry_count": 0,
+    "first_provider_schema_arguments_passed": true,
+    "first_selected_tool": "analyze_time_trend",
+    "second_fact_dependency_arguments_passed": true,
+    "second_selected_tool": "rank_products",
+    "third_expected_action": "control_response",
+    "third_observed_action": "tool_call",
+    "third_observed_tool": "get_data_profile",
+    "failure_stage": "model_response_semantic_guard_before_extra_tool_execution",
+    "failure_reason": "Q06 does not allow another tool call",
+    "executed_tool_sequence": ["analyze_time_trend", "rank_products"],
+    "extra_tool_executed": false,
+    "fact_count": 48,
+    "chart_count": 0,
+    "report_generated": false,
+    "fixed_question_validation_status": "failed",
+    "usage": {
+      "prompt_tokens": 32241,
+      "completion_tokens": 341,
+      "total_tokens": 32582,
+      "responses_with_usage": 3
+    },
+    "provider_response_models": [
+      "deepseek-v4-pro",
+      "deepseek-v4-pro",
+      "deepseek-v4-pro"
+    ],
+    "automatic_retry_performed": false,
+    "unused_attempt_capacity_reusable": false,
+    "additional_real_call_authorized": false,
+    "privacy_audit_status": "passed"
+  },
+  "change_control": "修改Q06、模型、三响应上限、零重试、原始__NONE__验收、停止规则或证据要求，必须重新得到用户确认。"
+}

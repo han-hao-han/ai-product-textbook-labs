@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.5.6-h3-deepseek-provider-schema-adapter-v1",
+  "status": "frozen_by_user",
+  "frozen_on": "2026-07-31",
+  "reason": "Q06首次真实调用中，DeepSeek V4 Pro正确选择analyze_time_trend，但对文档未明确支持的字符串const和null类型分别输出monthly和字符串null。",
+  "scope": {
+    "provider": "DeepSeek strict-tools Beta",
+    "applies_only_to": "独立原生工具V2.1修正版的提供方Schema与参数传输边界",
+    "internal_pydantic_schemas_unchanged": true,
+    "seven_tool_whitelist_unchanged": true,
+    "h2_cleaning_and_metrics_unchanged": true,
+    "fact_chart_report_boundaries_unchanged": true,
+    "model_still_selects_tool_and_business_arguments": true
+  },
+  "outbound_schema_transforms": [
+    {
+      "source": "string_or_boolean_const",
+      "target": "single_value_enum",
+      "example": {
+        "before": {"type": "string", "const": "month"},
+        "after": {"type": "string", "enum": ["month"]}
+      }
+    },
+    {
+      "source": "nullable_anyOf_null_branch",
+      "target": "reserved_string_sentinel_branch",
+      "sentinel": "__NONE__"
+    },
+    {
+      "source": "documented_unsupported_length_or_item_keywords",
+      "target": "removed_from_provider_copy_only",
+      "keywords": ["minLength", "maxLength", "minItems", "maxItems"]
+    }
+  ],
+  "inbound_normalization": {
+    "only_allowed_conversion": "exact __NONE__ to internal None on explicitly nullable fields",
+    "must_preserve_provider_arguments_in_trace": true,
+    "must_preserve_normalized_execution_arguments_in_trace": true,
+    "string_null_is_not_converted": true,
+    "monthly_is_not_converted_to_month": true,
+    "unknown_or_extra_arguments_are_not_removed": true
+  },
+  "execution_guards": [
+    "normalized arguments must still pass frozen Pydantic validation",
+    "fixed questions must still pass frozen semantic validation",
+    "invalid arguments stop before Pandas tool execution",
+    "no automatic retry",
+    "no real model call is authorized by this freeze"
+  ],
+  "change_control": "修改哨兵、转换规则、内部Pydantic Schema、七工具白名单或允许的自动修复范围，必须重新得到用户确认。"
+}

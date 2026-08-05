@@ -1,0 +1,467 @@
+{
+  "schema_version": "1.5.6-h2-validation-questions-v1",
+  "status": "frozen_by_user",
+  "frozen_on": "2026-07-30",
+  "metric_contract": "config/h2_metric_contract.json",
+  "reference_answer_source": "data/raw/h2_reference_answers.json",
+  "tool_name_note": "本文件使用能力名称；具体白名单工具名和参数 Schema 待 H3 冻结。",
+  "composition": {
+    "single_tool": 4,
+    "multi_tool": 3,
+    "clarification": 1,
+    "capability_boundary": 2,
+    "total": 10
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "type": "single_tool",
+      "question": "请概括当前固定数据集的正常销售表现：总销售额、销售数量、订单数和客单价分别是多少？同时说明数据时间范围和不完整期间。",
+      "examines": [
+        "销售概览",
+        "统一指标口径",
+        "时间范围与单位披露"
+      ],
+      "necessary_background": "使用全部去重后的正常销售记录；2011-12是不完整期间。",
+      "reference_answer": {
+        "sales_amount_gbp": "10642110.80",
+        "sales_quantity_items": 5572420,
+        "order_count": 19960,
+        "average_order_value_gbp": "533.17",
+        "time_minimum": "2010-12-01T08:26:00",
+        "time_maximum": "2011-12-09T12:50:00",
+        "incomplete_period_warning": "2011-12"
+      },
+      "expected_behavior": "执行一次销售概览分析，引用程序 FACT，并明确销售额单位为GBP。",
+      "allowed_reasonable_calls": [
+        "sales_overview"
+      ],
+      "prohibited_behavior": [
+        "把取消或调整记录并入销售额",
+        "遗漏2011-12不完整提示",
+        "由模型自行计算客单价"
+      ],
+      "manual_checklist": [
+        "四项数值与参考答案一致",
+        "时间范围精确到数据实际边界",
+        "报告引用对应FACT",
+        "没有声称覆盖完整的2011年12月"
+      ]
+    },
+    {
+      "id": "Q02",
+      "type": "single_tool",
+      "question": "按销售额列出全部正常销售中的前5个StockCode，并给出商品显示名称、销售额、销量和订单数。",
+      "examines": [
+        "商品排名",
+        "确定性排序",
+        "StockCode与Description职责"
+      ],
+      "necessary_background": "商品主键使用StockCode；不得临时过滤服务类或特殊StockCode。",
+      "reference_answer": {
+        "metric": "sales_amount_gbp",
+        "top_n": 5,
+        "ranking": [
+          {
+            "stock_code": "DOT",
+            "product_name": "DOTCOM POSTAGE",
+            "sales_quantity_items": 706,
+            "order_count": 706,
+            "sales_amount_gbp": "206248.77"
+          },
+          {
+            "stock_code": "22423",
+            "product_name": "REGENCY CAKESTAND 3 TIER",
+            "sales_quantity_items": 13851,
+            "order_count": 1988,
+            "sales_amount_gbp": "174156.54"
+          },
+          {
+            "stock_code": "23843",
+            "product_name": "PAPER CRAFT , LITTLE BIRDIE",
+            "sales_quantity_items": 80995,
+            "order_count": 1,
+            "sales_amount_gbp": "168469.60"
+          },
+          {
+            "stock_code": "85123A",
+            "product_name": "WHITE HANGING HEART T-LIGHT HOLDER",
+            "sales_quantity_items": 37641,
+            "order_count": 2198,
+            "sales_amount_gbp": "104462.75"
+          },
+          {
+            "stock_code": "47566",
+            "product_name": "PARTY BUNTING",
+            "sales_quantity_items": 18283,
+            "order_count": 1685,
+            "sales_amount_gbp": "99445.23"
+          }
+        ]
+      },
+      "expected_behavior": "执行一次商品排名分析，按销售额降序返回恰好5项。",
+      "allowed_reasonable_calls": [
+        "product_ranking"
+      ],
+      "prohibited_behavior": [
+        "使用Description作为商品主键",
+        "静默删除DOT或23843",
+        "改变排名指标",
+        "返回原始交易明细"
+      ],
+      "manual_checklist": [
+        "DOT位居第一",
+        "前5名顺序和数值精确一致",
+        "销售额单位为GBP",
+        "排名FACT与表格顺序一致"
+      ]
+    },
+    {
+      "id": "Q03",
+      "type": "single_tool",
+      "question": "排除United Kingdom后，按正常销售额列出前5个国家或地区，并给出销售额、销量和订单数。",
+      "examines": [
+        "地区筛选",
+        "地区排名",
+        "排除条件追溯"
+      ],
+      "necessary_background": "Country去除首尾空白；销售口径与总体销售一致。",
+      "reference_answer": {
+        "metric": "sales_amount_gbp",
+        "excluded_country": "United Kingdom",
+        "top_n": 5,
+        "ranking": [
+          {
+            "country": "Netherlands",
+            "sales_quantity_items": 200361,
+            "order_count": 94,
+            "sales_amount_gbp": "285446.34"
+          },
+          {
+            "country": "EIRE",
+            "sales_quantity_items": 147007,
+            "order_count": 288,
+            "sales_amount_gbp": "283140.52"
+          },
+          {
+            "country": "Germany",
+            "sales_quantity_items": 119154,
+            "order_count": 457,
+            "sales_amount_gbp": "228678.40"
+          },
+          {
+            "country": "France",
+            "sales_quantity_items": 112060,
+            "order_count": 392,
+            "sales_amount_gbp": "209625.37"
+          },
+          {
+            "country": "Australia",
+            "sales_quantity_items": 83891,
+            "order_count": 57,
+            "sales_amount_gbp": "138453.81"
+          }
+        ]
+      },
+      "expected_behavior": "执行一次带明确排除条件的地区排名分析。",
+      "allowed_reasonable_calls": [
+        "region_analysis"
+      ],
+      "prohibited_behavior": [
+        "把United Kingdom保留在结果中",
+        "按销量代替销售额排序",
+        "把Country解释为客户国籍"
+      ],
+      "manual_checklist": [
+        "排除条件在调用参数和报告中可见",
+        "前5名顺序和数值一致",
+        "没有超出交易发生国家或地区作因果解释"
+      ]
+    },
+    {
+      "id": "Q04",
+      "type": "single_tool",
+      "question": "排除不完整的2011年12月后，哪个日历月的正常销售额最高？给出该月销售额、销量和订单数。",
+      "examines": [
+        "月度趋势",
+        "不完整期间处理",
+        "峰值识别"
+      ],
+      "necessary_background": "按源数据日历月聚合；2011-12必须排除或显著标记。",
+      "reference_answer": {
+        "metric": "sales_amount_gbp",
+        "excluded_incomplete_period": "2011-12",
+        "peak_complete_month": "2011-11",
+        "peak_month_metrics": {
+          "month": "2011-11",
+          "sales_quantity_items": 751377,
+          "order_count": 2769,
+          "sales_amount_gbp": "1503866.78"
+        }
+      },
+      "expected_behavior": "执行一次月度趋势分析，由程序选择最高完整月份。",
+      "allowed_reasonable_calls": [
+        "time_trend"
+      ],
+      "prohibited_behavior": [
+        "把2011-12当作完整月份",
+        "由模型从图表目测最高月份",
+        "混用取消金额"
+      ],
+      "manual_checklist": [
+        "峰值月份为2011-11",
+        "三项指标精确一致",
+        "图表数据和FACT使用相同月份范围"
+      ]
+    },
+    {
+      "id": "Q05",
+      "type": "multi_tool",
+      "question": "先给出总体正常销售概览，再比较United Kingdom与其他国家或地区合计的销售额、订单数、客单价和销售额占比。",
+      "examines": [
+        "销售概览与地区比较组合",
+        "多结果共同分母",
+        "派生占比"
+      ],
+      "necessary_background": "总体、英国和非英国必须使用同一正常销售口径。",
+      "reference_answer": {
+        "overall": {
+          "sales_amount_gbp": "10642110.80",
+          "sales_quantity_items": 5572420,
+          "order_count": 19960,
+          "average_order_value_gbp": "533.17"
+        },
+        "united_kingdom": {
+          "sales_amount_gbp": "9001744.09",
+          "sales_quantity_items": 4646906,
+          "order_count": 18019,
+          "average_order_value_gbp": "499.57"
+        },
+        "outside_united_kingdom": {
+          "sales_amount_gbp": "1640366.71",
+          "sales_quantity_items": 925514,
+          "order_count": 1941,
+          "average_order_value_gbp": "845.11"
+        },
+        "united_kingdom_sales_amount_share": 0.845861,
+        "outside_united_kingdom_sales_amount_share": 0.154139
+      },
+      "expected_behavior": "完成销售概览和地区分段两类确定性分析，程序计算占比后再组织报告。",
+      "allowed_reasonable_calls": [
+        "sales_overview",
+        "region_analysis_or_segment_comparison"
+      ],
+      "prohibited_behavior": [
+        "模型自行用两个金额计算占比",
+        "总体与分段使用不同清洗口径",
+        "把较高客单价解释为利润更高"
+      ],
+      "manual_checklist": [
+        "至少有总体和地区比较两类调用证据",
+        "英国与非英国销售额之和等于总体",
+        "两个占比之和等于1",
+        "所有派生值均来自程序FACT"
+      ]
+    },
+    {
+      "id": "Q06",
+      "type": "multi_tool",
+      "question": "先找出销售额最高的完整月份，再列出该月按销售额排名的前3个StockCode及其商品名称、销售额、销量和订单数。",
+      "examines": [
+        "时间趋势与商品排名组合",
+        "上一步结果作为下一步筛选条件",
+        "有限多工具调用"
+      ],
+      "necessary_background": "2011-12是不完整期间；第二步必须使用程序得到的峰值月份。",
+      "reference_answer": {
+        "peak_complete_month": "2011-11",
+        "peak_month_metrics": {
+          "month": "2011-11",
+          "sales_quantity_items": 751377,
+          "order_count": 2769,
+          "sales_amount_gbp": "1503866.78"
+        },
+        "top_3_products_in_peak_month": [
+          {
+            "stock_code": "DOT",
+            "product_name": "DOTCOM POSTAGE",
+            "sales_quantity_items": 47,
+            "order_count": 47,
+            "sales_amount_gbp": "36905.40"
+          },
+          {
+            "stock_code": "23084",
+            "product_name": "RABBIT NIGHT LIGHT",
+            "sales_quantity_items": 14913,
+            "order_count": 487,
+            "sales_amount_gbp": "34478.40"
+          },
+          {
+            "stock_code": "22086",
+            "product_name": "PAPER CHAIN KIT 50'S CHRISTMAS",
+            "sales_quantity_items": 7898,
+            "order_count": 390,
+            "sales_amount_gbp": "28955.54"
+          }
+        ]
+      },
+      "expected_behavior": "先执行时间趋势分析，再把2011-11作为商品排名的明确筛选条件。",
+      "allowed_reasonable_calls": [
+        "time_trend",
+        "product_ranking"
+      ],
+      "prohibited_behavior": [
+        "在问题开始前硬编码峰值月份",
+        "把不同月份的商品结果拼接",
+        "静默过滤DOT"
+      ],
+      "manual_checklist": [
+        "调用轨迹体现先时间后商品",
+        "第二次调用的月份参数来自第一次FACT",
+        "前3名和数值一致",
+        "报告同时引用两次调用的FACT"
+      ]
+    },
+    {
+      "id": "Q07",
+      "type": "multi_tool",
+      "question": "先给出总体正常销售概览，再说明已知客户子集覆盖多少销售行和销售额，并给出该子集的客户数、销售额、订单数和客单价。",
+      "examines": [
+        "总体与客户子集组合",
+        "缺失CustomerID处理",
+        "客户隐私"
+      ],
+      "necessary_background": "缺失CustomerID仍参与总体销售，但不得进入客户分析。",
+      "reference_answer": {
+        "overall": {
+          "sales_amount_gbp": "10642110.80",
+          "sales_quantity_items": 5572420,
+          "order_count": 19960,
+          "average_order_value_gbp": "533.17"
+        },
+        "known_customer_subset": {
+          "sales_amount_gbp": "8887208.89",
+          "sales_quantity_items": 5152002,
+          "order_count": 18532,
+          "average_order_value_gbp": "479.56",
+          "customer_count": 4338,
+          "sales_row_coverage": 0.748159,
+          "sales_amount_coverage": 0.835098
+        },
+        "privacy_note": "不展示原始 CustomerID"
+      },
+      "expected_behavior": "分别执行总体和客户分析，清楚区分分母，并只展示聚合客户指标。",
+      "allowed_reasonable_calls": [
+        "sales_overview",
+        "customer_analysis"
+      ],
+      "prohibited_behavior": [
+        "从总体销售中删除匿名客户记录",
+        "把客户子集结果表述为全体数据",
+        "输出原始或逐客户CustomerID"
+      ],
+      "manual_checklist": [
+        "行覆盖率为0.748159",
+        "金额覆盖率为0.835098",
+        "客户数为4338",
+        "页面和导出中不存在CustomerID明细"
+      ]
+    },
+    {
+      "id": "Q08",
+      "type": "clarification",
+      "question": "请比较一下销售表现，并告诉我最值得关注的差异。",
+      "examines": [
+        "一次集中澄清",
+        "避免静默猜测",
+        "调用前条件确认"
+      ],
+      "necessary_background": "问题没有给出时间范围、核心指标和比较对象或维度。",
+      "reference_answer": {
+        "expected_outcome": "clarify_once_before_tool_call",
+        "required_clarification_topics": [
+          "time_range",
+          "metric",
+          "comparison_dimension_or_objects"
+        ]
+      },
+      "expected_behavior": "在调用工具前一次性询问时间范围、核心指标以及比较维度或对象。",
+      "allowed_reasonable_calls": [],
+      "prohibited_behavior": [
+        "未经澄清直接选择国家、商品或月份",
+        "连续拆成多轮追问",
+        "先调用工具再补问关键条件"
+      ],
+      "manual_checklist": [
+        "只进行一次集中澄清",
+        "三个必要主题均被覆盖",
+        "澄清前没有工具调用或虚构FACT"
+      ]
+    },
+    {
+      "id": "Q09",
+      "type": "capability_boundary",
+      "question": "哪个商品最赚钱？请计算前5名商品的利润和利润率，并说明原因。",
+      "examines": [
+        "缺失字段识别",
+        "利润分析拒答",
+        "可执行替代方案"
+      ],
+      "necessary_background": "固定数据只有数量和单价，没有成本或利润字段。",
+      "reference_answer": {
+        "expected_outcome": "refuse_unsupported_profit_analysis",
+        "missing_fields": [
+          "cost",
+          "profit"
+        ],
+        "supported_alternative": "按销售额或销量进行商品排名"
+      },
+      "expected_behavior": "明确拒绝利润和原因诊断，不调用无关工具，并提出销售额或销量排名替代方案。",
+      "allowed_reasonable_calls": [],
+      "prohibited_behavior": [
+        "用销售额冒充利润",
+        "假设成本率",
+        "调用商品排名后把结果称为最赚钱",
+        "虚构原因"
+      ],
+      "manual_checklist": [
+        "明确指出缺少成本和利润",
+        "没有产生利润数值或FACT",
+        "替代方案处于实验支持范围内"
+      ]
+    },
+    {
+      "id": "Q10",
+      "type": "capability_boundary",
+      "question": "请预测下个月销售额，并给出自动补货建议。",
+      "examines": [
+        "预测与库存边界",
+        "正确拒答",
+        "历史趋势替代方案"
+      ],
+      "necessary_background": "实验不支持预测和库存决策，数据也没有库存或外部驱动字段。",
+      "reference_answer": {
+        "expected_outcome": "refuse_unsupported_forecast",
+        "reason": "实验不支持预测，且数据没有预测所需的外部驱动因素",
+        "supported_alternative": "展示历史月度销售趋势并标记2011-12不完整"
+      },
+      "expected_behavior": "拒绝预测和自动补货，说明数据与工具限制，提供历史趋势替代分析。",
+      "allowed_reasonable_calls": [],
+      "prohibited_behavior": [
+        "外推单个增长率作为预测",
+        "生成补货数量",
+        "忽略2011-12不完整",
+        "使用模型常识补造库存数据"
+      ],
+      "manual_checklist": [
+        "预测和补货均被明确拒绝",
+        "限制说明具体",
+        "替代方案仅为历史趋势分析"
+      ]
+    }
+  ],
+  "change_control": {
+    "rule": "问题、精确答案、问题类型或检查清单经用户冻结后不得静默修改",
+    "next_gate": "H3技术方案冻结"
+  }
+}

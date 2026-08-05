@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.5.6-h3-claim-controller-v3-boundary-v1",
+  "status": "offline_passed_checkpoint_real_passed_full_real_stopped_after_three_attempts",
+  "architecture": "model_writes_claim_statements_program_binds_evidence_and_assembles_frozen_report",
+  "closed_routes": ["v20_incremental_report_prompt"],
+  "preserved_boundaries": {
+    "h2_reference_answers_changed": false,
+    "data_changed": false,
+    "seven_tool_schemas_changed": false,
+    "fact_schema_changed": false,
+    "report_schema_changed": false,
+    "frozen_harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "status": "passed_deterministic_pending_manual_review",
+    "actual_model_double_responses": 27,
+    "response_attempt_upper_bound": 34,
+    "semantic_corrections": 0,
+    "model_visible_internal_call_values": 0
+  },
+  "real_validation_sequence": ["Q01", "Q06", "Q01-Q10"],
+  "real_validation": {
+    "checkpoint_status": "passed_deterministic_pending_manual_review",
+    "checkpoint_run_id": "claim_controller_v3_q01_q06_real_20260805T134917_163496+0800",
+    "full_status": "failed_stopped_after_three_batch_attempts",
+    "full_attempt_run_ids": [
+      "claim_controller_v3_full_real_20260805T135148_024588+0800",
+      "claim_controller_v3_full_real_20260805T135948_177920+0800",
+      "claim_controller_v3_full_real_20260805T140730_935882+0800"
+    ],
+    "full_failed_question_ids_in_attempt_order": ["Q05", "Q04", "Q02"],
+    "three_attempt_stop_applied": true
+  },
+  "model": "deepseek-v4-flash",
+  "automatic_transport_retry_count": 0
+}
