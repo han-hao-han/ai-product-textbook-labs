@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.5.6-h3-internal-call-id-arithmetic-intent-guard-v2.3.4.2-candidate-v1",
+  "status": "offline_validated_real_q02_failed_before_terminal_boundary",
+  "created_on": "2026-08-04",
+  "predecessor": {
+    "candidate": "config/h3_section_purpose_contract_v2_3_4_1.candidate.json",
+    "status": "closed_failed_candidate_by_user_decision",
+    "resumed": false,
+    "reused_safe_components": [
+      "six frozen section slots",
+      "section-purpose atom selection",
+      "complete evidence-group validation"
+    ]
+  },
+  "user_scope": {
+    "boundary": "internal call_id isolation plus model arithmetic-intent blocking",
+    "implementation_authorized": true,
+    "adjacent_protocol_conflict_audit_authorized": true,
+    "real_model_calls_allowed": false,
+    "v2_2_3_resumed": false
+  },
+  "root_causes": [
+    {
+      "id": "CONFLICT-01",
+      "problem": "The terminal envelope exposed CALL identifiers while report prose rejected them.",
+      "resolution": "Expose turn-scoped alphabetic chart_source_key values and map them to internal call_id values deterministically after model output."
+    },
+    {
+      "id": "CONFLICT-02",
+      "problem": "The runtime model-facing final-response Schema still required chart_requests.call_id.",
+      "resolution": "Project a versioned model-side control Schema containing chart_source_key; keep the frozen program-side FinalReportResponse unchanged."
+    },
+    {
+      "id": "CONFLICT-03",
+      "problem": "The frozen report Prompt instructed the model to cite internal CALL values.",
+      "resolution": "Create a new versioned Prompt and project it only in the V2.3.4.2 model-visible boundary; do not edit the frozen Prompt."
+    },
+    {
+      "id": "CONFLICT-04",
+      "problem": "Multi-tool continuation messages exposed internal_call_id, FACT call_id and source_result_path.",
+      "resolution": "Remove those program-only fields from outbound tool-message content and fail closed if any CALL value remains."
+    },
+    {
+      "id": "CONFLICT-05",
+      "problem": "Numeric token membership allowed a rank value to justify an unrelated derived metric value.",
+      "resolution": "Add claim-local metric-intent and numeric-unit role validation before the unchanged formal report validator."
+    },
+    {
+      "id": "CONFLICT-06",
+      "problem": "Arithmetic validation could run before structural slot binding and hide the root structural failure.",
+      "resolution": "Freeze error precedence as model Schema/alias, slot binding, arithmetic intent, formal report validation, chart construction."
+    },
+    {
+      "id": "CONFLICT-07",
+      "problem": "A shared frozen Agent file was initially modified to inject the model-side Schema, breaking a historical hash audit.",
+      "resolution": "Restore the frozen file byte-for-byte and perform projection inside the versioned V2.3.4.2 client boundary."
+    },
+    {
+      "id": "CONFLICT-08",
+      "problem": "The old offline model double required internal FACT fields and the first new Mock report omitted dimension values required by Harness completeness.",
+      "resolution": "Use a V2.3.4.2-only model double that reads public FACT fields and emits complete evidence-backed dimensions without weakening Harness."
+    },
+    {
+      "id": "CONFLICT-09",
+      "problem": "The first public alias implementation reused source_alpha and its siblings in every turn, so a stale alias could silently bind to a new turn's tool result.",
+      "resolution": "Derive each non-sensitive public alias from the current session, turn and source index; a prior-turn alias is now unknown in the current registry and fails closed."
+    },
+    {
+      "id": "CONFLICT-10",
+      "problem": "The public alias prose guard checked the report title and claims but omitted chart titles.",
+      "resolution": "Apply the same alias-output guard to report titles, claim statements and chart titles."
+    },
+    {
+      "id": "CONFLICT-11",
+      "problem": "The visibility transport stopped a leaking request before recording its audit row, so an empty audit could appear clean.",
+      "resolution": "Record the detected leak count before failing closed, and prevent the leaking request from reaching the provider."
+    },
+    {
+      "id": "CONFLICT-12",
+      "problem": "Offline and Q02 summaries hard-coded successful visibility and evidence-preservation values instead of deriving them from saved traces.",
+      "resolution": "Compute leak counts and raw/parsed/mapped preservation flags from actual transport and terminal traces."
+    },
+    {
+      "id": "CONFLICT-13",
+      "problem": "After a real authority was consumed and stopped, the checkpoint state also blocked safe offline Mock replay.",
+      "resolution": "Permit offline injected-transport replay in the consumed-failed state while keeping the consumed real authority permanently closed."
+    }
+  ],
+  "call_id_isolation": {
+    "public_alias_pattern": "^source_[a-z0-9]+$",
+    "public_alias_generation": "deterministic_blake2s_of_session_turn_and_source_index",
+    "public_alias_entropy_bits": 80,
+    "maximum_chart_sources_per_turn": 4,
+    "mapping_scope": "current session and turn only",
+    "mapping_owner": "deterministic program",
+    "model_may_see_internal_call_id": false,
+    "model_may_emit_internal_call_id": false,
+    "provider_tool_call_id_changed": false,
+    "formal_chart_request_schema_changed": false,
+    "chart_and_report_share_same_tool_FACT_source": true,
+    "unknown_alias_fails_closed": true,
+    "cross_turn_alias_fails_closed": true,
+    "alias_forbidden_in_report_claim_and_chart_titles": true,
+    "chart_type_tool_compatibility_unchanged": true
+  },
+  "arithmetic_intent_guard": {
+    "stage": "after structural slot binding and before formal report validation",
+    "uses_trusted_program_evidence": true,
+    "uses_model_mutated_metric_fields": false,
+    "recomputes_business_metrics": false,
+    "repairs_report_prose": false,
+    "unsupported_intents": [
+      "items_per_order",
+      "growth_rate",
+      "unsupported_average",
+      "difference",
+      "multiple",
+      "computed_equality",
+      "explicit_arithmetic_expression",
+      "multi_fact_sum"
+    ],
+    "direct_metric_requirements": {
+      "average_order_value": ["average_order_value"],
+      "sales_amount_share": ["sales_amount_share"],
+      "sales_row_coverage": ["sales_row_coverage"],
+      "sales_amount_coverage": ["sales_amount_coverage"]
+    },
+    "numeric_role_checks": {
+      "items": ["sales_quantity"],
+      "orders": ["order_count"],
+      "currency": ["sales_amount", "average_order_value"],
+      "ratio": [
+        "sales_amount_share",
+        "sales_row_coverage",
+        "sales_amount_coverage"
+      ]
+    },
+    "unsupported_metric_requires_future_pandas_fact": true
+  },
+  "failure_codes": [
+    "model_visible_internal_call_id",
+    "model_terminal_schema_invalid",
+    "unknown_chart_source_alias",
+    "cross_turn_chart_source_alias",
+    "chart_source_alias_tool_mismatch",
+    "chart_source_alias_in_report_prose",
+    "unsupported_derived_metric_intent",
+    "derived_metric_fact_missing",
+    "ambiguous_numeric_role_collision"
+  ],
+  "evidence_preservation": {
+    "raw_provider_response_saved": true,
+    "parsed_model_alias_response_saved": true,
+    "mapped_program_response_saved": true,
+    "failed_mapped_candidate_is_not_exported_as_final_report": true,
+    "request_body_saved": false,
+    "request_headers_saved": false,
+    "api_key_saved": false
+  },
+  "versioned_files": {
+    "prompt": "prompts/native_tool_report_internal_source_v2_3_4_2.md",
+    "protocol_guard": "src/report_terminal_protocol_guard_v2_3_4_2.py",
+    "transport": "src/deepseek_internal_call_isolation_transport_v2_3_4_2.py",
+    "candidate": "src/online_native_tool_candidate_v2_3_4_2.py",
+    "offline_provider": "src/deepseek_internal_call_isolation_transport_mock_v2_3_4_2.py",
+    "offline_audit": "src/internal_call_arithmetic_guard_v2_3_4_2_validation.py",
+    "q02_checkpoint_runner": "src/q02_internal_call_arithmetic_guard_v2_3_4_2_runner.py",
+    "q02_offline_entry": "scripts/validate_q02_internal_call_arithmetic_guard_v2_3_4_2_offline.py",
+    "tests": "tests/test_report_terminal_protocol_guard_v2_3_4_2.py"
+  },
+  "frozen_boundaries_unchanged": {
+    "h2_reference_answers": true,
+    "dataset_and_cleaning_rules": true,
+    "seven_business_tool_schemas": true,
+    "fact_schema": true,
+    "formal_report_schema": true,
+    "formal_report_validator": true,
+    "acceptance_harness_root_rules": true,
+    "frozen_evidence_guard_prompt": true,
+    "historical_hash_contracts": true
+  },
+  "offline_validation": {
+    "status": "passed",
+    "audit_path": "results/raw/internal_call_arithmetic_guard_v2_3_4_2_offline_20260804T180746_682090+0800/summary.json",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "offline_model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "q02_offline_gate_path": "results/raw/q02_protocol_guard_v2_3_4_2_20260804T180911_957120+0800/summary.json",
+    "q02_offline_gate_status": "passed_deterministic_pending_manual_review",
+    "targeted_tests": "22 passed, 10 subtests passed",
+    "compatibility_tests": "26 passed, 20 subtests passed",
+    "full_tests": "411 passed, 143 subtests passed",
+    "historical_hash_audit_passed": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "real_q02_checkpoint": {
+    "status": "failed_stopped",
+    "run_id": "q02_protocol_guard_v2_3_4_2_20260804T181702_762638+0800",
+    "responses_attempted": 1,
+    "responses_completed": 1,
+    "automatic_retries": 0,
+    "root_failure_stage": "model_response",
+    "root_failure_codes": ["model_selected_unsupported_tool_sequence"],
+    "observed_first_tool": "get_data_profile",
+    "required_first_tool": "rank_products",
+    "terminal_protocol_reached": false,
+    "call_id_boundary_real_status": "not_evaluated_after_upstream_tool_plan_failure",
+    "arithmetic_guard_real_status": "not_evaluated_after_upstream_tool_plan_failure",
+    "evidence_path": "results/raw/q02_protocol_guard_v2_3_4_2_20260804T181702_762638+0800/Q02.json"
+  },
+  "next_gate": {
+    "real_checkpoint_required": false,
+    "recommended_question": "Q02",
+    "recommended_model": "deepseek-v4-flash",
+    "real_model_calls_currently_allowed": false,
+    "reason": "The authorized Q02 stopped at the first model tool-plan decision. Review Prompt semantics and the frozen Q02 plan offline before deciding whether a new checkpoint is warranted."
+  }
+}

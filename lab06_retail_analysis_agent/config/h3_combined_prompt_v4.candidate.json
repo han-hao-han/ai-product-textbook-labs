@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v4-candidate-v1",
+  "status": "real_failed_question_batch_partial_pass_superseded_by_v5",
+  "created_on": "2026-08-04",
+  "tool_prompt_predecessor": "prompts/native_tool_agent_system_tool_routing_v2.md",
+  "tool_prompt_candidate": "prompts/native_tool_agent_system_tool_routing_v3.md",
+  "tool_prompt_candidate_sha256": "D0410434CAC889D222D8CD763F564606D622379836039063DF902E26299B1EF2",
+  "report_prompt_predecessor": "prompts/native_tool_report_metric_binding_v3.md",
+  "report_prompt_candidate": "prompts/native_tool_report_metric_binding_v4.md",
+  "report_prompt_candidate_sha256": "DCFFCB60BF7D5848132B9A8EB5D656721E0A42D0AA4665B5A688E528344956DA",
+  "triggering_real_run": "combined_prompt_v3_real_20260804T191115_916293+0800",
+  "additive_tool_rules": [
+    "TOOL-ROUTE-06", "TOOL-ROUTE-07",
+    "CONTROL-SEMANTICS-01", "CONTROL-SEMANTICS-02", "CONTROL-SEMANTICS-03"
+  ],
+  "additive_report_rules": [
+    "PROMPT-EVIDENCE-06", "PROMPT-EVIDENCE-07",
+    "PROMPT-EVIDENCE-08", "PROMPT-EVIDENCE-09"
+  ],
+  "scope": {
+    "h2_changed": false,
+    "data_changed": false,
+    "tool_schema_changed": false,
+    "fact_or_report_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "summary_path": "results/raw/combined_prompt_v4_offline_20260804T192315_228247+0800/summary.json",
+    "real_model_called": false
+  },
+  "real_validation": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v4_failed_q_real_20260804T193710_532516+0800",
+    "passed_question_ids": ["Q02", "Q03", "Q08", "Q09", "Q10"],
+    "failed_question_ids": ["Q04", "Q05", "Q06", "Q07"],
+    "actual_responses": 24,
+    "transport_failures": 0,
+    "superseded_by": "config/h3_combined_prompt_v5.candidate.json"
+  }
+}

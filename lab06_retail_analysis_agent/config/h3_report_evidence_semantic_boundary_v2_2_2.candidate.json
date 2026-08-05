@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.5.6-h3-report-evidence-semantic-boundary-v2.2.2-candidate-v1",
+  "status": "frozen_by_user_formal_validator_integrated_offline_validated",
+  "created_on": "2026-08-03",
+  "frozen_on": "2026-08-03",
+  "source_real_run": {
+    "run_id": "q06_v2_2_1_flash_real_revalidation_20260803T153719_794668+0800",
+    "evidence_path": "results/raw/q06_v2_2_1_flash_real_revalidation_20260803T153719_794668+0800/Q06.json",
+    "model": "deepseek-v4-flash",
+    "terminal_json_parse_passed": true,
+    "control_schema_passed": true,
+    "current_report_validation_issue_count": 16,
+    "current_issue_code": "untraceable_numeric_token"
+  },
+  "scope": {
+    "question_ids": ["Q06"],
+    "offline_replay_only": true,
+    "prompt_changed": false,
+    "control_schema_changed": false,
+    "fact_schema_changed": false,
+    "fact_values_changed": false,
+    "seven_tool_whitelist_changed": false,
+    "h2_data_or_metrics_changed": false,
+    "real_model_calls_allowed": false,
+    "automatic_report_repair_allowed": false
+  },
+  "date_equivalence_candidate": {
+    "purpose": "只在确定性校验中把等价日历表达规范化，不改写模型报告或FACT。",
+    "accepted_equivalence_examples": [
+      {"report_expression": "2011年11月", "canonical": "2011-11"},
+      {"report_expression": "2011年12月", "canonical": "2011-12"},
+      {"report_expression": "2011年11月1日", "canonical": "2011-11-01"}
+    ],
+    "same_month_scope_rule": "当同一FACT的start_date和end_date处于同一日历月时，该FACT允许引用该YYYY-MM月份。",
+    "cross_month_scope_may_not_collapse_to_one_month": true,
+    "year_or_month_numbers_may_not_be_matched_independently": true,
+    "global_string_replacement_allowed": false
+  },
+  "claim_evidence_candidate": {
+    "claim_local_only": true,
+    "cross_claim_fact_borrowing_allowed": false,
+    "cross_section_fact_borrowing_allowed": false,
+    "program_may_add_missing_fact_reference": false,
+    "program_may_delete_unsupported_number": false,
+    "expected_replay_after_date_equivalence": {
+      "remaining_numeric_issue_count": 1,
+      "remaining_issue": "用户问题claim写前3个但只引用FACT-001，未引用FACT-039的top_n=3"
+    }
+  },
+  "deterministic_semantic_candidate": {
+    "purpose": "只拒绝能够由FACT能力明确判定为缺证据的断言，不替代人工判断建议质量。",
+    "rules": [
+      {"code":"unsupported_significance_claim","phrases":["显著","统计显著"],"required_fact_metrics":["p_value","significance_test","confidence_interval"]},
+      {"code":"unsupported_average_value_claim","phrases":["客单价","高客单价"],"required_fact_metrics":["average_order_value","unit_price"]},
+      {"code":"unsupported_product_classification","phrases":["走量型","走量主力"],"required_fact_metrics":["product_classification"]},
+      {"code":"unsupported_quantity_superlative","phrases":["销量最高"],"required_fact_metric":"sales_quantity","required_rank":1},
+      {"code":"unsupported_order_superlative","phrases":["订单数最高"],"required_fact_metric":"order_count","required_rank":1}
+    ],
+    "phrase_match_alone_is_not_evidence": true,
+    "cited_fact_metrics_and_rank_must_satisfy_rule": true
+  },
+  "manual_semantic_review_candidate": {
+    "does_not_change_program_fact_values": true,
+    "flags_do_not_auto_rewrite_report": true,
+    "human_remains_final_decision_maker": true,
+    "flag_categories": [
+      {"code":"seasonality_interpretation","phrases":["旺季","销售旺季"]},
+      {"code":"inventory_action","phrases":["备货","库存充足","补货周期"]},
+      {"code":"pricing_or_logistics_action","phrases":["定价策略","物流策略","优化物流"]},
+      {"code":"causal_or_effect_claim","phrases":["表明","导致","驱动","维持旺季销售"]}
+    ]
+  },
+  "responsibility_boundary": {
+    "model": "选择工具、生成参数、根据当前轮FACT组织报告",
+    "pandas_tools": "执行全部经营指标计算",
+    "program": "规范化确定性日期表达、执行claim级FACT追溯、拒绝明确缺少所需指标的断言、生成风险标记",
+    "human": "判断季节性解释、经营建议、因果暗示和行动合理性是否接受",
+    "model_may_not_calculate_new_metric": true,
+    "program_may_not_generate_replacement_claim": true
+  },
+  "acceptance_for_offline_investigation": {
+    "reproduce_current_numeric_issue_count": 16,
+    "canonical_numeric_issue_count": 1,
+    "missing_top_n_reference_must_remain_rejected": true,
+    "semantic_hard_issues_must_be_reported": true,
+    "manual_review_flags_must_be_reported_separately": true,
+    "saved_real_response_must_not_be_modified": true
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "report_evidence_semantic_v2_2_2_offline_20260803T155816_348212+0800",
+    "evidence_path": "results/raw/report_evidence_semantic_v2_2_2_offline_20260803T155816_348212+0800/summary.json",
+    "source_sha256": "3dc7c02943b92a010585a2aecfa5fb2a68b6e760ffff101f2c7da50b09466485",
+    "source_response_unchanged": true,
+    "current_numeric_issue_count": 16,
+    "canonical_numeric_issue_count": 1,
+    "remaining_numeric_token": "3",
+    "deterministic_semantic_issue_count": 7,
+    "manual_review_flag_count": 8,
+    "negative_probes_passed": 5,
+    "candidate_result": "failed_without_auto_repair",
+    "real_network_opened": false,
+    "real_model_called": false,
+    "api_key_read_from_environment": false
+  },
+  "implementation_validation": {
+    "targeted_tests": "11_passed",
+    "full_tests": "224_passed_29_subtests_passed",
+    "real_model_called": false,
+    "api_key_read": false
+  },
+  "authorization": {
+    "real_model_calls_allowed": false,
+    "prior_authorization_consumed": true,
+    "new_authorization_not_requested_in_this_stage": true
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-08-03",
+    "frozen_boundaries": [
+      "deterministic_date_equivalence_for_validation_only",
+      "strict_claim_local_fact_isolation",
+      "deterministic_rejection_of_explicitly_unsupported_semantics",
+      "human_final_decision_for_business_interpretation_and_advice"
+    ],
+    "freeze_does_not_authorize_real_calls": true,
+    "freeze_does_not_mark_q06_as_passed": true,
+    "freeze_does_not_integrate_formal_validator": true
+  },
+  "formal_validator_integration": {
+    "status": "offline_validated",
+    "completed_on": "2026-08-03",
+    "formal_validator": "src/report_validation.py",
+    "saved_response_replay_script": "scripts/validate_report_evidence_semantic_boundary_v2_2_2.py",
+    "run_id": "report_evidence_semantic_v2_2_2_offline_20260803T162406_680553+0800",
+    "evidence_path": "results/raw/report_evidence_semantic_v2_2_2_offline_20260803T162406_680553+0800/summary.json",
+    "source_sha256": "3dc7c02943b92a010585a2aecfa5fb2a68b6e760ffff101f2c7da50b09466485",
+    "source_response_unchanged": true,
+    "formal_validation_status": "failed",
+    "formal_issue_count": 8,
+    "canonical_numeric_issue_count": 1,
+    "deterministic_semantic_issue_count": 7,
+    "manual_review_flag_count": 8,
+    "report_rendered": false,
+    "automatic_repair_performed": false,
+    "prompt_changed": false,
+    "model_control_schema_changed": false,
+    "fact_schema_changed": false,
+    "real_model_called": false,
+    "api_key_read": false,
+    "q01_q10_mock_regression": {
+      "status": "passed",
+      "run_id": "native_tool_mock_v2_1_revision_20260803T162552_562933+0800",
+      "evidence_path": "results/raw/native_tool_mock_v2_1_revision_20260803T162552_562933+0800/summary.json",
+      "questions_passed": 10,
+      "questions_total": 10,
+      "model_response_count": 20,
+      "tool_call_count": 10,
+      "fact_count": 94,
+      "chart_count": 6,
+      "seven_tool_visibility_checks_passed": 20,
+      "network_used": false,
+      "real_model_called": false,
+      "api_key_read": false
+    },
+    "targeted_tests": "31_passed",
+    "full_tests": "228_passed_29_subtests_passed"
+  },
+  "next_gate": "用户审阅正式校验器接入与Q01至Q10离线回归结果，再决定后续H3阶段；任何真实模型调用仍需单独授权。",
+  "change_control": "修改日期等价、claim级证据隔离、确定性语义规则、人工职责、Prompt、Schema、FACT、数据或真实调用权限，必须重新得到用户确认。"
+}

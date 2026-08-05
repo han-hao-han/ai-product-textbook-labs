@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.5.6-h3-report-terminal-json-boundary-v2.2.1-candidate-v1",
+  "status": "frozen_by_user_pending_separate_real_authorization",
+  "created_on": "2026-08-03",
+  "scope": {
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-flash",
+    "reopened_boundary": "third_response_json_serialization_only",
+    "prompt_changed": false,
+    "control_schema_changed": false,
+    "data_changed": false,
+    "acceptance_rules_changed": false,
+    "seven_tool_whitelist_changed": false,
+    "h2_metrics_changed": false,
+    "real_model_calls_allowed": false
+  },
+  "observed_failure": {
+    "run_id": "q06_v2_2_flash_real_revalidation_20260803T145004_603404+0800",
+    "response_count": 3,
+    "tool_choice_sequence": ["auto", "auto", "none"],
+    "first_two_model_selected_tools": ["analyze_time_trend", "rank_products"],
+    "third_response_had_real_tool_call": false,
+    "third_response_content_format": "dsml_pseudo_final_report_tool_markup_not_json",
+    "program_failure_stage": "model_response",
+    "program_failure_reason": "无工具模型响应不是有效JSON"
+  },
+  "candidate_protocol": {
+    "response_1": {
+      "tool_visibility": 7,
+      "tool_choice": "auto",
+      "response_format": null
+    },
+    "response_2": {
+      "tool_visibility": 7,
+      "tool_choice": "auto",
+      "response_format": null
+    },
+    "terminal_trigger": {
+      "question_id": "Q06",
+      "executed_tool_sequence": ["analyze_time_trend", "rank_products"],
+      "required_tool_result_message_count": 2,
+      "program_may_synthesize_business_tool_or_arguments": false
+    },
+    "response_3": {
+      "tool_visibility": 7,
+      "tool_choice": "none",
+      "response_format": {"type": "json_object"},
+      "model_responsibility": "organize the FACT-grounded report and chart requests",
+      "program_responsibility": "parse exact JSON, validate Pydantic control schema, validate FACT trace, and build charts"
+    }
+  },
+  "fail_closed_rules": {
+    "dsml_extraction_allowed": false,
+    "markdown_fence_repair_added": false,
+    "pseudo_tool_call_repair_allowed": false,
+    "schema_repair_allowed": false,
+    "empty_content_is_failure": true,
+    "truncated_json_is_failure": true,
+    "valid_json_wrong_schema_is_failure": true,
+    "fact_or_report_validation_failure_is_failure": true,
+    "automatic_retry_count": 0,
+    "raw_provider_response_must_be_preserved": true
+  },
+  "official_provider_evidence": {
+    "json_output_guide": "https://api-docs.deepseek.com/zh-cn/guides/json_mode/",
+    "chat_completion_reference": "https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/",
+    "documented_json_parameter": {"type": "json_object"},
+    "documented_tool_choice": "none",
+    "documentation_claim": "JSON Output guarantees a valid JSON message; tool_choice none prevents tool calls",
+    "combination_status": "candidate_pending_real_validation",
+    "known_provider_risk": "JSON Output may occasionally return empty content"
+  },
+  "mainline_compatibility": {
+    "model_selects_business_tools": true,
+    "model_generates_business_tool_arguments": true,
+    "pandas_performs_business_calculation": true,
+    "program_controls_terminal_permission_and_serialization": true,
+    "program_preselects_business_tool": false,
+    "program_generates_report_numbers": false,
+    "model_organizes_report": true,
+    "program_validates_fact_trace": true
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "report_terminal_json_v2_2_1_offline_20260803T151156_492930+0800",
+    "evidence_path": "results/raw/report_terminal_json_v2_2_1_offline_20260803T151156_492930+0800/summary.json",
+    "tool_choice_sequence": ["auto", "auto", "none"],
+    "response_format_sequence": [null, null, {"type": "json_object"}],
+    "tool_visibility_each_response": [7, 7, 7],
+    "executed_tool_sequence": ["analyze_time_trend", "rank_products"],
+    "fixed_question_validation_status": "passed",
+    "report_validation_status": "passed",
+    "chart_count": 2,
+    "dsml_pseudo_tool_markup_rejected": true,
+    "valid_json_wrong_schema_rejected": true,
+    "real_network_opened": false,
+    "real_model_called": false,
+    "api_key_read_from_environment": false
+  },
+  "authorization": {
+    "real_model_calls_allowed": false,
+    "prior_authorization_consumed": true,
+    "new_exact_user_authorization_required": true
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-08-03",
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-flash",
+    "tool_choice_sequence": ["auto", "auto", "none"],
+    "response_format_sequence": [null, null, {"type": "json_object"}],
+    "tool_visibility_each_response": 7,
+    "freeze_does_not_authorize_real_calls": true,
+    "other_q01_q10_cases_not_in_scope": true
+  },
+  "freeze_validation": {
+    "targeted_tests": "25_passed",
+    "full_tests": "208_passed_29_subtests_passed",
+    "formal_offline_run_id": "report_terminal_json_v2_2_1_offline_20260803T151156_492930+0800",
+    "real_model_called": false,
+    "api_key_read": false
+  },
+  "change_control": "V2.2.1已由用户冻结；修改Q06终态触发条件、tool_choice、response_format、七工具可见性、Prompt、Schema、数据、验收规则或真实调用权限，必须重新得到用户确认。"
+}

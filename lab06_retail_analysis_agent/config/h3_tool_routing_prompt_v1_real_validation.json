@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.5.6-h3-tool-routing-prompt-v1-real-validation-v1",
+  "status": "real_execution_failed_stopped_authority_consumed",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q02", "Q01", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+  "expected_responses": {
+    "Q01": 3,
+    "Q02": 3,
+    "Q03": 3,
+    "Q04": 3,
+    "Q05": 4,
+    "Q06": 4,
+    "Q07": 4,
+    "Q08": 1,
+    "Q09": 1,
+    "Q10": 1
+  },
+  "response_attempt_upper_bound": 27,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 3600,
+  "q02_must_pass_before_remaining_questions": true,
+  "failure_immediately_stops": true,
+  "authorization": {
+    "authorization_id": "AUTH-TOOL-ROUTING-V1-Q01-Q10-20260804-01",
+    "status": "consumed_failed_stopped",
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true
+  },
+  "real_execution": {
+    "run_id": "tool_routing_prompt_v1_real_20260804T184836_685281+0800",
+    "question_ids_executed": ["Q02", "Q01"],
+    "q02_status": "passed_deterministic_pending_manual_review",
+    "failed_question_id": "Q01",
+    "root_failure_codes": ["model_emitted_multiple_tool_calls"],
+    "actual_response_attempts": 4,
+    "automatic_retry_performed": false,
+    "evidence_recovery_manifest": "results/raw/tool_routing_prompt_v1_real_20260804T184836_685281+0800/responses/by_question/recovery_manifest.json"
+  },
+  "real_model_called": true,
+  "v2_2_3_resumed": false
+}

@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.5.6-h3-q01-q10-acceptance-harness-audit-candidate-v1",
+  "status": "findings_accepted_six_boundaries_reopened_offline_design",
+  "created_on": "2026-08-03",
+  "prerequisite": {
+    "h2_questions_status": "frozen_by_user",
+    "h2_questions": "config/h2_validation_questions.json",
+    "v2_2_2_status": "frozen_by_user_formal_validator_integrated_offline_validated",
+    "v2_2_3_status": "paused_by_user_pending_q01_q10_acceptance_harness_audit"
+  },
+  "scope": {
+    "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "offline_read_only_audit": true,
+    "validation_rules_changed": false,
+    "mock_changed": false,
+    "prompt_changed": false,
+    "fact_schema_or_builder_changed": false,
+    "tool_or_h2_contract_changed": false,
+    "orchestrator_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_calls_allowed": false,
+    "api_key_may_be_read": false
+  },
+  "audit_dimensions": {
+    "tool_and_reference_answer": "工具结构化结果是否逐字段匹配H2固定答案。",
+    "mock_decision_fidelity": "Mock是否真实检验模型选择，还是按question_id脚本化返回。",
+    "report_answer_completeness": "报告是否覆盖用户要求的参考答案字段，而不仅是report_validation.status通过。",
+    "request_vs_fact_provenance": "用户指定的Top N和日期参数是否被错误地当成计算FACT。",
+    "rank_semantics": "FACT.rank是否明确记录按哪个metric排名。",
+    "semantic_rule_precision": "确定性拒绝是否把普通经营措辞错误等同统计或预定义分类。",
+    "manual_checklist_enforcement": "H2人工清单是否被程序错误地视为已自动验证。",
+    "real_coverage": "Mock通过是否被误写成当前模型真实通过。"
+  },
+  "candidate_hypotheses": {
+    "tool_results_match_h2_for_q01_q07": true,
+    "mock_tool_and_control_decisions_are_scripted_for_q01_q10": true,
+    "mock_report_completeness_is_not_enforced_for_q01_q07": true,
+    "q08_message_quality_is_not_deterministically_checked": true,
+    "q09_supported_alternative_is_not_deterministically_checked": true,
+    "q10_refusal_reason_and_alternative_are_not_deterministically_checked": true,
+    "rank_metric_is_ambiguous_for_rank_products_and_regions": true,
+    "request_parameter_provenance_is_not_distinct_from_fact_provenance": true,
+    "plain_significance_and_product_classification_hard_rules_need_policy_review": true,
+    "only_q06_has_current_native_flash_real_report_evidence": true
+  },
+  "severity_model": {
+    "P0": "会使工具数值或隐私边界错误通过；当前假设无此发现。",
+    "P1": "会让不完整报告或错误语义以自动验收通过，或会误解FACT含义。",
+    "P2": "会产生假失败、过严拒绝或把人工判断伪装成确定性规则。",
+    "P3": "命名、文档或覆盖状态表达不够清晰。"
+  },
+  "audit_acceptance": {
+    "run_q01_q10_with_existing_mock_without_modification": true,
+    "preserve_h2_reference_answers": true,
+    "measure_referenced_fact_coverage_of_reference_answer_leaves": true,
+    "detect_non_selected_metric_rank_propagation": true,
+    "probe_q08_q09_q10_unchecked_control_text": true,
+    "separate_mock_protocol_success_from_real_model_evidence": true,
+    "produce_findings_without_implementing_fixes": true,
+    "source_files_must_remain_unchanged": true
+  },
+  "authorization": {
+    "audit_does_not_freeze_new_acceptance_rules": true,
+    "audit_does_not_authorize_fact_schema_change": true,
+    "audit_does_not_authorize_mock_or_validator_change": true,
+    "audit_does_not_resume_v2_2_3": true,
+    "real_model_calls_allowed": false
+  },
+  "offline_audit": {
+    "status": "passed_with_findings",
+    "completed_on": "2026-08-03",
+    "run_id": "q01_q10_acceptance_harness_audit_20260803T170816_187635+0800",
+    "evidence_path": "results/raw/q01_q10_acceptance_harness_audit_20260803T170816_187635+0800/summary.json",
+    "finding_count": 7,
+    "severity_counts": {"P1": 3, "P2": 3, "P3": 1},
+    "p0_finding_count": 0,
+    "mock_fixed_validation_passed": 10,
+    "mock_fixed_validation_total": 10,
+    "incomplete_report_questions": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07"],
+    "rank_ambiguity_fact_counts": {"Q02": 10, "Q03": 10, "Q06": 6},
+    "request_provenance_gap_questions": ["Q02", "Q03", "Q04", "Q06"],
+    "unchecked_control_text_questions": ["Q08", "Q09", "Q10"],
+    "current_real_mainline_validated_questions": ["Q06"],
+    "targeted_tests": "16_passed",
+    "full_tests": "239_passed_29_subtests_passed",
+    "source_files_unchanged": true,
+    "validation_rules_changed": false,
+    "mock_changed": false,
+    "fact_schema_or_builder_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_called": false,
+    "api_key_read": false,
+    "audit_result": "findings_require_user_policy_decisions_before_fix"
+  },
+  "methodology_limitations": {
+    "reference_leaf_coverage_is_a_diagnostic_proxy_not_final_content_score": true,
+    "natural_language_paraphrase_may_not_match_exact_reference_leaf": true,
+    "generic_mock_reports_reference_only_one_or_two_facts_so_completeness_gap_does_not_depend_on_threshold": true,
+    "audit_does_not_conclude_unrun_real_questions_pass_or_fail": true
+  },
+  "decision_points": [
+    "是否为Q01至Q07增加按问题定义的报告完整性验收，而不是只看report_validation.status",
+    "是否把用户请求参数建模为独立REQUEST来源，避免全部数字强制归入FACT",
+    "是否为rank增加rank_metric或等价上下文，消除非排序指标继承名次的歧义",
+    "是否把普通显著与走量型从确定性硬拒绝改为人工复核或受控描述性规则",
+    "是否把Mock通过明确命名为协议与数据流通过，禁止写成模型内容通过",
+    "是否对Q08至Q10的澄清文本、拒答原因和替代方案增加确定性内容检查"
+  ],
+  "user_decision": {
+    "status": "audit_findings_accepted",
+    "decided_on": "2026-08-03",
+    "reopened_boundaries": [
+      "q01_q07_report_completeness",
+      "request_parameter_provenance",
+      "rank_metric_or_equivalent_context",
+      "semantic_hard_rule_vs_human_review",
+      "mock_responsibility_and_result_naming",
+      "q08_q10_clarification_and_boundary_content"
+    ],
+    "offline_design_only": true,
+    "h2_reference_answers_must_not_change": true,
+    "v2_2_3_must_remain_paused": true,
+    "real_model_calls_allowed": false
+  },
+  "next_gate": "完成六项边界离线修订设计后，由用户决定是否冻结设计；冻结前不修改Harness、FACT、Mock、Prompt或编排器。",
+  "change_control": "任何验收规则、FACT Schema、Mock、Prompt、工具、H2参考答案、V2.2.3状态或真实调用权限变化，必须另行得到用户确认。"
+}

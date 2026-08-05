@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.5.6-h3-c1-offline-consolidated-audit-v1",
+  "status": "offline_audit_completed_pending_user_checkpoint",
+  "audited_on": "2026-08-03",
+  "authorization": {
+    "status": "authorized_by_user_for_c1_offline_stages_one_to_three",
+    "real_model_calls_allowed": false,
+    "prompt_changes_allowed": false,
+    "h2_changes_allowed": false,
+    "tool_schema_changes_allowed": false,
+    "data_changes_allowed": false,
+    "acceptance_root_rule_changes_allowed": false,
+    "v2_2_3_resume_allowed": false
+  },
+  "evidence": {
+    "q02_saved_response_regression": "results/raw/q02_failure_harness_implementation_20260803T213509_169105+0800/summary.json",
+    "q01_q10_full_harness_regression": "results/raw/acceptance_harness_six_boundary_implementation_20260803T213617_042606+0800/summary.json",
+    "batch_a_runner_offline_regression": "results/raw/q01_q10_batch_a_safe_runner_offline_20260803T213616_685795+0800/summary.json"
+  },
+  "frozen_source_hashes": {
+    "data/raw/h2_reference_answers.json": "d39eee93d841ff8a5f5c5d7943f82a622b338bf2e768dd571b2dd1ec6dda24e2",
+    "config/h2_validation_questions.json": "8f00953c1e4b6429d9a4c4ae240b430093deb3e8f75d6a4d9c35789e97d0ffcf",
+    "prompts/agent_system_prompt_v1.md": "ea8bd797a506e73682126a19ade5677964f2ac593034e8d3b889406b925e43cf",
+    "prompts/report_prompt_v1.md": "ba5de0036ca1ed3dea09760ad03b5c2a443668fa499c19880a58ed3bf04fa1c4",
+    "prompts/native_tool_agent_system_v2_1_revision.md": "7d7c8e8fd0cf54a99ca1a4ef2d6248893cf6ff660de390eb88f576eb6daccc6a",
+    "prompts/native_tool_report_v2_1_revision.md": "13cd6f8519b1a5798d861868a976087059f78ee1da3a466ef4d729e1356f64dc",
+    "src/tool_schemas.py": "758ba49675c2d34df7487797e59b654543e36417aa5390844625222ac6b68766",
+    "config/h3_tool_contract.json": "a27accd4dd546b127630c2351d3a1fa8df2a4f77c7ae06568e573eb3b6d39f54",
+    "config/h3_q06_report_revision_feedback_boundary_v2_2_3.candidate.json": "6339f3dbecb712210d72c287c839b6db9499da0c297af54ca6dde1038aaa3371"
+  },
+  "expected_findings": {
+    "q02_tool_reference_answer_status": "passed",
+    "q02_overall_status": "failed_stopped",
+    "q02_root_failure_stage": "report_validation",
+    "q02_root_failure_codes": [
+      "untraceable_numeric_token",
+      "unsupported_average_value_claim",
+      "unsupported_average_value_claim"
+    ],
+    "q02_formal_report_is_empty": true,
+    "q02_rejected_report_publishable": false,
+    "q02_diagnostic_manifest": {"total": 27, "covered": 27},
+    "q02_report_completeness_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "q02_chart_acceptance_status": "not_evaluated_due_to_upstream_report_validation_failure",
+    "q02_chart_count_mismatch_present": false,
+    "q01_q10_offline_harness_status": "passed",
+    "q01_q10_manifest_all_covered": true,
+    "q01_q10_negative_probes": {"passed": 9, "total": 9},
+    "batch_a_success_status": "passed_deterministic_pending_manual_review",
+    "batch_a_attempts": {"actual": 8, "upper_bound": 8},
+    "batch_a_authorization_gate_blocked_before_key": true,
+    "batch_a_failure_stops_later_questions": true,
+    "batch_a_ninth_attempt_blocked": true,
+    "batch_a_evidence_safe": true
+  },
+  "conclusions": {
+    "q02_primary_defect_owner": "saved_model_report_content",
+    "q02_harness_cascade_defect": "resolved",
+    "q01_q10_offline_acceptance_consistency": "passed",
+    "batch_a_offline_runner_safety": "passed",
+    "prompt_boundary_reopen_recommended": true,
+    "prompt_boundary_reopen_reason": "保存的Q02报告仍引入无FACT支持的524878，并把销售额与销量推导成高客单价；验证器正确拒绝，但若要提高下一次真实验证通过率，需要另行决定是否仅强化通用报告证据约束。",
+    "non_report_failure_diagnostic_noise": "open_non_blocking_outside_q02_frozen_scope",
+    "non_report_failure_diagnostic_noise_detail": "批次A的离线Q06传输/终态失败夹具仍会附带q06_chart_count_mismatch；它不影响根因优先级、失败停止或Q02结论，但后续可单独统一非报告上游失败的not-evaluated语义。"
+  },
+  "persistent_exclusions": {
+    "h2_reference_answers_changed": false,
+    "h2_validation_questions_changed": false,
+    "prompt_changed": false,
+    "tool_schema_changed": false,
+    "data_changed": false,
+    "acceptance_root_rules_changed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "c1_offline_consolidated_audit_20260803T215858_910392+0800",
+    "evidence_path": "results/raw/c1_offline_consolidated_audit_20260803T215858_910392+0800/summary.json",
+    "targeted_test_status": "4_passed",
+    "full_test_status": "307_passed_49_subtests_passed",
+    "q02_saved_response_regression": "passed_with_model_report_rejected",
+    "q01_q10_full_harness_regression": "passed_10_of_10",
+    "q01_q10_negative_probes": "9_passed_of_9",
+    "batch_a_offline_runner_regression": "passed",
+    "frozen_source_hashes_matched": true,
+    "active_native_tool_prompt_hashes_included": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "v2_2_3_resumed": false
+  },
+  "next_gate": "集中审阅C1离线审计结论；决定是否重新打开极小的通用报告Prompt约束边界。任何真实模型调用仍需单独授权。"
+}

@@ -1,0 +1,411 @@
+{
+  "schema_version": "1.5.6-h3-native-tool-agent-v2.1-revision-v1",
+  "status": "real_validation_failed_first_response_invalid_arguments_pending_user_decision",
+  "created_on": "2026-07-31",
+  "reopens": {
+    "historical_contract": "config/h3_tool_plan_semantic_support_v2_1_contract.json",
+    "scope": [
+      "模型原生选择白名单工具",
+      "模型生成参数并决定是否继续调用",
+      "模型基于FACT组织报告",
+      "FACT、图表和报告统一接入"
+    ],
+    "real_model_calls_allowed": false
+  },
+  "teaching_mainline": {
+    "primary_capability": "受约束的工具调用Agent",
+    "flow": [
+      "用户提出自然语言经营问题",
+      "模型原生选择白名单工具并生成参数",
+      "程序执行工具名白名单和Pydantic Schema校验",
+      "Pandas执行确定性计算",
+      "程序从工具结果生成FACT",
+      "工具结果和FACT返回模型",
+      "模型决定继续调用工具或结束",
+      "模型基于FACT组织经营报告并选择白名单图表",
+      "程序校验报告、FACT和图表来源",
+      "人工判断解释与建议是否超出证据"
+    ],
+    "forbidden_substitutes": [
+      "关键词分类代替模型选工具",
+      "Prompt-only工具名JSON代替原生工具调用",
+      "模型先选recipe_id再由程序预选唯一工具",
+      "程序把精确工具参数写给模型要求原样回显",
+      "固定规则路由冒充多工具自主调用",
+      "模型直接计算销售额、占比、增长率、排名或客单价"
+    ]
+  },
+  "responsibility_split": {
+    "model": [
+      "理解自然语言经营问题",
+      "必要时一次集中澄清",
+      "从七个白名单工具中原生选择工具",
+      "生成符合Schema的工具参数",
+      "接收工具结果和FACT后决定继续调用或结束",
+      "选择白名单图表类型和来源CALL",
+      "基于FACT组织六章节经营报告",
+      "给出需要人工审阅的有限解释和建议"
+    ],
+    "tools": [
+      "使用冻结数据和指标口径",
+      "由Pandas执行筛选、聚合、排序、比较和派生指标",
+      "返回结构化指标、表格和图表源数据",
+      "不生成解释、建议或最终报告"
+    ],
+    "program": [
+      "只暴露七个冻结白名单工具及strict Schema",
+      "校验工具名、参数类型、额外字段和调用上限",
+      "执行工具并生成当前轮FACT",
+      "验证依赖参数是否来自指定FACT",
+      "阻止重复调用、无关调用和跨轮FACT",
+      "校验报告中的数值、单位、期间、排名与FACT",
+      "从同一工具结果和FACT生成图表",
+      "保存工具轨迹、失败阶段和运行记录"
+    ],
+    "human": [
+      "判断有限解释是否超出描述性证据",
+      "判断经营建议是否替用户决策",
+      "核验能力边界和拒答是否合理",
+      "决定H3是否通过"
+    ]
+  },
+  "native_tool_protocol": {
+    "transport": "DeepSeek OpenAI-compatible native tool_calls",
+    "strict_endpoint": "https://api.deepseek.com/beta/chat/completions",
+    "model": "deepseek-v4-flash",
+    "initial_tool_visibility": "每个可调用轮次同时暴露全部七个冻结白名单工具，不由程序根据关键词或recipe预选唯一工具",
+    "allowed_model_response_shapes": [
+      "一个原生tool_call",
+      "一次集中澄清JSON",
+      "能力边界JSON",
+      "基于当前轮FACT的最终报告JSON"
+    ],
+    "per_response_tool_call_limit": 1,
+    "per_turn_tool_call_limit": 4,
+    "automatic_retry_count": 0,
+    "tool_loop": [
+      "模型返回原生tool_call",
+      "程序检查工具属于白名单",
+      "程序用对应Pydantic Schema校验模型参数",
+      "程序执行Pandas工具",
+      "程序生成CALL和FACT",
+      "程序把结构化工具结果与FACT作为tool消息返回模型",
+      "模型重新看到白名单工具并决定下一调用或最终响应"
+    ],
+    "program_may_preselect_next_tool": false,
+    "program_may_generate_model_tool_arguments": false,
+    "model_must_choose_tool_name": true,
+    "model_must_generate_tool_arguments": true,
+    "model_must_decide_continue_or_finish": true
+  },
+  "tool_validation_boundary": {
+    "frozen_registry": "config/h3_tool_contract.json",
+    "tool_count": 7,
+    "schema_rules": [
+      "strict=true",
+      "所有对象字段required",
+      "additionalProperties=false",
+      "程序端再次执行Pydantic strict校验",
+      "禁止任意Python、SQL、Shell、文件路径或表达式"
+    ],
+    "semantic_guards_after_model_choice": [
+      "问题明确给出的指标必须与工具参数一致",
+      "问题明确给出的Top N必须与工具参数一致",
+      "问题明确给出的排除对象和时间条件必须保留",
+      "依赖后续调用的参数必须与当前轮来源FACT一致",
+      "相同工具与相同参数不得在同一轮无意义重复",
+      "固定问题的允许调用、禁止行为和精确答案由程序事后验证"
+    ],
+    "analysis_recipe_role": {
+      "active_router": false,
+      "model_decision_type": false,
+      "allowed_use": [
+        "离线测试合法短流程",
+        "执行后验证固定问题所需的工具序列",
+        "验证依赖FACT是否完整"
+      ],
+      "forbidden_use": [
+        "在模型调用前决定工具名",
+        "只向模型暴露配方的下一工具",
+        "替模型生成全部参数"
+      ]
+    }
+  },
+  "dependent_call_boundary": {
+    "example_question_id": "Q06",
+    "required_behavior": [
+      "模型第一步原生选择analyze_time_trend",
+      "程序执行工具并生成唯一peak_period FACT",
+      "工具结果和peak_period FACT返回模型",
+      "模型决定继续并原生选择rank_products",
+      "模型生成custom日期与top_n等参数",
+      "程序把模型日期与peak_period FACT确定性转换的起止日期比较",
+      "一致才执行第二个Pandas工具，不一致立即失败"
+    ],
+    "program_may_silently_replace_wrong_arguments": false,
+    "program_may_hardcode_peak_month_before_first_call": false
+  },
+  "fact_boundary": {
+    "contract": "config/h3_fact_chart_report_contract.json",
+    "all_numbers_from_tools_or_deterministic_program": true,
+    "model_arithmetic_allowed": false,
+    "tool_message_to_model_contains": [
+      "内部CALL ID",
+      "已校验工具名和参数",
+      "聚合结构化结果",
+      "当前CALL生成的FACT",
+      "不得自行计算新数值的指令"
+    ],
+    "tool_message_to_model_forbids": [
+      "原始交易行",
+      "CustomerID值",
+      "本地文件路径",
+      "API Key或Authorization",
+      "历史轮次未重新计算的FACT"
+    ]
+  },
+  "report_boundary": {
+    "model_organizes_report": true,
+    "program_renders_all_business_text": false,
+    "q06_terminal_permission": {
+      "trigger": "Q06已执行analyze_time_trend与rank_products且收到两个tool结果",
+      "tool_visibility": 7,
+      "tool_choice": "none",
+      "program_preselects_business_tool": false,
+      "model_organizes_report": true,
+      "contract": "config/h3_q06_report_terminal_boundary_v2_2.candidate.json"
+    },
+    "schema": "六个固定章节、模型生成claims、每个claim显式列出当前轮FACT证据",
+    "sections": [
+      "用户问题与分析口径",
+      "关键经营发现",
+      "工具证据与图表",
+      "有限解释",
+      "经营建议",
+      "数据与分析限制"
+    ],
+    "model_allowed": [
+      "决定每个章节包含哪些claim",
+      "组织事实、证据、有限解释和建议的顺序",
+      "复述FACT已有数值和维度",
+      "选择当前轮FACT作为claim证据",
+      "用自然语言表达描述性关系",
+      "提出需要人工检查的有限建议"
+    ],
+    "model_forbidden": [
+      "计算FACT中不存在的新数值",
+      "改变FACT数值、单位、期间、排名或分母",
+      "引用其他轮次FACT",
+      "把销售额解释为利润",
+      "生成预测、因果诊断、库存或自动补货结论",
+      "在没有证据时声称显著、驱动、导致或证明原因"
+    ],
+    "program_checks": [
+      "六个章节完整且顺序固定",
+      "所有数字都出现在该claim引用的FACT中",
+      "证据中的value、display_value、unit、rank和period与FACT精确一致",
+      "每个FACT属于当前session和turn",
+      "程序统一渲染FACT引用标记",
+      "数值与FACT校验失败时不生成正式报告",
+      "解释和建议章节始终标记需要人工审阅"
+    ],
+    "retained_implementation_candidates": [
+      "src/report_validation.py",
+      "src/agent_protocol.py"
+    ],
+    "v2_1_template_role_after_revision": "可作为报告失败时的安全降级展示或离线对照，不再代替模型组织正式在线报告"
+  },
+  "chart_boundary": {
+    "model_selects_chart": true,
+    "model_generates_chart_code": false,
+    "model_modifies_chart_values": false,
+    "whitelist": [
+      "monthly_line",
+      "vertical_bar",
+      "top_n_horizontal_bar",
+      "two_segment_share_bar"
+    ],
+    "model_output": [
+      "chart_type",
+      "title",
+      "source_call_id"
+    ],
+    "program_checks": [
+      "图表类型属于白名单",
+      "图表类型与来源工具兼容",
+      "来源CALL属于当前轮",
+      "图表指标、排序、类别、数值和FACT来自同一个工具结果",
+      "图表与报告引用同一批当前轮FACT"
+    ],
+    "program_builds_chart_data": true,
+    "retained_implementation_candidate": "src/chart_data.py"
+  },
+  "clarification_and_boundary": {
+    "clarification_limit_per_turn": 1,
+    "clarification_happens_before_tool": true,
+    "boundary_happens_without_unrelated_tool": true,
+    "content_response_uses_strict_json": true,
+    "content_json_does_not_replace_native_tool_calls": true
+  },
+  "observable_tool_trace": [
+    "分析目标",
+    "模型选择的工具名称",
+    "程序接收的结构化参数",
+    "Schema校验状态",
+    "执行状态",
+    "聚合结果摘要",
+    "关联CALL和FACT",
+    "模型是否继续调用或结束"
+  ],
+  "q06_reference_flow": {
+    "expected_model_response_count": 3,
+    "responses": [
+      {
+        "response": 1,
+        "model_action": "native_tool_call",
+        "tool": "analyze_time_trend"
+      },
+      {
+        "response": 2,
+        "model_action": "native_tool_call_after_fact",
+        "tool": "rank_products"
+      },
+      {
+        "response": 3,
+        "model_action": "final_fact_grounded_report_with_chart_request"
+      }
+    ],
+    "program_does_not_preselect_tools": true
+  },
+  "retained_layers": [
+    "H2数据清洗与指标口径",
+    "十个固定问题和参考答案",
+    "七个白名单工具及Pydantic Schema",
+    "Pandas工具实现",
+    "FACT Builder和FACT Schema",
+    "图表数据构建和校验",
+    "运行记录与隐私边界",
+    "V2.1依赖FACT校验思想",
+    "V2.1显式指标和Top N防护"
+  ],
+  "replaced_boundaries": [
+    "recipe_id作为模型主要决策",
+    "程序按recipe预选唯一下一工具",
+    "程序生成精确参数要求模型原样回显",
+    "程序用固定模板生成全部正式报告文字",
+    "V2.1独立编排器缺少图表输出"
+  ],
+  "real_validation": {
+    "previous_plan": "config/h3_v2_1_real_validation_plan.candidate.json",
+    "previous_plan_status": "paused_after_mainline_boundaries_reopened",
+    "previous_online_entry": "scripts/run_v2_1_online_candidate.py",
+    "previous_online_entry_retired": true,
+    "real_model_calls_allowed": false,
+    "question_ids_may_be_reused_after_offline_validation": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "provisional_expected_response_count_if_all_pass": 5,
+    "provisional_count_breakdown": {
+      "Q06": 3,
+      "Q08": 1,
+      "Q09": 1
+    },
+    "rule": "五次只是按候选协议计算的暂定值；独立Mock和离线传输通过前不得冻结或授权"
+  },
+  "offline_design_validation": {
+    "status": "passed",
+    "run_id": "v2_1_mainline_revision_20260731T175012_602895+0800",
+    "local_evidence_path": "results/raw/v2_1_mainline_revision_20260731T175012_602895+0800",
+    "validation_script": "scripts/validate_v2_1_native_tool_mainline_revision.py",
+    "test_file": "tests/test_v2_1_native_tool_mainline_revision.py",
+    "targeted_test_count": 6,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false,
+    "program_preselects_next_tool": false,
+    "real_model_calls_allowed": false
+  },
+  "independent_native_tool_mock_validation": {
+    "status": "passed",
+    "completed_on": "2026-07-31",
+    "implementation": [
+      "src/native_tool_agent_v2_1_revision.py",
+      "src/mock_native_tool_client_v2_1_revision.py",
+      "prompts/native_tool_agent_system_v2_1_revision.md",
+      "prompts/native_tool_report_v2_1_revision.md"
+    ],
+    "validation_script": "scripts/validate_native_tool_agent_v2_1_revision_mock.py",
+    "test_file": "tests/test_native_tool_agent_v2_1_revision.py",
+    "local_run_id": "native_tool_mock_v2_1_revision_20260731T181444_174975+0800",
+    "local_evidence_path": "results/raw/native_tool_mock_v2_1_revision_20260731T181444_174975+0800",
+    "fixed_question_count": 10,
+    "fixed_questions_passed": 10,
+    "model_response_count": 20,
+    "tool_call_count": 10,
+    "fact_count": 94,
+    "chart_count": 6,
+    "all_seven_tools_visible_on_every_model_response": true,
+    "q06_second_call_arguments_derived_after_peak_fact": true,
+    "program_preselected_tool": false,
+    "recipe_router_used": false,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false
+  },
+  "offline_native_tool_transport_validation": {
+    "status": "passed",
+    "completed_on": "2026-07-31",
+    "implementation": [
+      "src/online_native_tool_candidate_v2_1_revision.py",
+      "src/native_tool_transport_mock_v2_1_revision.py"
+    ],
+    "validation_script": "scripts/validate_native_tool_online_transport_v2_1_revision.py",
+    "test_file": "tests/test_native_tool_online_transport_v2_1_revision.py",
+    "local_run_id": "native_tool_transport_v2_1_revision_20260731T183819_976960+0800",
+    "local_evidence_path": "results/raw/native_tool_transport_v2_1_revision_20260731T183819_976960+0800",
+    "fixed_questions_passed": 10,
+    "request_count": 20,
+    "beta_strict_tool_request_count": 20,
+    "seven_tool_request_count": 20,
+    "standard_json_gate_used": false,
+    "q06_tool_result_message_progression": [0, 1, 2],
+    "response_limit_reserved_before_transport": true,
+    "request_contracts_passed": true,
+    "recipe_router_used": false,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false,
+    "real_model_calls_allowed": false
+  },
+  "historical_remaining_work_before_mock_and_transport": [
+    "建立不使用recipe路由的独立原生工具Mock编排器",
+    "验证模型能够在同时可见的七工具中选择工具",
+    "验证模型生成参数而程序只校验不替换",
+    "验证Q06由模型决定第二次调用",
+    "接入现有FACT报告校验和图表构建",
+    "运行Q01至Q10离线端到端验证",
+    "通过真实DeepSeek客户端的注入式离线传输验证",
+    "重新设计并冻结少量真实验证上限"
+  ],
+  "historical_remaining_work_after_offline_transport": [
+    "user reviews and freezes the independent native-tool online candidate boundary",
+    "redesign the representative real-call plan and response upper bound",
+    "obtain separate user authorization before reading API key or opening network",
+    "run a small real DeepSeek V4 Pro validation",
+    "perform human review of explanations and recommendations"
+  ],
+  "remaining_work_after_real_plan_preflight": [
+    "user reviews and freezes the five-response Q06-Q08-Q09 plan",
+    "plan freeze remains separate from real-call authorization",
+    "only after separate authorization implement the guarded real runner",
+    "run the authorized real validation and perform manual review"
+  ],
+  "change_control": {
+    "four_boundaries_reopened_by_user": true,
+    "candidate_frozen": false,
+    "real_call_authorized": false,
+    "next_gate": "用户审阅主线修正版候选契约；确认后进入独立原生工具Mock编排器实现，仍不调用真实模型"
+  }
+}

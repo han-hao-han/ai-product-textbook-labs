@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.5.6-h3-claim-controller-v3-full-real-validation-v1",
+  "status": "failed_stopped_after_three_batch_attempts",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+  "response_attempt_upper_bound": 34,
+  "automatic_transport_retry_count": 0,
+  "authorization": {
+    "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q10-20260805-03",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true,
+    "condition": "run only after the V3 Q01/Q06 checkpoint passes"
+  },
+  "previous_attempts": [
+    {
+      "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q10-20260805-01",
+      "status": "failed_stopped",
+      "result_run_id": "claim_controller_v3_full_real_20260805T135148_024588+0800",
+      "question_ids_executed": ["Q01", "Q02", "Q03", "Q04", "Q05"],
+      "passed_question_ids": ["Q01", "Q02", "Q03", "Q04"],
+      "actual_response_attempts": 19,
+      "root_failure_code": "deterministic_report_validation_failed",
+      "evidence_preserved": true
+    },
+    {
+      "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q10-20260805-02",
+      "status": "failed_stopped",
+      "result_run_id": "claim_controller_v3_full_real_20260805T135948_177920+0800",
+      "question_ids_executed": ["Q01", "Q02", "Q03", "Q04"],
+      "passed_question_ids": ["Q01", "Q02", "Q03"],
+      "actual_response_attempts": 15,
+      "root_failure_code": "unsupported_sales_amount_superlative",
+      "evidence_preserved": true
+    },
+    {
+      "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q10-20260805-03",
+      "status": "failed_stopped",
+      "result_run_id": "claim_controller_v3_full_real_20260805T140730_935882+0800",
+      "question_ids_executed": ["Q01", "Q02"],
+      "passed_question_ids": ["Q01"],
+      "actual_response_attempts": 7,
+      "root_failure_code": "deterministic_report_validation_failed",
+      "evidence_preserved": true
+    }
+  ],
+  "real_model_called": true,
+  "three_attempt_stop_applied": true,
+  "v20_incremental_prompt_route_closed": true,
+  "v2_2_3_resumed": false
+}

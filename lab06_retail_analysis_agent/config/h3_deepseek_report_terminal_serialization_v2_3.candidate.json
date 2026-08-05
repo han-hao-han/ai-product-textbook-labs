@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.5.6-h3-deepseek-report-terminal-serialization-v2.3-candidate-v1",
+  "status": "offline_design_authorized_by_user_pending_implementation_validation",
+  "created_on": "2026-08-03",
+  "observed_real_evidence": {
+    "run_id": "q01_q10_batch_a_flash_20260803T233810_455037+0800",
+    "question_id": "Q02",
+    "business_tool_sequence": ["rank_products"],
+    "tool_reference_answer_status": "passed",
+    "terminal_finish_reason": "stop",
+    "terminal_completion_tokens": 3948,
+    "terminal_max_tokens": 8192,
+    "terminal_was_truncated": false,
+    "valid_json_prefix_is_bare_report_draft": true,
+    "control_response_wrapper_missing": true,
+    "trailing_deepseek_dsml_chart_requests": true,
+    "root_failure": "terminal_control_json_contaminated_by_provider_dsml"
+  },
+  "rejected_candidates": [
+    {
+      "candidate": "trim trailing DSML and keep the JSON prefix",
+      "reason": "The prefix is only ReportDraft and still lacks response_type, report and chart_requests."
+    },
+    {
+      "candidate": "parse proprietary DSML into the control response",
+      "reason": "This would silently repair provider output and couple acceptance to undocumented markup."
+    },
+    {
+      "candidate": "add an eighth submit_report tool",
+      "reason": "This changes the frozen seven-business-tool whitelist and confuses control serialization with business tool selection."
+    },
+    {
+      "candidate": "increase max_tokens again",
+      "reason": "The provider stopped normally below the current 8192 terminal capacity."
+    }
+  ],
+  "selected_protocol": {
+    "business_tool_phase": {
+      "endpoint": "https://api.deepseek.com/beta/chat/completions",
+      "tools_visible": 7,
+      "tool_choice": "auto",
+      "response_format": null,
+      "provider_schema_adapter": "existing strict-tools adapter"
+    },
+    "terminal_trigger": {
+      "authority": "deterministic program state",
+      "requires_exact_fixed_tool_sequence": true,
+      "allows_program_generated_business_tool_or_arguments": false
+    },
+    "report_or_control_terminal_phase": {
+      "endpoint": "https://api.deepseek.com/chat/completions",
+      "tools_visible": 0,
+      "tool_choice_field_sent": false,
+      "response_format": {"type": "json_object"},
+      "report_max_tokens": 8192,
+      "clarification_or_boundary_max_tokens": 4096,
+      "messages_preserved": false,
+      "terminal_tool_message_projection": {
+        "preserve_fields": ["internal_call_id", "tool_name", "facts", "request_records", "policy_records", "instruction"],
+        "remove_fields": ["arguments", "result"],
+        "local_original_tool_result_preserved": true,
+        "chart_builder_still_uses_original_tool_result": true
+      },
+      "clean_terminal_transcript": {
+        "preserve_system_prompt_and_original_user_messages": true,
+        "drop_assistant_tool_call_history_from_wire": true,
+        "drop_tool_role_messages_from_wire": true,
+        "append_plain_user_evidence_envelope": true,
+        "evidence_envelope_contains_only_projected_call_evidence": true,
+        "local_native_trace_preserved": true
+      },
+      "model_responsibility": "return one exact FinalReportResponse, ClarificationResponse or BoundaryResponse JSON object"
+    }
+  },
+  "fail_closed_rules": {
+    "dsml_extraction_allowed": false,
+    "trailing_content_trim_allowed": false,
+    "bare_report_auto_wrapping_allowed": false,
+    "schema_repair_allowed": false,
+    "automatic_retry_count": 0,
+    "raw_provider_response_preserved": true,
+    "valid_json_wrong_schema_is_failure": true,
+    "report_fact_validation_unchanged": true
+  },
+  "mainline_compatibility": {
+    "model_selects_business_tools": true,
+    "model_generates_business_arguments": true,
+    "pandas_performs_business_calculation": true,
+    "program_closes_tool_permission_after_evidence_chain": true,
+    "model_organizes_report": true,
+    "program_validates_schema_and_fact_trace": true,
+    "seven_business_tool_whitelist_changed": false
+  },
+  "scope_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "prompt_file_changed": false,
+    "business_tool_schema_changed": false,
+    "fact_schema_or_values_changed": false,
+    "report_control_schema_changed": false,
+    "acceptance_root_rules_changed": false,
+    "v2_2_3_resumed": false,
+    "batch_b_authorized": false
+  },
+  "real_model_calls": {
+    "allowed_during_initial_offline_implementation": false,
+    "required_for_final_provider_validation": true,
+    "reuse_failed_batch_authorization": false
+  }
+}

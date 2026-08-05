@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.5.6-h3-q01-q10-acceptance-harness-implementation-v1",
+  "status": "offline_implementation_validated_pending_user_checkpoint",
+  "implemented_on": "2026-08-03",
+  "prerequisite": {
+    "design_status": "frozen_by_user_offline_validated_not_implemented",
+    "design_contract": "config/h3_q01_q10_acceptance_harness_revision_design.candidate.json",
+    "h2_questions_status": "frozen_by_user",
+    "v2_2_3_status": "paused_by_user_pending_q01_q10_acceptance_harness_audit"
+  },
+  "scope": {
+    "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    "six_frozen_boundaries_implemented": true,
+    "h2_reference_answers_changed": false,
+    "prompt_changed": false,
+    "tool_names_or_argument_schemas_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_calls_allowed": false,
+    "api_key_may_be_read": false
+  },
+  "implementation": {
+    "acceptance_statuses": [
+      "protocol_mock_status",
+      "dataflow_mock_status",
+      "tool_reference_answer_status",
+      "report_content_acceptance_status",
+      "manual_review_status",
+      "real_model_validation_status"
+    ],
+    "generic_mock_success_label": "protocol_and_dataflow_passed",
+    "deterministic_pending_manual_label": "passed_deterministic_pending_manual_review",
+    "real_not_run_label": "current_model_real_status_unknown",
+    "report_evidence_source_types": ["FACT", "REQUEST", "POLICY"],
+    "report_manifest_leaf_counts": {"Q01": 7, "Q02": 27, "Q03": 23, "Q04": 7, "Q05": 14, "Q06": 20, "Q07": 12},
+    "q06_additional_request_requirements": {"top_n": "3"},
+    "rank_route": "rank_only_on_selected_metric_fact",
+    "plain_significant_route": "human_review",
+    "product_classification_route": "human_review",
+    "unsupported_aov_number_route": "deterministic_hard_fail",
+    "q10_boundary_codes": ["forecasting_unsupported", "automatic_replenishment_unsupported"]
+  },
+  "acceptance": {
+    "generic_mock_q01_q07_must_not_pass_report_content": true,
+    "complete_fixture_q01_q07_must_cover_every_manifest_item": true,
+    "q08_q10_deterministic_content_must_pass_before_manual": true,
+    "wrong_q09_alternative_must_fail_content": true,
+    "q10_capability_promise_or_missing_code_must_fail_content": true,
+    "manual_checklist_must_remain_pending": true,
+    "mock_must_not_claim_real_model_validation": true,
+    "current_non_selected_metric_rank_count_must_be_zero": true,
+    "historical_fact_files_must_not_be_rewritten": true
+  },
+  "authorization": {
+    "offline_implementation_authorized_by_user": true,
+    "authorization_consumed_by_this_stage": true,
+    "real_model_calls_allowed": false,
+    "h2_reference_answers_may_change": false,
+    "v2_2_3_may_resume": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "acceptance_harness_six_boundary_implementation_20260803T182147_396719+0800",
+    "evidence_path": "results/raw/acceptance_harness_six_boundary_implementation_20260803T182147_396719+0800/summary.json",
+    "generic_mock_statuses": {
+      "Q01": "protocol_and_dataflow_passed",
+      "Q02": "protocol_and_dataflow_passed",
+      "Q03": "protocol_and_dataflow_passed",
+      "Q04": "protocol_and_dataflow_passed",
+      "Q05": "protocol_and_dataflow_passed",
+      "Q06": "protocol_and_dataflow_passed",
+      "Q07": "protocol_and_dataflow_passed",
+      "Q08": "passed_deterministic_pending_manual_review",
+      "Q09": "passed_deterministic_pending_manual_review",
+      "Q10": "passed_deterministic_pending_manual_review"
+    },
+    "complete_fixture_manifest_counts": {"Q01": 7, "Q02": 27, "Q03": 23, "Q04": 7, "Q05": 14, "Q06": 21, "Q07": 12},
+    "current_non_selected_metric_rank_counts": {"Q02": 0, "Q03": 0, "Q06": 0},
+    "negative_probe_passed": 9,
+    "negative_probe_total": 9,
+    "targeted_test_status": "27_passed_3_subtests_passed",
+    "full_test_status": "262_passed_40_subtests_passed",
+    "source_files_unchanged_during_verification": true,
+    "h2_reference_answers_changed": false,
+    "prompt_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "next_gate": "完成离线验证后由用户审阅；任何真实模型验证、V2.2.3恢复或H2变更仍需单独授权。"
+}

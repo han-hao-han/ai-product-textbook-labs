@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.5.6-h3-report-admissible-evidence-projection-v2.3.1-candidate-v1",
+  "status": "offline_implementation_and_validation_completed",
+  "created_on": "2026-08-04",
+  "root_cause_evidence": {
+    "question_id": "Q02",
+    "source_run_id": "q02_terminal_serialization_v2_3_20260804T002004_850300+0800",
+    "full_fact_count": 16,
+    "full_fact_json_bytes": 10901,
+    "report_reference_json_bytes": 4739,
+    "full_fact_contains_row_count": true,
+    "full_fact_contains_observed_row_count_value": true,
+    "report_reference_contains_row_count": false,
+    "report_reference_contains_observed_row_count_value": false,
+    "diagnosis": "The terminal model received valid internal audit metadata that the frozen ReportFactReference cannot cite."
+  },
+  "selected_boundary": {
+    "business_tool_phase_changed": false,
+    "projection_authority": "deterministic_program",
+    "projection_source_validation": [
+      "FactRecord",
+      "RequestRecord",
+      "PolicyRecord"
+    ],
+    "terminal_fact_shape": "ReportFactReference",
+    "terminal_request_shape": "ReportRequestReference",
+    "terminal_policy_shape": "ReportPolicyReference",
+    "terminal_call_fields": [
+      "internal_call_id",
+      "tool_name",
+      "fact_references",
+      "request_references",
+      "policy_references"
+    ],
+    "removed_internal_fields": [
+      "arguments",
+      "result",
+      "instruction",
+      "analysis_scope.row_count",
+      "fact_type",
+      "source_tool",
+      "source_result_path",
+      "FactRecord session/turn/call duplicates"
+    ],
+    "local_full_tool_results_preserved": true,
+    "local_full_facts_preserved": true,
+    "chart_builder_uses_local_tool_results": true
+  },
+  "claim_local_evidence_contract": {
+    "validation_authority": "existing deterministic report validator",
+    "schema_changed": false,
+    "each_claim_validated_independently": true,
+    "rank_requires_rank_carrying_fact_in_same_claim": true,
+    "top_n_requires_request_or_fact_evidence_in_same_claim": true,
+    "numbers_and_dates_cannot_borrow_evidence_from_other_claims": true,
+    "negative_regressions_required": [
+      "uncitable row_count absent from terminal envelope",
+      "rank with unrelated evidence fails",
+      "top_n with evidence only in another claim fails",
+      "unsupported arithmetic inference fails"
+    ]
+  },
+  "fail_closed_rules": {
+    "malformed_source_record_rejected": true,
+    "cross_call_fact_provenance_rejected": true,
+    "cross_turn_evidence_rejected": true,
+    "unknown_business_tool_rejected": true,
+    "forbidden_internal_key_leak_rejected": true,
+    "schema_repair_allowed": false,
+    "automatic_retry_count": 0
+  },
+  "rejected_candidates": [
+    {
+      "candidate": "add row_count to ReportFactReference",
+      "reason": "It would expand the frozen report evidence schema for an internal audit count that is not a business answer."
+    },
+    {
+      "candidate": "relax untraceable numeric validation",
+      "reason": "It would permit unsupported report numbers and weaken the experiment's mainline."
+    },
+    {
+      "candidate": "prompt-only prohibition",
+      "reason": "The model could still copy exposed metadata; the program should remove it before serialization."
+    },
+    {
+      "candidate": "post-hoc report repair",
+      "reason": "It would hide a model boundary failure and alter model-authored claims."
+    }
+  ],
+  "scope_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "seven_tool_schema_changed": false,
+    "fact_schema_or_values_changed": false,
+    "report_control_schema_changed": false,
+    "acceptance_root_rules_changed": false,
+    "frozen_prompt_file_changed": false,
+    "v2_2_3_resumed": false,
+    "batch_b_authorized": false,
+    "real_model_call_authorized_in_offline_stage": false
+  }
+}

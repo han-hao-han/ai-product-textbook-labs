@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.5.6-h3-tool-routing-prompt-v2-candidate-v1",
+  "status": "real_batch_failed_superseded_by_combined_v3",
+  "created_on": "2026-08-04",
+  "predecessor_prompt": "prompts/native_tool_agent_system_tool_routing_v1.md",
+  "candidate_prompt": "prompts/native_tool_agent_system_tool_routing_v2.md",
+  "predecessor_sha256": "B4E44CE35218BA5446C7F1F22C0594A33308C1342071301F12A8D676424F77F0",
+  "candidate_sha256": "495A6E9C20A55405F3634686A346A5BA0EA860CA82BEBB9AEBF7B5152FA7E4EB",
+  "additive_rules": ["TOOL-ROUTE-04", "TOOL-ROUTE-05"],
+  "triggering_real_evidence": {
+    "run_id": "tool_routing_prompt_v1_real_20260804T184836_685281+0800",
+    "q02_status": "passed_deterministic_pending_manual_review",
+    "q01_status": "failed_stopped",
+    "q01_root_failure": "model_emitted_multiple_tool_calls",
+    "q01_observed_tools": ["get_sales_overview", "get_data_profile"],
+    "q01_required_tools": ["get_sales_overview"]
+  },
+  "scope": {
+    "single_tool_call_per_response_reinforced": true,
+    "sales_overview_time_coverage_semantics_added": true,
+    "h2_changed": false,
+    "data_changed": false,
+    "tool_schema_changed": false,
+    "fact_or_report_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "q01_q10_passed": 10,
+    "q01_q10_total": 10,
+    "model_responses": 27,
+    "model_visible_internal_call_values": 0,
+    "summary_path": "results/raw/tool_routing_prompt_v2_offline_20260804T185430_990034+0800/summary.json",
+    "real_model_called": false
+  },
+  "real_validation": {
+    "status": "failed_stopped",
+    "run_id": "tool_routing_prompt_v2_real_20260804T185814_034236+0800",
+    "q02_status": "passed_deterministic_pending_manual_review",
+    "q01_root_failure_stage": "terminal_protocol_validation",
+    "q01_root_failure_code": "derived_metric_fact_missing",
+    "actual_responses": 6,
+    "transport_failures": 0,
+    "superseded_by": "config/h3_combined_prompt_v3.candidate.json"
+  }
+}

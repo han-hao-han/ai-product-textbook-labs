@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.5.6-h3-q06-flash-comparison-plan-v1",
+  "status": "frozen_flash_comparison_failed_pending_model_selection",
+  "created_on": "2026-07-31",
+  "official_update_source": "https://api-docs.deepseek.com/zh-cn/updates/",
+  "official_update_facts": {
+    "date": "2026-07-31",
+    "flash_release": "DeepSeek-V4-Flash正式版API上线公测",
+    "model_name": "deepseek-v4-flash",
+    "agent_capability_claim": "官方称Agent能力大幅增强，基准测试远超V4-Pro-Preview",
+    "pro_status": "本次DeepSeek-V4-Pro API未更新，Pro正式版将尽快发布"
+  },
+  "comparison_scope": {
+    "question_ids": ["Q06"],
+    "candidate_model": "deepseek-v4-flash",
+    "baseline_model": "deepseek-v4-pro",
+    "baseline_run_id": "q06_real_revalidation_20260731T205826_757539+0800",
+    "baseline_repeated": false,
+    "prompt_changed": false,
+    "provider_schema_changed": false,
+    "data_changed": false,
+    "acceptance_rules_changed": false,
+    "tool_whitelist_changed": false,
+    "h2_metrics_changed": false
+  },
+  "model_protocol": {
+    "provider": "DeepSeek",
+    "requested_model": "deepseek-v4-flash",
+    "accepted_response_models": ["deepseek-v4-flash"],
+    "endpoint": "https://api.deepseek.com/beta/chat/completions",
+    "tool_choice": "auto",
+    "tool_visibility_per_response": 7,
+    "thinking": {"type": "disabled"},
+    "temperature": 0,
+    "stream": false,
+    "standard_json_gate_allowed": false,
+    "recipe_router_allowed": false
+  },
+  "hard_limits": {
+    "response_attempt_upper_bound": 3,
+    "reserve_attempt_before_transport": true,
+    "automatic_retry_count": 0,
+    "parallel_requests": false,
+    "stop_on_first_failure": true,
+    "unused_attempt_capacity_reusable": false,
+    "pro_response_attempts_allowed": 0
+  },
+  "acceptance_reference": {
+    "source_plan": "config/h3_q06_real_revalidation_plan_v2_1_revision.candidate.json",
+    "first_response": "analyze_time_trend with exact __NONE__ and month provider arguments",
+    "second_response": "rank_products with 2011-11-01 through 2011-11-30 derived after peak_period FACT",
+    "third_response": "control_response with no extra tool call",
+    "fixed_question_validation_required": true,
+    "two_charts_required": true,
+    "report_fact_trace_required": true,
+    "manual_review_required": true
+  },
+  "authorization": {
+    "status": "consumed_by_failed_run",
+    "authorized_on": "2026-07-31",
+    "question_ids": ["Q06"],
+    "model": "deepseek-v4-flash",
+    "response_attempt_upper_bound": 3,
+    "automatic_retry_count": 0,
+    "authorization_matches_frozen_plan": true,
+    "pro_call_authorized": false,
+    "runner_confirmation_constant": "I_AUTHORIZE_Q06_FLASH_COMPARISON"
+  },
+  "evidence_and_privacy": {
+    "save_provider_raw_responses": true,
+    "save_provider_and_normalized_arguments": true,
+    "save_usage_and_response_models": true,
+    "save_tools_facts_charts_and_report_validation": true,
+    "api_key_saved": false,
+    "authorization_header_saved": false,
+    "request_body_saved": false,
+    "raw_customer_id_exported": false,
+    "local_absolute_paths_saved": false
+  },
+  "implementation": {
+    "guarded_runner_status": "implemented_and_offline_validated",
+    "guarded_runner": "scripts/run_q06_flash_comparison_v2_1_revision.py",
+    "guarded_runner_test": "tests/test_q06_flash_comparison_v2_1_revision.py",
+    "real_model_called_during_offline_validation": false,
+    "offline_validation_status": "passed",
+    "offline_validation_test_count": 17
+  },
+  "real_run": {
+    "run_id": "q06_flash_comparison_20260731T212358_465050+0800",
+    "evidence_path": "results/raw/q06_flash_comparison_20260731T212358_465050+0800",
+    "status": "failed_third_response_selected_extra_get_data_profile",
+    "actual_flash_response_attempts": 3,
+    "completed_flash_responses": 3,
+    "failed_transport_attempts": 0,
+    "automatic_retry_performed": false,
+    "actual_pro_response_attempts": 0,
+    "response_models": [
+      "deepseek-v4-flash",
+      "deepseek-v4-flash",
+      "deepseek-v4-flash"
+    ],
+    "first_response_status": "passed_analyze_time_trend_provider_arguments",
+    "second_response_status": "passed_rank_products_fact_dependency",
+    "third_response_status": "failed_selected_disallowed_extra_get_data_profile",
+    "extra_tool_executed": false,
+    "charts_created": 0,
+    "report_created": false,
+    "usage": {
+      "prompt_tokens": 32641,
+      "completion_tokens": 404,
+      "total_tokens": 33045
+    },
+    "agent_elapsed_seconds": 6.838128,
+    "privacy_audit_passed": true
+  },
+  "observed_comparison": {
+    "baseline_pro_run_id": "q06_real_revalidation_20260731T205826_757539+0800",
+    "first_two_responses_equivalent": true,
+    "third_response_failure_equivalent": true,
+    "both_program_acceptance_status": "failed",
+    "model_switch_solved_terminal_boundary": false,
+    "flash_agent_elapsed_seconds": 6.838128,
+    "pro_agent_elapsed_seconds": 9.289453,
+    "flash_total_tokens": 33045,
+    "pro_total_tokens": 32582,
+    "selection_conclusion": "no_acceptance_winner_terminal_boundary_redesign_required",
+    "single_run_not_general_benchmark": true
+  },
+  "selection_rule": {
+    "flash_full_q06_pass": "select_flash_for_1.5.6",
+    "flash_same_third_response_failure": "model_switch_does_not_solve_terminal_boundary",
+    "flash_fails_before_pro": "retain_pro_candidate_and_redesign_terminal_boundary",
+    "single_run_not_general_benchmark": true
+  },
+  "change_control": "修改Q06、Flash模型、三响应上限、零重试、Prompt、Schema、数据、验收规则或允许重复调用Pro，必须重新得到用户确认。"
+}

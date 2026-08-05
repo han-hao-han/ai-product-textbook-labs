@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v9-candidate-v1",
+  "status": "real_checkpoint_failed_superseded_by_v10",
+  "created_on": "2026-08-04",
+  "control_message_guard": "prompts/native_tool_control_message_guard_v9.md",
+  "control_message_guard_sha256": "E38B3C1276C8DFFA46EFF2E5FF1FB845746B92CF7B801B378A88F181A4BF6ADD",
+  "terminal_structural_guard": "prompts/native_tool_terminal_structural_guard_v9.md",
+  "terminal_structural_guard_sha256": "6E2F6655EFC2ABDD147EE03A260B71862B781AE629C2535CD059E4B97F7FAA58",
+  "triggering_real_run": "combined_prompt_v8_full_real_20260804T202422_708058+0800",
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "combined_prompt_v9_offline_20260804T203351_170507+0800",
+    "question_count": 10,
+    "model_response_count": 27,
+    "full_test_count": 441,
+    "full_subtest_count": 143,
+    "real_model_called": false
+  },
+  "real_checkpoint": {
+    "status": "completed_with_failures",
+    "run_id": "combined_prompt_v9_four_q_real_20260804T203728_405392+0800",
+    "passed_question_ids": ["Q06", "Q10"],
+    "failed_question_ids": ["Q04", "Q05"],
+    "completed_model_responses": 12,
+    "transport_failures": 0,
+    "superseded_by": "h3_combined_prompt_v10.candidate.json"
+  },
+  "boundary": {
+    "peak_summary_excludes_incomplete_fact": true,
+    "interpretation_and_recommendation_evidence_hidden": true,
+    "cross_dimension_claim_combination_forbidden": true,
+    "q10_message_numbers_forbidden": true,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "program_authored_claim_text": false,
+    "model_still_selects_atom_ids": true,
+    "model_still_writes_report": true,
+    "v2_2_3_resumed": false
+  }
+}

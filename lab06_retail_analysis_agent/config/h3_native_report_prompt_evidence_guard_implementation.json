@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.5.6-h3-native-report-prompt-evidence-guard-implementation-v1",
+  "status": "offline_implementation_and_full_regression_completed_pending_separate_real_validation_authorization",
+  "implemented_on": "2026-08-03",
+  "authorization": {
+    "status": "authorized_by_user_after_candidate_freeze",
+    "design": "config/h3_native_report_prompt_evidence_guard_design.candidate.json",
+    "real_model_calls_allowed": false,
+    "h2_changes_allowed": false,
+    "data_changes_allowed": false,
+    "tool_schema_changes_allowed": false,
+    "report_schema_changes_allowed": false,
+    "fact_schema_or_value_changes_allowed": false,
+    "acceptance_root_rule_changes_allowed": false,
+    "v2_2_3_resume_allowed": false
+  },
+  "prompt_versioning": {
+    "frozen_predecessor_path": "prompts/native_tool_report_v2_1_revision.md",
+    "frozen_predecessor_file_sha256": "13cd6f8519b1a5798d861868a976087059f78ee1da3a466ef4d729e1356f64dc",
+    "new_active_path": "prompts/native_tool_report_evidence_guard_v1.md",
+    "new_active_file_sha256": "38a2bb6c94f718f2a93a3aa09e92570a5cd777117e0dd2fba39ca95780f72d1e",
+    "new_active_loaded_content_sha256": "085a618c2a88ec707dfc5693674b47237941f633eea609414806f36370b22a34",
+    "new_active_version": "1.5.6-h3-native-tool-report-evidence-guard-v1",
+    "additive_rule_ids": [
+      "PROMPT-EVIDENCE-01",
+      "PROMPT-EVIDENCE-02",
+      "PROMPT-EVIDENCE-03"
+    ],
+    "additional_rules_beyond_frozen_predecessor": 3,
+    "frozen_predecessor_modified": false
+  },
+  "implementation": {
+    "prompt_loader": "src/prompt_contract.py",
+    "native_mainline_wiring": "src/native_tool_agent_v2_1_revision.py",
+    "q01_q10_mock_entry_wiring": "scripts/validate_native_tool_agent_v2_1_revision_mock.py",
+    "formal_validator": "src/native_report_prompt_evidence_guard_implementation.py",
+    "formal_validation_script": "scripts/validate_native_report_prompt_evidence_guard_implementation.py",
+    "test_file": "tests/test_native_report_prompt_evidence_guard_implementation.py"
+  },
+  "frozen_source_hashes": {
+    "config/h2_validation_questions.json": "8f00953c1e4b6429d9a4c4ae240b430093deb3e8f75d6a4d9c35789e97d0ffcf",
+    "data/raw/h2_reference_answers.json": "d39eee93d841ff8a5f5c5d7943f82a622b338bf2e768dd571b2dd1ec6dda24e2",
+    "data/raw/Online Retail.xlsx": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d",
+    "data/downloads/online_retail.zip": "f5385cbb54bbebf7196389109c6b0621faab0c304e3702548165e71c84aede8b",
+    "data/raw/audit_report.json": "e7cbf6eefeeb876844d40d567c3d0565b53030d02dca4287eaaf139a6b35d1c2",
+    "data/raw/cleaning_profile.json": "2439744de081c105bf8a0f4400a900b30a7f52bd6e06863613dc03de29c47211",
+    "src/tool_schemas.py": "758ba49675c2d34df7487797e59b654543e36417aa5390844625222ac6b68766",
+    "src/agent_protocol.py": "b7d571a86f10cf1c809b64d83cf6ac7247c96807de69b19eb55b4fa1b0f76b83",
+    "src/fact_schema.py": "e42f305c10beb6c13f183cc2ad1d80dabb8e5cf2db79e279507eeea6766e07cb",
+    "src/report_validation.py": "ade86a2a37d3fcf7f747da44bc5af4e10dd12ab461a390b33368a56b088a5332",
+    "config/h3_q06_report_revision_feedback_boundary_v2_2_3.candidate.json": "6339f3dbecb712210d72c287c839b6db9499da0c297af54ca6dde1038aaa3371"
+  },
+  "expected_offline_results": {
+    "mainline_uses_new_prompt": true,
+    "saved_q02_status": "failed_stopped",
+    "saved_q02_tool_reference_answer_status": "passed",
+    "saved_q02_root_failure_codes": [
+      "untraceable_numeric_token",
+      "unsupported_average_value_claim",
+      "unsupported_average_value_claim"
+    ],
+    "saved_q02_response_is_not_rewritten": true,
+    "saved_q02_failure_is_not_claimed_fixed": true,
+    "q01_q10_mock_questions_passed": 10,
+    "q01_q10_mock_questions_total": 10
+  },
+  "persistent_exclusions": {
+    "h2_changed": false,
+    "data_changed": false,
+    "tool_schema_changed": false,
+    "report_schema_changed": false,
+    "fact_schema_or_values_changed": false,
+    "acceptance_root_rules_changed": false,
+    "saved_q02_response_changed": false,
+    "v2_2_3_resumed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "formal_implementation": {
+      "run_id": "native_report_prompt_evidence_guard_implementation_20260803T222017_845367+0800",
+      "evidence_path": "results/raw/native_report_prompt_evidence_guard_implementation_20260803T222017_845367+0800/summary.json"
+    },
+    "saved_q02_regression": {
+      "run_id": "q02_failure_harness_implementation_20260803T221136_483437+0800",
+      "evidence_path": "results/raw/q02_failure_harness_implementation_20260803T221136_483437+0800/summary.json",
+      "status": "failed_stopped_as_expected",
+      "root_failure_codes_unchanged": true,
+      "harness_cascade_noise_absent": true
+    },
+    "q01_q10_native_mock": {
+      "run_id": "native_tool_mock_v2_1_revision_20260803T221237_108699+0800",
+      "evidence_path": "results/raw/native_tool_mock_v2_1_revision_20260803T221237_108699+0800/summary.json",
+      "passed": 10,
+      "total": 10,
+      "active_report_prompt_version": "1.5.6-h3-native-tool-report-evidence-guard-v1"
+    },
+    "q01_q10_acceptance_harness": {
+      "run_id": "acceptance_harness_six_boundary_implementation_20260803T221137_249304+0800",
+      "evidence_path": "results/raw/acceptance_harness_six_boundary_implementation_20260803T221137_249304+0800/summary.json",
+      "question_count": 10,
+      "manifest_all_covered": true,
+      "negative_probes_passed": 9,
+      "negative_probes_total": 9
+    },
+    "q01_q10_offline_transport": {
+      "run_id": "native_tool_transport_v2_1_revision_20260803T221951_537738+0800",
+      "evidence_path": "results/raw/native_tool_transport_v2_1_revision_20260803T221951_537738+0800/summary.json",
+      "passed": 10,
+      "total": 10,
+      "responses_completed": 20,
+      "auto_without_response_format": 19,
+      "q06_none_with_json_object": 1,
+      "request_contract_passed": true
+    },
+    "batch_a_safe_runner": {
+      "run_id": "q01_q10_batch_a_safe_runner_offline_20260803T222017_856879+0800",
+      "evidence_path": "results/raw/q01_q10_batch_a_safe_runner_offline_20260803T222017_856879+0800/summary.json",
+      "status": "passed",
+      "success_responses": 8,
+      "response_upper_bound": 8,
+      "authorization_gate_blocked_before_key": true,
+      "ninth_attempt_blocked": true,
+      "evidence_safe": true
+    },
+    "tests": {
+      "prompt_implementation_targeted": "9_passed",
+      "transport_targeted": "5_passed",
+      "full": "312_passed_49_subtests_passed"
+    },
+    "frozen_sources_unchanged": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "v2_2_3_resumed": false
+  },
+  "next_gate": "离线实施与全量回归已完成；任何DeepSeek V4 Flash真实批次验证仍需单独集中授权。"
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.5.6-h3-q02-v2.3.4.2-real-checkpoint-candidate-v1",
+  "status": "real_execution_failed_stopped_authority_consumed",
+  "design": "config/h3_internal_call_id_arithmetic_intent_guard_v2_3_4_2.candidate.json",
+  "model": "deepseek-v4-flash",
+  "question_ids": ["Q02"],
+  "expected_response_count": 3,
+  "response_attempt_upper_bound": 3,
+  "automatic_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 480,
+  "failure_immediately_stops": true,
+  "authorization": {
+    "status": "consumed_failed_stopped",
+    "authorization_id": "AUTH-Q02-V2-3-4-2-20260804-01",
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "prior_authorization_restored": false
+  },
+  "required_preflight": [
+    "V2.3.4.2 candidate remains offline validated",
+    "Q01-Q10 offline audit remains passed",
+    "historical frozen hash audit remains passed",
+    "model-visible internal CALL count remains zero",
+    "raw, parsed alias and mapped internal responses are saved separately"
+  ],
+  "offline_gate": {
+    "status": "passed_deterministic_pending_manual_review",
+    "run_id": "q02_protocol_guard_v2_3_4_2_20260804T180911_957120+0800",
+    "summary_path": "results/raw/q02_protocol_guard_v2_3_4_2_20260804T180911_957120+0800/summary.json",
+    "actual_response_attempts": 3,
+    "completed_model_responses": 3,
+    "failed_transport_or_provider_attempts": 0,
+    "model_visible_internal_call_values": 0,
+    "raw_parsed_mapped_saved_separately": true,
+    "real_model_called": false
+  },
+  "real_execution": {
+    "run_id": "q02_protocol_guard_v2_3_4_2_20260804T181702_762638+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 1,
+    "completed_model_responses": 1,
+    "failed_transport_or_provider_attempts": 0,
+    "selected_tool_name": "get_data_profile",
+    "selected_arguments": {"section": "all"},
+    "expected_first_tool_name": "rank_products",
+    "root_failure_stage": "model_response",
+    "root_failure_codes": ["model_selected_unsupported_tool_sequence"],
+    "model_visible_internal_call_values": 0,
+    "report_terminal_boundary_reached": false,
+    "automatic_retry_performed": false,
+    "authorization_consumed": true,
+    "case_path": "results/raw/q02_protocol_guard_v2_3_4_2_20260804T181702_762638+0800/Q02.json",
+    "summary_path": "results/raw/q02_protocol_guard_v2_3_4_2_20260804T181702_762638+0800/summary.json",
+    "consumption_path": "results/raw/authorization_consumption/AUTH-Q02-V2-3-4-2-20260804-01.json"
+  },
+  "real_model_called": true,
+  "v2_2_3_resumed": false,
+  "next_gate": "Do not retry. Review the Q02 frozen tool-plan versus Prompt semantics offline; any further real call requires a new authority."
+}

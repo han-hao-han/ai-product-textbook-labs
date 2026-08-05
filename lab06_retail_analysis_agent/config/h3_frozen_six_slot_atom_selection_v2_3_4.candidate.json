@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.5.6-h3-frozen-six-slot-atom-selection-v2.3.4-candidate-v1",
+  "status": "q02_real_passed_deterministic_pending_manual_semantic_review",
+  "architecture": [
+    "program_builds_six_frozen_report_slots",
+    "model_returns_only_slot_id_and_atom_ids",
+    "program_validates_whitelists_and_required_coverage",
+    "program_expands_complete_fact_request_policy_evidence",
+    "model_writes_report_from_validated_slot_evidence",
+    "formal_report_validator_remains_unchanged"
+  ],
+  "frozen_boundaries_unchanged": [
+    "H2_reference_answers",
+    "dataset_and_cleaning_rules",
+    "business_prompt",
+    "seven_business_tool_schemas",
+    "FACT_schema",
+    "report_schema",
+    "formal_report_validator",
+    "acceptance_harness_root_rules"
+  ],
+  "v2_3_3_status": "closed_after_three_failures_not_resumed",
+  "v2_2_3_resumed": false,
+  "offline_validation": {
+    "q01_q10_mock_status": "passed_deterministic_pending_manual_review",
+    "q02_crash_safe_run_id": "q02_frozen_six_slot_v2_3_4_20260804T150036_412539+0800",
+    "full_test_result": "380 passed, 123 subtests passed",
+    "provider_json_word_boundary_tested": true
+  },
+  "real_model_calls_allowed": false,
+  "real_model_scope": "single_use_q02_checkpoint_consumed",
+  "real_checkpoint": {
+    "run_id": "q02_frozen_six_slot_v2_3_4_20260804T152510_023513+0800",
+    "status": "passed_deterministic_pending_manual_review",
+    "responses": 3,
+    "transport_or_provider_failures": 0,
+    "automatic_retries": 0,
+    "formal_report_validation": "passed",
+    "new_harness": "passed_deterministic_pending_manual_review",
+    "manual_semantic_observation": "ranked facts were distributed into limited interpretation and advice sections; evidence is valid but section purpose alignment requires human review"
+  }
+}

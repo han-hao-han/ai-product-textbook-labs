@@ -1,0 +1,319 @@
+{
+  "schema_version": "1.5.6-h3-native-tool-real-validation-plan-v2.1-revision-v1",
+  "status": "frozen_real_validation_failed_after_one_response_pending_user_decision",
+  "created_on": "2026-07-31",
+  "supersedes_for_mainline": {
+    "plan": "config/h3_v2_1_real_validation_plan.candidate.json",
+    "historical_status": "paused_after_mainline_boundaries_reopened",
+    "reason": "旧方案按标准JSON决策门和程序预选单工具计算6次请求，不适用于完整七工具原生调用主线"
+  },
+  "objective": {
+    "primary": "用最少真实响应验证DeepSeek V4 Pro能否完成原生工具选择、FACT依赖续调、调用前澄清和能力边界拒答",
+    "not_claimed": [
+      "不把三道题推广为模型对所有经营问题都稳定",
+      "不重复验证H2数值计算本身",
+      "不把HTTP成功等同于内容正确",
+      "不自动冻结H3或替代人工审阅"
+    ]
+  },
+  "model_protocol": {
+    "provider": "DeepSeek",
+    "requested_model": "deepseek-v4-pro",
+    "accepted_response_models": ["deepseek-v4-pro"],
+    "endpoint": "https://api.deepseek.com/beta/chat/completions",
+    "api_protocol": "OpenAI-compatible Chat Completions native tool_calls",
+    "tool_choice": "auto",
+    "tool_visibility_per_response": 7,
+    "thinking": {"type": "disabled"},
+    "temperature": 0,
+    "stream": false,
+    "standard_json_gate_allowed": false,
+    "recipe_router_allowed": false
+  },
+  "authorization": {
+    "real_model_calls_allowed_by_this_plan": false,
+    "api_key_may_be_read_during_plan_design": false,
+    "network_may_be_opened_during_plan_design": false,
+    "separate_user_freeze_required": true,
+    "separate_user_call_authorization_required": true,
+    "future_authorization_must_name_question_ids": ["Q06", "Q08", "Q09"],
+    "future_authorization_must_name_response_attempt_upper_bound": 5,
+    "runner_confirmation_constant": "I_AUTHORIZE_NATIVE_TOOL_V2_1_REVISION_REAL_MODEL_CALLS"
+  },
+  "selection_strategy": {
+    "selected_question_ids_in_order": ["Q06", "Q08", "Q09"],
+    "reasons": {
+      "Q06": "覆盖两工具依赖、模型读取FACT后续调、报告数值追溯和双图表同源",
+      "Q08": "覆盖工具调用前一次集中澄清，防止模型默认猜测比较条件",
+      "Q09": "覆盖缺少成本与利润字段时零工具拒答，且该题曾出现非法JSON风险"
+    },
+    "deferred_question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q07", "Q10"],
+    "deferred_reason": "首轮真实验证只覆盖最复杂成功路径和两类Agent控制行为；其余问题已通过H2、独立Mock和离线传输验证"
+  },
+  "hard_limits": {
+    "response_attempt_upper_bound": 5,
+    "reserve_attempt_before_transport": true,
+    "automatic_retry_count": 0,
+    "parallel_requests": false,
+    "stop_on_first_case_failure": true,
+    "continue_after_transport_error": false,
+    "continue_after_schema_or_semantic_failure": false,
+    "continue_after_privacy_or_security_issue": false,
+    "expected_endpoint_counts_if_all_pass": {
+      "beta_strict_tool": 5,
+      "standard_json": 0,
+      "total": 5
+    },
+    "token_budget": null,
+    "token_rule": "记录真实usage，但不以Token数量判断内容正确"
+  },
+  "case_gates": [
+    {
+      "order": 1,
+      "question_id": "Q06",
+      "risk_role": "native_multi_tool_fact_dependency_report_chart_gate",
+      "expected_response_attempts": 3,
+      "expected_terminal_status": "completed",
+      "expected_tool_sequence": ["analyze_time_trend", "rank_products"],
+      "required_dependency": {
+        "source_tool": "analyze_time_trend",
+        "source_metric": "peak_period",
+        "dependent_period": "custom",
+        "dependent_start_date": "2011-11-01",
+        "dependent_end_date": "2011-11-30",
+        "top_n": 3
+      },
+      "program_acceptance": [
+        "三次响应均看到完整七工具且由模型原生选择工具或结束",
+        "第二次工具参数在第一步peak_period FACT返回后生成",
+        "两个工具调用均通过白名单、Pydantic和固定语义校验",
+        "H2固定答案验证通过",
+        "六章节报告通过当前轮FACT数值追溯校验",
+        "报告同时引用两个CALL的FACT",
+        "两张图表分别来自两个兼容CALL并与FACT同源"
+      ],
+      "manual_acceptance": [
+        "有限解释没有把描述性峰值写成因果关系",
+        "经营建议没有声称显著性、利润、预测或自动决策",
+        "报告清楚区分峰值月份事实与该月商品排名"
+      ]
+    },
+    {
+      "order": 2,
+      "question_id": "Q08",
+      "risk_role": "clarification_before_any_tool_gate",
+      "expected_response_attempts": 1,
+      "expected_terminal_status": "needs_clarification",
+      "expected_tool_sequence": [],
+      "required_clarification_topics": [
+        "time_range",
+        "metric",
+        "comparison_dimension_or_objects"
+      ],
+      "program_acceptance": [
+        "单次响应看到完整七工具但没有调用工具",
+        "澄清发生在任何工具、CALL或FACT产生之前",
+        "三个冻结澄清主题全部出现",
+        "固定问题验证通过"
+      ],
+      "manual_acceptance": [
+        "澄清一次性覆盖必要条件而非拆成连续追问",
+        "没有默认假设国家、商品、月份或指标"
+      ]
+    },
+    {
+      "order": 3,
+      "question_id": "Q09",
+      "risk_role": "unsupported_profit_boundary_gate",
+      "expected_response_attempts": 1,
+      "expected_terminal_status": "boundary",
+      "expected_tool_sequence": [],
+      "required_missing_fields": ["cost", "profit"],
+      "required_supported_alternative": "按销售额或销售数量进行商品排名",
+      "program_acceptance": [
+        "响应是可解析且符合Schema的合法JSON",
+        "单次响应看到完整七工具但没有调用工具",
+        "没有生成CALL、FACT、报告或图表",
+        "明确返回cost和profit缺失字段",
+        "固定问题验证通过"
+      ],
+      "manual_acceptance": [
+        "没有用销售额冒充利润或利润率",
+        "没有假设成本率或虚构赚钱原因",
+        "替代方案只包含受支持的销售额或销售数量排名"
+      ]
+    }
+  ],
+  "failure_and_stop_rules": [
+    "任一题出现错误终态、工具顺序、参数语义、FACT、报告、图表或固定答案失败时停止后续题",
+    "响应尝试在进入传输前计数，达到5次后不得继续",
+    "HTTP错误、超时、非UTF-8、非法JSON或Provider结构错误均不自动重试",
+    "实际响应模型名不在accepted_response_models时停止并记录",
+    "出现API Key、Authorization值、原始CustomerID、原始交易行或本地绝对路径落盘时立即停止",
+    "失败记录保留原始Provider响应和错误阶段，不覆盖上一次成功current结果"
+  ],
+  "stage_acceptance": {
+    "all_case_gates_must_pass": true,
+    "partial_pass_does_not_pass_stage": true,
+    "transport_success_alone_does_not_pass": true,
+    "schema_success_alone_does_not_pass": true,
+    "fixed_question_validation_required": true,
+    "manual_review_required": true,
+    "h3_may_be_frozen_automatically": false,
+    "user_confirmation_required_after_results": true
+  },
+  "privacy_boundary": {
+    "raw_retail_rows_sent": false,
+    "customer_id_values_sent": false,
+    "api_key_saved": false,
+    "authorization_header_saved": false,
+    "local_absolute_paths_saved": false,
+    "model_receives": [
+      "冻结问题文本",
+      "完整七工具名称、说明和strict参数Schema",
+      "当前轮已验证的聚合工具结果与FACT",
+      "最终报告控制Schema"
+    ]
+  },
+  "evidence_to_save_locally": [
+    "运行汇总、实际响应尝试次数和停止原因",
+    "每次Provider原始响应",
+    "解析后的tool_calls、控制响应和模型返回model字段",
+    "工具参数、聚合结果、CALL和FACT",
+    "报告草稿、报告校验、渲染报告和图表数据",
+    "固定问题验证结果",
+    "真实usage和逐题耗时",
+    "人工检查记录",
+    "隐私与安全扫描结果"
+  ],
+  "runner_requirements_before_execution": [
+    "计划必须先由用户冻结",
+    "用户必须另行授权Q06、Q08、Q09和最多5次真实响应",
+    "运行入口必须在授权校验后才读取LLM_API_KEY",
+    "逐题通过后才进入下一题，失败题后的问题标记为未执行",
+    "上限必须在HTTP传输前预留且不得自动重试",
+    "保存原始响应时不得保存请求头、密钥、请求正文或本地绝对路径",
+    "真实运行入口在本计划冻结前保持未实现"
+  ],
+  "offline_preflight": {
+    "status": "passed",
+    "run_id": "native_tool_real_plan_preflight_20260731T185503_206301+0800",
+    "local_evidence_path": "results/raw/native_tool_real_plan_preflight_20260731T185503_206301+0800",
+    "question_ids": ["Q06", "Q08", "Q09"],
+    "expected_response_attempts": [3, 1, 1],
+    "actual_response_attempts": [3, 1, 1],
+    "response_attempt_upper_bound": 5,
+    "actual_beta_requests": 5,
+    "actual_standard_json_requests": 0,
+    "request_contract_passed": true,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false
+  },
+  "user_freeze": {
+    "status": "frozen_by_user",
+    "frozen_on": "2026-07-31",
+    "question_ids": ["Q06", "Q08", "Q09"],
+    "response_attempt_upper_bound": 5,
+    "automatic_retry_count": 0,
+    "freeze_does_not_authorize_real_calls": true
+  },
+  "prior_incompatible_authorization_review": {
+    "received_on": "2026-07-31",
+    "received_question_ids": ["Q06", "Q08", "Q09"],
+    "received_model": "deepseek-v4-pro",
+    "received_response_attempt_upper_bound": 10,
+    "received_automatic_retry_count": 0,
+    "status": "not_accepted_upper_bound_conflicts_with_frozen_plan",
+    "frozen_response_attempt_upper_bound": 5,
+    "real_call_authorized": false,
+    "api_key_read": false,
+    "network_opened": false,
+    "real_model_called": false,
+    "resolution_required": "either authorize the frozen five-response cap or explicitly reopen and redesign the plan for ten responses"
+  },
+  "compatible_authorization": {
+    "authorized_on": "2026-07-31",
+    "question_ids": ["Q06", "Q08", "Q09"],
+    "model": "deepseek-v4-pro",
+    "response_attempt_upper_bound": 5,
+    "automatic_retry_count": 0,
+    "status": "consumed_by_failed_run",
+    "authorization_matches_frozen_plan": true,
+    "actual_response_attempts": 1,
+    "unused_attempt_capacity_not_reusable": 4,
+    "api_key_read": true,
+    "network_opened": true,
+    "real_model_called": true
+  },
+  "guarded_runner": {
+    "status": "executed_real_run_and_stopped_on_first_failure",
+    "entry": "scripts/run_native_tool_real_validation_v2_1_revision.py",
+    "test_file": "tests/test_native_tool_real_runner_v2_1_revision.py",
+    "question_ids_must_equal": ["Q06", "Q08", "Q09"],
+    "response_attempt_upper_bound_must_equal": 5,
+    "automatic_retry_count_must_equal": 0,
+    "authorization_checked_before_api_key_read": true,
+    "response_attempt_reserved_before_transport": true,
+    "stop_on_first_case_failure": true,
+    "offline_test_status": "passed",
+    "real_model_called_during_runner_validation": false
+  },
+  "real_validation": {
+    "status": "failed_stopped_on_first_case",
+    "run_id": "native_tool_real_validation_20260731T191804_743244+0800",
+    "local_evidence_path": "results/raw/native_tool_real_validation_20260731T191804_743244+0800",
+    "question_ids_authorized": ["Q06", "Q08", "Q09"],
+    "question_ids_executed": ["Q06"],
+    "question_ids_not_executed": ["Q08", "Q09"],
+    "response_attempt_upper_bound": 5,
+    "actual_response_attempts": 1,
+    "automatic_retry_count": 0,
+    "selected_tool": "analyze_time_trend",
+    "observed_arguments": {
+      "period": "complete_months_only",
+      "start_date": "null",
+      "end_date": "null",
+      "grain": "monthly",
+      "metric": "sales_amount",
+      "exclude_incomplete_periods": true
+    },
+    "failure_stage": "model_response_semantic_guard_before_tool_execution",
+    "failure_reason": "grain must equal month, and nullable dates must be JSON null rather than the string null",
+    "tool_executed": false,
+    "fact_count": 0,
+    "chart_count": 0,
+    "report_generated": false,
+    "fixed_question_validation_status": "failed",
+    "stop_on_first_case_failure_enforced": true,
+    "automatic_retry_performed": false,
+    "remaining_authorized_attempts_reusable": false,
+    "privacy_audit_status": "passed",
+    "evidence_gap": "semantic rejection occurred before the generic orchestrator copied the provider raw response; tool choice and arguments were preserved in the native trace, but raw provider payload, usage, and response model were not saved",
+    "offline_logging_fix_after_run": "native adapter now retains provider raw responses even when post-choice semantic validation rejects them",
+    "additional_real_call_authorized": false
+  },
+  "post_failure_provider_schema_adapter": {
+    "status": "frozen_by_user_offline_validated",
+    "frozen_on": "2026-07-31",
+    "contract": "config/h3_deepseek_provider_schema_adapter_v2_1_revision.json",
+    "scope": "DeepSeek提供方Schema和显式空值传输规范化，不修改内部Pydantic业务语义",
+    "string_and_boolean_const_to_single_value_enum": true,
+    "nullable_null_branch_to_reserved_string_sentinel": "__NONE__",
+    "only_exact_sentinel_normalized_to_internal_none": true,
+    "provider_and_normalized_arguments_both_traced": true,
+    "string_null_repaired": false,
+    "monthly_repaired_to_month": false,
+    "offline_full_test_status": "passed",
+    "real_model_called_during_adapter_validation": false,
+    "additional_real_call_authorized": false
+  },
+  "change_control": {
+    "question_ids_frozen_before_call": true,
+    "response_attempt_upper_bound_frozen_before_call": true,
+    "acceptance_rules_frozen_before_call": true,
+    "real_call_authorized": false,
+    "runner_implemented": true,
+    "next_gate": "DeepSeek提供方Schema适配边界已冻结并离线验证；任何Q06重试或继续Q08、Q09都需要新的明确授权"
+  }
+}

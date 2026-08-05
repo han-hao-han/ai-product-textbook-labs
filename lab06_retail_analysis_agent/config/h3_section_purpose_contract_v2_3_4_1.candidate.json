@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.5.6-h3-section-purpose-contract-v2.3.4.1-candidate-v1",
+  "status": "closed_failed_candidate_by_user_decision",
+  "parent": "config/h3_frozen_six_slot_atom_selection_v2_3_4.candidate.json",
+  "contract": {
+    "slot_001": "validated question, metric, period and selection scope",
+    "slot_002": "complete deterministic business result",
+    "slot_003": "tool, FACT provenance and chart explanation",
+    "slot_004": "bounded interpretation from selected complete evidence groups",
+    "slot_005": "bounded human-review recommendation from selected complete evidence groups",
+    "slot_006": "privacy, incomplete-period and historical-analysis policy boundaries"
+  },
+  "model_selection_output": ["slot_id", "atom_ids"],
+  "complete_atom_group_selection_required": true,
+  "program_authored_claim_text": false,
+  "formal_report_validator_changed": false,
+  "frozen_boundaries_unchanged": [
+    "H2_reference_answers",
+    "dataset_and_cleaning_rules",
+    "business_prompt",
+    "seven_business_tool_schemas",
+    "FACT_schema",
+    "report_schema",
+    "formal_report_validator",
+    "acceptance_harness_root_rules"
+  ],
+  "offline_validation": {
+    "q01_q10_mock_status": "passed_deterministic_pending_manual_review",
+    "negative_boundaries": [
+      "missing_required_key_finding_atom_rejected",
+      "partial_evidence_group_rejected",
+      "policy_evidence_in_advice_slot_rejected",
+      "cross_slot_report_evidence_borrowing_rejected"
+    ],
+    "full_test_result": "388 passed, 133 subtests passed",
+    "q02_safe_runner_run_id": "q02_section_purpose_v2_3_4_1_offline_gate",
+    "q02_safe_runner_status": "passed_deterministic_pending_manual_review",
+    "audit_path": "results/raw/section_purpose_contract_v2_3_4_1_offline_audit_20260804/summary.json"
+  },
+  "closed_by_user": true,
+  "closure_reason": "three real Q02 failures; do not resume this candidate",
+  "successor_boundary": "internal_call_id_isolation_and_model_arithmetic_intent_guard_offline_design",
+  "real_model_calls_allowed": false,
+  "v2_2_3_resumed": false
+}

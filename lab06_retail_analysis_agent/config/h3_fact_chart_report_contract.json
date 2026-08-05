@@ -1,0 +1,944 @@
+{
+  "schema_version": "1.5.6-h3-fact-chart-report-contract-v1",
+  "status": "frozen_by_user",
+  "frozen_on": "2026-07-31",
+  "v2_2_2_additive_extension": {
+    "status": "frozen_by_user_offline_validated",
+    "added_on": "2026-08-03",
+    "report_validation_result_adds_manual_review_flags": true,
+    "manual_flags_change_deterministic_status": false,
+    "report_draft_schema_changed": false,
+    "fact_schema_changed": false
+  },
+  "acceptance_harness_six_boundary_extension": {
+    "status": "frozen_by_user_implemented_offline",
+    "implemented_on": "2026-08-03",
+    "report_evidence_source_types": [
+      "FACT",
+      "REQUEST",
+      "POLICY"
+    ],
+    "rank_only_on_selected_metric_fact": true,
+    "report_draft_evidence_union_changed": true,
+    "fact_schema_changed": false,
+    "h2_reference_answers_changed": false
+  },
+  "h2_dependencies_must_remain_frozen": true,
+  "fact": {
+    "schema": {
+      "$defs": {
+        "AnalysisScope": {
+          "additionalProperties": false,
+          "properties": {
+            "fact_layer": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Fact Layer",
+              "type": "string"
+            },
+            "period": {
+              "enum": [
+                "all_data",
+                "complete_months_only",
+                "custom"
+              ],
+              "title": "Period",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "row_count": {
+              "minimum": 0,
+              "title": "Row Count",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "fact_layer",
+            "period",
+            "start_date",
+            "end_date",
+            "row_count"
+          ],
+          "title": "AnalysisScope",
+          "type": "object"
+        },
+        "FactDimension": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "enum": [
+                "stock_code",
+                "product_name",
+                "country",
+                "month",
+                "segment",
+                "profile_section",
+                "record_class"
+              ],
+              "title": "Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "value"
+          ],
+          "title": "FactDimension",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-fact-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "fact_id": {
+          "pattern": "^FACT-\\d{3,}$",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "session_id": {
+          "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "turn_id": {
+          "pattern": "^TURN-\\d{3,}$",
+          "title": "Turn Id",
+          "type": "string"
+        },
+        "call_id": {
+          "pattern": "^CALL-\\d{3,}$",
+          "title": "Call Id",
+          "type": "string"
+        },
+        "fact_type": {
+          "enum": [
+            "metric",
+            "ranked_metric",
+            "coverage",
+            "period_marker",
+            "profile_count",
+            "selection_limit"
+          ],
+          "title": "Fact Type",
+          "type": "string"
+        },
+        "metric": {
+          "enum": [
+            "sales_amount",
+            "sales_quantity",
+            "order_count",
+            "average_order_value",
+            "customer_count",
+            "sales_row_coverage",
+            "sales_amount_coverage",
+            "sales_amount_share",
+            "source_rows",
+            "exact_duplicate_rows_after_first",
+            "rows_after_keep_first",
+            "sales_fact_rows",
+            "exception_rows",
+            "known_customer_rows",
+            "record_class_rows",
+            "time_minimum",
+            "time_maximum",
+            "incomplete_period",
+            "peak_period",
+            "top_n"
+          ],
+          "title": "Metric",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "display_value": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Display Value",
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "GBP",
+            "items",
+            "orders",
+            "GBP_per_order",
+            "customers",
+            "ratio",
+            "rows",
+            "ISO-8601_datetime",
+            "calendar_month",
+            "rank_count"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "analysis_scope": {
+          "$ref": "#/$defs/AnalysisScope"
+        },
+        "dimensions": {
+          "items": {
+            "$ref": "#/$defs/FactDimension"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        },
+        "rank": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rank"
+        },
+        "source_tool": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Source Tool",
+          "type": "string"
+        },
+        "source_result_path": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Result Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "fact_id",
+        "session_id",
+        "turn_id",
+        "call_id",
+        "fact_type",
+        "metric",
+        "value",
+        "display_value",
+        "unit",
+        "analysis_scope",
+        "dimensions",
+        "rank",
+        "source_tool",
+        "source_result_path"
+      ],
+      "title": "FactRecord",
+      "type": "object"
+    },
+    "id_scope": "session内单调递增，格式FACT-<三位以上序号>",
+    "value_policy": {
+      "value": "工具结果的规范化原值字符串",
+      "display_value": "程序按冻结单位生成的展示值",
+      "model_may_calculate_or_convert": false
+    },
+    "privacy": {
+      "customer_id_dimension_allowed": false,
+      "absolute_source_path_allowed": false
+    }
+  },
+  "chart_data": {
+    "schema": {
+      "$defs": {
+        "ChartSeries": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Values",
+              "type": "array"
+            },
+            "fact_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 24,
+              "minItems": 1,
+              "title": "Fact Ids",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "values",
+            "fact_ids"
+          ],
+          "title": "ChartSeries",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-chart-data-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "chart_id": {
+          "pattern": "^CHART-\\d{3,}$",
+          "title": "Chart Id",
+          "type": "string"
+        },
+        "session_id": {
+          "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "turn_id": {
+          "pattern": "^TURN-\\d{3,}$",
+          "title": "Turn Id",
+          "type": "string"
+        },
+        "call_id": {
+          "pattern": "^CALL-\\d{3,}$",
+          "title": "Call Id",
+          "type": "string"
+        },
+        "chart_type": {
+          "enum": [
+            "monthly_line",
+            "vertical_bar",
+            "top_n_horizontal_bar",
+            "two_segment_share_bar"
+          ],
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "metric": {
+          "enum": [
+            "sales_amount",
+            "sales_quantity",
+            "order_count",
+            "average_order_value",
+            "customer_count",
+            "sales_row_coverage",
+            "sales_amount_coverage",
+            "sales_amount_share",
+            "source_rows",
+            "exact_duplicate_rows_after_first",
+            "rows_after_keep_first",
+            "sales_fact_rows",
+            "exception_rows",
+            "known_customer_rows",
+            "record_class_rows",
+            "time_minimum",
+            "time_maximum",
+            "incomplete_period",
+            "peak_period",
+            "top_n"
+          ],
+          "title": "Metric",
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "GBP",
+            "items",
+            "orders",
+            "GBP_per_order",
+            "customers",
+            "ratio",
+            "rows",
+            "ISO-8601_datetime",
+            "calendar_month",
+            "rank_count"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Categories",
+          "type": "array"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeries"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Series",
+          "type": "array"
+        },
+        "source_tool": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Source Tool",
+          "type": "string"
+        },
+        "source_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Source Fact Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "chart_id",
+        "session_id",
+        "turn_id",
+        "call_id",
+        "chart_type",
+        "title",
+        "metric",
+        "unit",
+        "categories",
+        "series",
+        "source_tool",
+        "source_fact_ids"
+      ],
+      "title": "ChartData",
+      "type": "object"
+    },
+    "whitelist_source_tools": {
+      "monthly_line": "analyze_time_trend",
+      "vertical_bar": "analyze_regions",
+      "top_n_horizontal_bar": "rank_products",
+      "two_segment_share_bar": "compare_segments"
+    },
+    "single_call_only": true,
+    "model_generated_chart_code_allowed": false
+  },
+  "report": {
+    "draft_schema": {
+      "$defs": {
+        "FactDimension": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "enum": [
+                "stock_code",
+                "product_name",
+                "country",
+                "month",
+                "segment",
+                "profile_section",
+                "record_class"
+              ],
+              "title": "Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "value"
+          ],
+          "title": "FactDimension",
+          "type": "object"
+        },
+        "ReportClaim": {
+          "additionalProperties": false,
+          "properties": {
+            "statement": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "title": "Statement",
+              "type": "string"
+            },
+            "evidence": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ReportFactReference"
+                  },
+                  {
+                    "$ref": "#/$defs/ReportRequestReference"
+                  },
+                  {
+                    "$ref": "#/$defs/ReportPolicyReference"
+                  }
+                ]
+              },
+              "maxItems": 40,
+              "title": "Evidence",
+              "type": "array"
+            }
+          },
+          "required": [
+            "statement",
+            "evidence"
+          ],
+          "title": "ReportClaim",
+          "type": "object"
+        },
+        "ReportFactReference": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_type": {
+              "const": "FACT",
+              "default": "FACT",
+              "title": "Evidence Type",
+              "type": "string"
+            },
+            "fact_id": {
+              "pattern": "^FACT-\\d{3,}$",
+              "title": "Fact Id",
+              "type": "string"
+            },
+            "metric": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "sales_amount",
+                    "sales_quantity",
+                    "order_count",
+                    "average_order_value",
+                    "customer_count",
+                    "sales_row_coverage",
+                    "sales_amount_coverage",
+                    "sales_amount_share",
+                    "source_rows",
+                    "exact_duplicate_rows_after_first",
+                    "rows_after_keep_first",
+                    "sales_fact_rows",
+                    "exception_rows",
+                    "known_customer_rows",
+                    "record_class_rows",
+                    "time_minimum",
+                    "time_maximum",
+                    "incomplete_period",
+                    "peak_period",
+                    "top_n"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Metric"
+            },
+            "value": {
+              "title": "Value",
+              "type": "string"
+            },
+            "display_value": {
+              "title": "Display Value",
+              "type": "string"
+            },
+            "unit": {
+              "enum": [
+                "GBP",
+                "items",
+                "orders",
+                "GBP_per_order",
+                "customers",
+                "ratio",
+                "rows",
+                "ISO-8601_datetime",
+                "calendar_month",
+                "rank_count"
+              ],
+              "title": "Unit",
+              "type": "string"
+            },
+            "rank": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rank"
+            },
+            "dimensions": {
+              "items": {
+                "$ref": "#/$defs/FactDimension"
+              },
+              "title": "Dimensions",
+              "type": "array"
+            },
+            "period": {
+              "title": "Period",
+              "type": "string"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          "required": [
+            "fact_id",
+            "value",
+            "display_value",
+            "unit",
+            "rank",
+            "period",
+            "start_date",
+            "end_date"
+          ],
+          "title": "ReportFactReference",
+          "type": "object"
+        },
+        "ReportPolicyReference": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_type": {
+              "const": "POLICY",
+              "title": "Evidence Type",
+              "type": "string"
+            },
+            "policy_id": {
+              "pattern": "^POLICY-\\d{3,}$",
+              "title": "Policy Id",
+              "type": "string"
+            },
+            "code": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Code",
+              "type": "string"
+            },
+            "message": {
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Message",
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_type",
+            "policy_id",
+            "code",
+            "message"
+          ],
+          "title": "ReportPolicyReference",
+          "type": "object"
+        },
+        "ReportRequestReference": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_type": {
+              "const": "REQUEST",
+              "title": "Evidence Type",
+              "type": "string"
+            },
+            "request_id": {
+              "pattern": "^REQUEST-\\d{3,}$",
+              "title": "Request Id",
+              "type": "string"
+            },
+            "parameter_name": {
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "Parameter Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "source": {
+              "const": "validated_user_input",
+              "title": "Source",
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_type",
+            "request_id",
+            "parameter_name",
+            "value",
+            "source"
+          ],
+          "title": "ReportRequestReference",
+          "type": "object"
+        },
+        "ReportSection": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "enum": [
+                "用户问题与分析口径",
+                "关键经营发现",
+                "工具证据与图表",
+                "有限解释",
+                "经营建议",
+                "数据与分析限制"
+              ],
+              "title": "Name",
+              "type": "string"
+            },
+            "claims": {
+              "items": {
+                "$ref": "#/$defs/ReportClaim"
+              },
+              "maxItems": 12,
+              "minItems": 1,
+              "title": "Claims",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "claims"
+          ],
+          "title": "ReportSection",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-report-draft-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session_id": {
+          "pattern": "^SESSION-[A-Za-z0-9_-]+$",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "turn_id": {
+          "pattern": "^TURN-\\d{3,}$",
+          "title": "Turn Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/$defs/ReportSection"
+          },
+          "maxItems": 6,
+          "minItems": 6,
+          "title": "Sections",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "session_id",
+        "turn_id",
+        "title",
+        "sections"
+      ],
+      "title": "ReportDraft",
+      "type": "object"
+    },
+    "validation_schema": {
+      "$defs": {
+        "ReportIssue": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "location": {
+              "title": "Location",
+              "type": "string"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "location",
+            "message"
+          ],
+          "title": "ReportIssue",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.5.6-h3-report-validation-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/ReportIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "referenced_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Referenced Fact Ids",
+          "type": "array"
+        },
+        "referenced_request_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Referenced Request Ids",
+          "type": "array"
+        },
+        "referenced_policy_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Referenced Policy Ids",
+          "type": "array"
+        },
+        "deterministic_checks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deterministic Checks",
+          "type": "array"
+        },
+        "manual_review_flags": {
+          "items": {
+            "$ref": "#/$defs/ReportIssue"
+          },
+          "title": "Manual Review Flags",
+          "type": "array"
+        },
+        "manual_review_required_sections": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Manual Review Required Sections",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "status",
+        "issues",
+        "referenced_fact_ids",
+        "deterministic_checks",
+        "manual_review_required_sections"
+      ],
+      "title": "ReportValidationResult",
+      "type": "object"
+    },
+    "sections": [
+      "用户问题与分析口径",
+      "关键经营发现",
+      "工具证据与图表",
+      "有限解释",
+      "经营建议",
+      "数据与分析限制"
+    ],
+    "citation_rendering": "模型提交结构化evidence，程序校验后追加[FACT-nnn]、[REQUEST-nnn]或[POLICY-nnn]",
+    "deterministic_checks": [
+      "FACT存在且属于当前会话轮次",
+      "规范值与展示值一致",
+      "单位一致",
+      "时间范围一致",
+      "排名一致",
+      "日期等价规范化后，报告数值与期间均可追溯",
+      "明确语义断言有当前claim的FACT能力支持",
+      "固定问题报告完整性逐项绑定FACT、REQUEST或POLICY"
+    ],
+    "manual_review_required": [
+      "季节性解释",
+      "库存行动",
+      "定价或物流行动",
+      "因果或效果暗示",
+      "普通显著、高客单价和走量型分类"
+    ]
+  },
+  "change_control": "用户冻结后，修改FACT字段、图表类型、报告章节或校验规则必须重新确认。"
+}

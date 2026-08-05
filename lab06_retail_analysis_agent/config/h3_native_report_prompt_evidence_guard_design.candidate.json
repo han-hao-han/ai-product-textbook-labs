@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.5.6-h3-native-report-prompt-evidence-guard-design-v1",
+  "status": "frozen_by_user_offline_validated_implementation_authorized",
+  "created_on": "2026-08-03",
+  "source_evidence": {
+    "real_run_id": "q01_q10_batch_a_flash_20260803T195956_363133+0800",
+    "saved_q02_path": "results/raw/q01_q10_batch_a_flash_20260803T195956_363133+0800/Q02.json",
+    "c1_audit_path": "results/raw/c1_offline_consolidated_audit_20260803T215231_007265+0800/summary.json",
+    "active_report_prompt": "prompts/native_tool_report_v2_1_revision.md",
+    "active_report_prompt_sha256": "13cd6f8519b1a5798d861868a976087059f78ee1da3a466ef4d729e1356f64dc",
+    "tool_reference_answer_status": "passed",
+    "report_status": "failed",
+    "root_failure_codes": [
+      "untraceable_numeric_token",
+      "unsupported_average_value_claim",
+      "unsupported_average_value_claim"
+    ]
+  },
+  "scope": {
+    "target": "active_native_tool_report_prompt_only",
+    "proposed_new_prompt_path": "prompts/native_tool_report_evidence_guard_v1.md",
+    "proposed_new_prompt_version": "1.5.6-h3-native-tool-report-evidence-guard-v1",
+    "modify_frozen_prompt_in_place": false,
+    "modify_agent_system_prompt": false,
+    "modify_h2": false,
+    "modify_data": false,
+    "modify_tool_schema": false,
+    "modify_report_schema": false,
+    "modify_fact_schema_or_values": false,
+    "modify_acceptance_root_rules": false,
+    "resume_v2_2_3": false,
+    "add_report_repair_or_retry": false,
+    "real_model_calls_allowed": false
+  },
+  "candidate_additive_rules": [
+    {
+      "rule_id": "PROMPT-EVIDENCE-01",
+      "targets_issue_codes": ["untraceable_numeric_token"],
+      "text": "陈述中的任何具体数字，包括数据行数、样本数和分析范围数量，都只能在同一条claim引用含相同数值的当前轮FACT时出现；不得从工具结果正文、上下文说明或常识复制未形成FACT的数字。"
+    },
+    {
+      "rule_id": "PROMPT-EVIDENCE-02",
+      "targets_issue_codes": ["unsupported_average_value_claim"],
+      "text": "除非同一条claim引用average_order_value或unit_price指标FACT，否则不得使用客单价、单价、高客单价、高单价或同义结论；销售额、销量和订单数不能替代这类FACT。"
+    },
+    {
+      "rule_id": "PROMPT-EVIDENCE-03",
+      "targets_issue_codes": [
+        "untraceable_numeric_token",
+        "unsupported_average_value_claim"
+      ],
+      "text": "不得组合多个FACT自行相除、求和、比较后生成新指标或新定性分类。证据不足时，只能明确说明当前FACT无法判断，不得补写数值、指标或推断。"
+    }
+  ],
+  "generalization_guards": {
+    "question_ids_may_not_appear": true,
+    "saved_numeric_literals_may_not_appear": true,
+    "saved_product_codes_or_names_may_not_appear": true,
+    "tool_result_values_may_not_be_hardcoded": true,
+    "rules_apply_to_all_questions": true
+  },
+  "responsibility_boundary": {
+    "model": "选择工具并在已有FACT范围内组织报告；证据不足时明确保留未知。",
+    "pandas_tools": "计算销售额、销量、订单数、客单价、排名及其他确定性指标。",
+    "program": "继续执行现有Schema、FACT、语义和权限校验；拒绝无证据报告，不自动改写。",
+    "human": "判断有限解释和经营建议是否合理，不替模型或程序补造事实。"
+  },
+  "offline_acceptance": {
+    "active_prompt_file_must_remain_byte_identical": true,
+    "saved_q02_response_must_remain_byte_identical": true,
+    "all_three_saved_root_failures_must_be_targeted": true,
+    "candidate_must_not_claim_saved_response_would_pass": true,
+    "candidate_must_not_claim_real_model_improvement": true,
+    "candidate_must_not_change_validator_behavior": true,
+    "q01_q10_c1_offline_evidence_must_remain_passed": true,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false
+  },
+  "decision_required": {
+    "user_freeze_required": true,
+    "separate_implementation_authorization_required": true,
+    "separate_real_validation_authorization_required": true,
+    "freeze_does_not_authorize_implementation": true,
+    "freeze_does_not_authorize_real_calls": true
+  },
+  "user_freeze_and_implementation_authorization": {
+    "status": "frozen_and_authorized_by_user",
+    "authorized_on": "2026-08-03",
+    "authorized_scope": [
+      "新建版本化Prompt且不原位修改冻结Prompt",
+      "只增加PROMPT-EVIDENCE-01至03",
+      "接入当前原生工具主线",
+      "保存Q02响应回归",
+      "Q01至Q10全量离线回归"
+    ],
+    "real_model_calls_allowed": false,
+    "h2_changes_allowed": false,
+    "data_changes_allowed": false,
+    "tool_report_fact_schema_changes_allowed": false,
+    "acceptance_root_rule_changes_allowed": false,
+    "v2_2_3_resume_allowed": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "native_report_prompt_evidence_guard_design_20260803T215858_911505+0800",
+    "evidence_path": "results/raw/native_report_prompt_evidence_guard_design_20260803T215858_911505+0800/summary.json",
+    "targeted_root_issue_count": 3,
+    "root_issue_count": 3,
+    "negative_probes_passed": 7,
+    "negative_probes_total": 7,
+    "targeted_test_status": "4_passed",
+    "full_test_status": "307_passed_49_subtests_passed",
+    "active_prompt_unchanged": true,
+    "saved_q02_response_unchanged": true,
+    "q01_q10_offline_status": "passed",
+    "prompt_changed": false,
+    "validator_changed": false,
+    "real_model_called": false,
+    "network_used": false,
+    "api_key_read": false,
+    "v2_2_3_resumed": false
+  },
+  "authorized_implementation_result": {
+    "status": "offline_implementation_and_full_regression_completed",
+    "contract": "config/h3_native_report_prompt_evidence_guard_implementation.json",
+    "active_prompt": "prompts/native_tool_report_evidence_guard_v1.md",
+    "full_test_status": "312_passed_49_subtests_passed",
+    "real_model_called": false,
+    "v2_2_3_resumed": false
+  },
+  "next_gate": "已按冻结设计完成离线实施；真实DeepSeek V4 Flash验证仍需单独集中授权。"
+}

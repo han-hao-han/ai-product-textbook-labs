@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v14-candidate-v1",
+  "status": "offline_validated_pending_real_checkpoint",
+  "created_on": "2026-08-04",
+  "protocol_validation_feedback_prompt": "prompts/native_tool_protocol_validation_feedback_v14.md",
+  "protocol_validation_feedback_prompt_sha256": "C1B72A38016597BDA70B0DB8B8785E3F72A82E170798F6FF6FE00AB9785D87DB",
+  "report_validation_feedback_prompt": "prompts/native_tool_report_validation_feedback_v13.md",
+  "triggering_real_run": "combined_prompt_v13_q04_real_20260804T212404_854484+0800",
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "combined_prompt_v14_offline_20260804T212832_588870+0800",
+    "question_count": 10,
+    "model_response_count": 27,
+    "full_test_count": 453,
+    "full_subtest_count": 143,
+    "real_model_called": false
+  },
+  "boundary": {
+    "max_terminal_corrections_per_report": 2,
+    "safe_schema_errors_feedback_enabled": true,
+    "security_protocol_errors_feedback_enabled": false,
+    "deterministic_numeric_feedback_enabled": true,
+    "transport_retry_count": 0,
+    "tools_reexecuted_during_correction": false,
+    "facts_recomputed_during_correction": false,
+    "all_responses_preserved": true,
+    "program_rewrites_report_text": false,
+    "formal_report_schema_changed": false,
+    "fact_schema_changed": false,
+    "tool_schema_changed": false,
+    "harness_root_rules_changed": false,
+    "v2_2_3_resumed": false
+  }
+}

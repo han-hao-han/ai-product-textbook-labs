@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.5.6-h3-q02-terminal-serialization-v2.3-real-validation-v1",
+  "status": "stopped_after_three_real_failures_pending_user_decision",
+  "created_on": "2026-08-03",
+  "design": "config/h3_deepseek_report_terminal_serialization_v2_3.candidate.json",
+  "scope": {
+    "question_ids": ["Q02"],
+    "model": "deepseek-v4-flash",
+    "response_attempt_upper_bound": 2,
+    "automatic_retry_count": 0,
+    "request_timeout_seconds": 120,
+    "execution_timeout_seconds": 360,
+    "fail_fast": true,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "acceptance": {
+    "tool_sequence": ["rank_products"],
+    "tool_reference_answer_status": "passed",
+    "fixed_question_status": "passed_deterministic_pending_manual_review",
+    "report_validation_status": "passed",
+    "chart_count": 1,
+    "wire_endpoint_sequence": [
+      "https://api.deepseek.com/beta/chat/completions",
+      "https://api.deepseek.com/chat/completions"
+    ],
+    "wire_tool_count_sequence": [7, 0],
+    "terminal_tool_choice_field_sent": false,
+    "terminal_response_format": {"type": "json_object"},
+    "terminal_max_tokens": 8192,
+    "terminal_tool_message_projection": {
+      "removed_fields": ["arguments", "result"],
+      "preserved_evidence_fields": ["facts", "request_records", "policy_records"]
+    },
+    "dsml_repair_allowed": false
+  },
+  "authorization": {
+    "authorization_id": "q02-terminal-v2-3-20260804-a3",
+    "status": "consumed_by_failed_stopped_run",
+    "authorized_by_user_current_turn": true,
+    "model": "deepseek-v4-flash",
+    "question_ids": ["Q02"],
+    "response_attempt_upper_bound": 2,
+    "automatic_retry_count": 0,
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorizes_batch_b": false,
+    "v2_2_3_resume_authorized": false
+  },
+  "privacy": {
+    "api_key_saved": false,
+    "authorization_header_value_saved": false,
+    "request_headers_saved": false,
+    "request_body_saved": false,
+    "raw_customer_id_exported": false,
+    "raw_retail_rows_exported": false,
+    "local_absolute_paths_saved": false
+  },
+  "offline_validation": {
+    "status": "passed",
+    "run_id": "q02_terminal_serialization_v2_3_20260804T001626_516555+0800",
+    "evidence_path": "results/raw/q02_terminal_serialization_v2_3_20260804T001626_516555+0800/summary.json",
+    "actual_response_attempts": 2,
+    "tool_reference_answer_status": "passed",
+    "report_content_acceptance_status": "passed",
+    "wire_tool_count_sequence": [7, 0],
+    "authorization_consumed": false,
+    "real_network_opened": false,
+    "real_model_called": false,
+    "api_key_read_from_environment": false
+  },
+  "real_validation_history": {
+    "authorization_id": "q02-terminal-v2-3-20260803-a1",
+    "status": "consumed_by_failed_stopped_run",
+    "run_id": "q02_terminal_serialization_v2_3_20260804T000516_105348+0800",
+    "evidence_path": "results/raw/q02_terminal_serialization_v2_3_20260804T000516_105348+0800/summary.json",
+    "actual_response_attempts": 2,
+    "tool_reference_answer_status": "passed",
+    "terminal_serialization_status": "passed_no_dsml_valid_control_json",
+    "root_failure_stage": "report_validation",
+    "root_failure_codes": ["untraceable_numeric_token"],
+    "unsupported_numeric_token": "524878",
+    "automatic_retry_performed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "real_validation_history_2": {
+    "authorization_id": "q02-terminal-v2-3-20260804-a2",
+    "status": "consumed_by_failed_stopped_run",
+    "run_id": "q02_terminal_serialization_v2_3_20260804T001233_950728+0800",
+    "evidence_path": "results/raw/q02_terminal_serialization_v2_3_20260804T001233_950728+0800/summary.json",
+    "actual_response_attempts": 2,
+    "tool_reference_answer_status": "passed",
+    "terminal_evidence_projection_applied": true,
+    "root_failure_stage": "model_response",
+    "root_failure_codes": ["invalid_terminal_json_with_dsml"],
+    "automatic_retry_performed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "real_validation_history_3": {
+    "authorization_id": "q02-terminal-v2-3-20260804-a3",
+    "status": "consumed_by_failed_stopped_run",
+    "run_id": "q02_terminal_serialization_v2_3_20260804T002004_850300+0800",
+    "evidence_path": "results/raw/q02_terminal_serialization_v2_3_20260804T002004_850300+0800/summary.json",
+    "actual_response_attempts": 2,
+    "tool_reference_answer_status": "passed",
+    "terminal_json_status": "passed_valid_control_json",
+    "clean_terminal_transcript_applied": true,
+    "root_failure_stage": "report_validation",
+    "root_failure_codes": [
+      "untraceable_numeric_token",
+      "untraceable_numeric_token",
+      "untraceable_numeric_token",
+      "unsupported_average_value_claim"
+    ],
+    "automatic_retry_performed": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false,
+    "three_failure_rule_triggered": true,
+    "additional_real_calls_allowed": false
+  }
+}

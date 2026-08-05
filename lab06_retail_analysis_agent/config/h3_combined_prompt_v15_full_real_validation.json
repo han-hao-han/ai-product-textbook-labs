@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v15-full-real-validation-v1",
+  "status": "completed_with_failures",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": [
+    "Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"
+  ],
+  "baseline_response_count": 27,
+  "terminal_correction_response_allowance": 14,
+  "response_attempt_upper_bound": 41,
+  "automatic_transport_retry_count": 0,
+  "request_timeout_seconds": 120,
+  "execution_timeout_seconds": 3600,
+  "authorization": {
+    "authorization_id": "AUTH-COMBINED-V15-FULL-20260804-01",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "real_model_called": true,
+  "result_run_id": "combined_prompt_v15_full_real_20260804T215221_362936+0800",
+  "actual_response_attempts": 30,
+  "semantic_correction_attempts": 3,
+  "passed_question_ids": [
+    "Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q08", "Q09", "Q10"
+  ],
+  "failed_question_ids": ["Q07"],
+  "root_failure_codes": [
+    "report_completeness.known_customer_subset.sales_quantity_items",
+    "report_completeness.known_customer_subset.sales_row_coverage",
+    "report_completeness.known_customer_subset.sales_amount_coverage"
+  ],
+  "v2_2_3_resumed": false
+}

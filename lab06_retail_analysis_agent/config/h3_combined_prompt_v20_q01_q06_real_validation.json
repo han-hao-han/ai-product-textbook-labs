@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v20-q01-q06-real-validation-v1",
+  "status": "closed_after_failure_superseded_by_claim_controller_v3",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q01", "Q06"],
+  "response_attempt_upper_bound": 11,
+  "automatic_transport_retry_count": 0,
+  "authorization": {
+    "authorization_id": "AUTH-COMBINED-V20-Q01-Q06-20260804-01",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "real_model_called": true,
+  "result_run_id": "combined_prompt_v20_q01_q06_real_20260804T223724_191729+0800",
+  "actual_response_attempts": 9,
+  "semantic_correction_attempts": 2,
+  "passed_question_ids": ["Q06"],
+  "failed_question_ids": ["Q01"],
+  "root_failure_codes": ["deterministic_report_validation_failed"],
+  "v2_2_3_resumed": false
+}

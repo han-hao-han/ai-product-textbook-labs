@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.5.6-h3-q02-claim-evidence-v2.3.2-real-checkpoint-v1",
+  "status": "consumed_by_failed_stopped_run",
+  "created_on": "2026-08-04",
+  "design": "config/h3_claim_local_evidence_bundle_v2_3_2.candidate.json",
+  "scope": {
+    "model": "deepseek-v4-flash",
+    "question_ids": ["Q02"],
+    "expected_model_responses": 2,
+    "response_attempt_upper_bound": 2,
+    "automatic_retry_count": 0,
+    "request_timeout_seconds": 120,
+    "execution_timeout_seconds": 360,
+    "fail_fast": true,
+    "uses_v2_3_2_claim_evidence_bundle": true,
+    "reuses_prior_authorization": false,
+    "batch_b_authorized": false,
+    "v2_2_3_resumed": false
+  },
+  "authorization": {
+    "authorization_id": "q02-claim-evidence-v2-3-2-20260804-a1",
+    "status": "consumed_by_failed_stopped_run",
+    "authorized_by_user_current_turn": true,
+    "model": "deepseek-v4-flash",
+    "question_ids": ["Q02"],
+    "expected_model_responses": 2,
+    "response_attempt_upper_bound": 2,
+    "automatic_retry_count": 0,
+    "real_model_calls_allowed": false,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "prior_authorization_restored": false,
+    "authorizes_batch_b": false,
+    "v2_2_3_resume_authorized": false,
+    "consumed": true,
+    "consumed_run_id": "q02_claim_evidence_v2_3_2_20260804T135304_479098+0800"
+  },
+  "acceptance": {
+    "tool_sequence": ["rank_products"],
+    "fixed_question_status": "passed_deterministic_pending_manual_review",
+    "report_validation_status": "passed",
+    "chart_count": 1,
+    "response_count": 2,
+    "claim_evidence_bundle_version": "v2.3.2",
+    "terminal_phase": "report_terminal_claim_evidence_bundles",
+    "selection_limit_fact_id": "FACT-001",
+    "program_report_repair_allowed": false
+  },
+  "real_result": {
+    "run_id": "q02_claim_evidence_v2_3_2_20260804T135304_479098+0800",
+    "status": "failed_stopped",
+    "actual_response_attempts": 2,
+    "completed_model_responses": 2,
+    "failed_transport_or_provider_attempts": 0,
+    "root_failure_stage": "report_validation",
+    "root_failure_codes": [
+      "untraceable_numeric_token",
+      "untraceable_numeric_token",
+      "unsupported_quantity_superlative"
+    ],
+    "automatic_retry_performed": false,
+    "automatic_resume_allowed": false,
+    "evidence_path": "results/raw/q02_claim_evidence_v2_3_2_20260804T135304_479098+0800/summary.json",
+    "concentrated_audit_path": "results/raw/q02_claim_evidence_v2_3_2_20260804T135304_479098+0800/concentrated_audit.json"
+  },
+  "privacy": {
+    "api_key_saved": false,
+    "authorization_header_value_saved": false,
+    "request_headers_saved": false,
+    "request_body_saved": false,
+    "raw_customer_id_exported": false,
+    "raw_retail_rows_exported": false,
+    "local_absolute_paths_saved": false
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.5.6-h2-metric-contract-v1",
+  "experiment": "1.5.6 基于真实零售数据的经营分析 Agent",
+  "status": {
+    "cleaning_and_metrics": "frozen_by_user",
+    "frozen_on": "2026-07-30",
+    "fixed_validation_questions": "frozen_by_user",
+    "fixed_validation_questions_frozen_on": "2026-07-30",
+    "h2_overall": "frozen"
+  },
+  "source": {
+    "dataset": "UCI Online Retail",
+    "uci_dataset_id": 352,
+    "workbook_sha256": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d",
+    "raw_workbook_is_immutable": true
+  },
+  "layers": [
+    {
+      "name": "raw",
+      "purpose": "保留官方工作簿原始内容，不覆盖、不回写"
+    },
+    {
+      "name": "classified",
+      "purpose": "规范化标识并添加重复标记和互斥业务分类，保留全部记录"
+    },
+    {
+      "name": "sales_fact",
+      "purpose": "完全重复保留首条后，仅包含正常销售记录"
+    },
+    {
+      "name": "customer_fact",
+      "purpose": "sales_fact 中 CustomerID 非空的客户分析子集"
+    },
+    {
+      "name": "exceptions",
+      "purpose": "取消、库存调整、零价格和财务调整记录"
+    }
+  ],
+  "normalization": {
+    "InvoiceNo": "转字符串并去除首尾空白",
+    "StockCode": "转字符串并去除首尾空白",
+    "CustomerID": "转可空整数标识后再转字符串；缺失保持缺失；不公开原始值",
+    "Country": "去除首尾空白",
+    "Description": "去除首尾空白并合并连续空白；空值保持缺失",
+    "InvoiceDate": "按源数据无时区时间解析，不推测时区",
+    "raw_columns_are_not_overwritten": true
+  },
+  "duplicate_rule": {
+    "scope": "全部八个原始字段完全相同",
+    "action": "按源文件顺序保留首条，其余记录从分析事实表排除但保留审计标记",
+    "rows_removed_if_keep_first": 5268
+  },
+  "classification": {
+    "is_mutually_exclusive": true,
+    "precedence": [
+      {
+        "class": "cancelled",
+        "condition": "InvoiceNo 以 C 开头，不区分大小写"
+      },
+      {
+        "class": "financial_adjustment",
+        "condition": "非 cancelled 且 UnitPrice < 0"
+      },
+      {
+        "class": "inventory_adjustment",
+        "condition": "非 cancelled 且 Quantity < 0"
+      },
+      {
+        "class": "zero_price_non_sale",
+        "condition": "非 cancelled 且 UnitPrice = 0"
+      },
+      {
+        "class": "sale",
+        "condition": "非 cancelled、Quantity > 0 且 UnitPrice > 0"
+      }
+    ],
+    "unclassified_rows_expected": 0
+  },
+  "fact_scope": {
+    "sales_fact": "去重后的 sale",
+    "customer_fact": "sales_fact 且 CustomerID 非空",
+    "missing_customer_sales": "保留在总体、商品、地区和时间分析中；排除在客户分析之外",
+    "missing_description_sales": "不因 Description 缺失直接删除；真实基线中没有进入 sales_fact",
+    "product_key": "StockCode",
+    "product_display_name": "去重后的正常销售中，选择出现次数最多的规范化 Description；并列时按字典序选择"
+  },
+  "metrics": {
+    "sales_amount": {
+      "scope": "sales_fact",
+      "formula": "sum(Quantity * UnitPrice)",
+      "unit": "GBP"
+    },
+    "sales_quantity": {
+      "scope": "sales_fact",
+      "formula": "sum(Quantity)",
+      "unit": "items"
+    },
+    "order_count": {
+      "scope": "sales_fact",
+      "formula": "count_distinct(InvoiceNo)",
+      "unit": "orders"
+    },
+    "average_order_value": {
+      "scope": "sales_fact",
+      "formula": "sales_amount / order_count",
+      "unit": "GBP_per_order"
+    },
+    "customer_count": {
+      "scope": "customer_fact",
+      "formula": "count_distinct(CustomerID)",
+      "unit": "customers"
+    },
+    "customer_sales_amount": {
+      "scope": "customer_fact",
+      "formula": "sum(Quantity * UnitPrice)",
+      "unit": "GBP",
+      "must_report_coverage": true
+    },
+    "cancellation_quantity": {
+      "scope": "cancelled",
+      "formula": "abs(sum(Quantity))",
+      "unit": "items"
+    },
+    "cancellation_amount": {
+      "scope": "cancelled",
+      "formula": "abs(sum(Quantity * UnitPrice))",
+      "unit": "GBP"
+    }
+  },
+  "excluded_metrics": {
+    "net_sales_amount": "取消记录无法可靠关联原始销售，暂不定义",
+    "return_rate": "非 C 负数量记录表现为零价格库存或数据调整，暂不定义",
+    "profit": "数据没有成本或利润字段",
+    "forecast": "超出实验范围"
+  },
+  "precision": {
+    "calculation": "使用 Decimal 保留源价格精度，不进行逐行金额舍入",
+    "display": "聚合完成后使用 ROUND_HALF_UP 保留两位小数",
+    "source_maximum_unit_price_decimal_places": 3
+  },
+  "time": {
+    "aggregation": "按源数据日历时间聚合",
+    "minimum": "2010-12-01T08:26:00",
+    "maximum": "2011-12-09T12:50:00",
+    "incomplete_periods": [
+      "2011-12"
+    ],
+    "default_complete_month_comparison": "排除 2011-12；如显式分析该月，必须显著标记为不完整期间"
+  },
+  "privacy": {
+    "raw_customer_id_may_be_used_locally_for_deterministic_grouping": true,
+    "raw_customer_id_must_not_be_exposed_in_public_results": true,
+    "public_customer_outputs": "仅展示聚合客户指标，不展示原始 CustomerID"
+  },
+  "real_data_baseline_after_keep_first": {
+    "total_rows": 536641,
+    "classes": {
+      "cancelled": {
+        "rows": 9251,
+        "unique_invoices": 3836,
+        "quantity_sum": -275560,
+        "mechanical_amount_gbp": -893979.73
+      },
+      "financial_adjustment": {
+        "rows": 2,
+        "unique_invoices": 2,
+        "quantity_sum": 2,
+        "mechanical_amount_gbp": -22124.12
+      },
+      "inventory_adjustment": {
+        "rows": 1336,
+        "unique_invoices": 1336,
+        "quantity_sum": -206957,
+        "mechanical_amount_gbp": 0.0
+      },
+      "zero_price_non_sale": {
+        "rows": 1174,
+        "unique_invoices": 819,
+        "quantity_sum": 72597,
+        "mechanical_amount_gbp": 0.0
+      },
+      "sale": {
+        "rows": 524878,
+        "unique_invoices": 19960,
+        "quantity_sum": 5572420,
+        "mechanical_amount_gbp": 10642110.804
+      }
+    },
+    "customer_fact": {
+      "rows": 392692,
+      "unique_customers": 4338,
+      "mechanical_amount_gbp": 8887208.894,
+      "sales_row_coverage": 0.748159,
+      "sales_amount_coverage": 0.835098
+    }
+  },
+  "change_control": {
+    "rule": "冻结后如需更改清洗、指标、时间、舍入、单位或隐私口径，必须重新提交用户确认",
+    "audit_evidence": "data/raw/cleaning_profile.json"
+  }
+}

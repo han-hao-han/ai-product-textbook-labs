@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.5.6-h3-v2.1-real-validation-plan-v1",
+  "status": "paused_after_mainline_boundaries_reopened",
+  "created_on": "2026-07-31",
+  "model": "deepseek-v4-pro",
+  "execution_mode": "online_real_model_representative_validation",
+  "authorization": {
+    "real_model_calls_allowed_by_this_plan": false,
+    "api_key_may_be_read_during_plan_design": false,
+    "network_may_be_opened_during_plan_design": false,
+    "separate_user_authorization_required": true,
+    "authorization_must_name_question_ids": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "authorization_must_name_request_attempt_upper_bound": 6
+  },
+  "pause": {
+    "reason": "该方案基于模型选择recipe_id、程序预选工具和程序渲染报告的旧V2.1边界；四项主线边界重新打开后，请求阶段数和验收对象均需重新设计。",
+    "old_question_selection_may_be_reused": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "old_request_attempt_upper_bound_must_not_be_reused_without_recalculation": true,
+    "real_model_calls_allowed": false
+  },
+  "objective": {
+    "primary": "验证DeepSeek V4 Pro在V2.1边界下能否完成正确配方选择、程序约束的工具步骤和受控语义模板选择",
+    "not_claimed": [
+      "不把三题结果推广为模型对所有经营问题都稳定",
+      "不重新验证已冻结的H2数值计算",
+      "不把传输成功等同于内容正确",
+      "不在本轮验证图表层或Streamlit体验"
+    ]
+  },
+  "comparison_baseline": {
+    "design": "V2报告最终化边界",
+    "run_id": "agent_v2_online_20260731T144944_474379+0800",
+    "question_ids": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "observed": {
+      "Q06": "failed_wrong_tool_plan_and_semantic_support",
+      "Q08": "passed",
+      "Q09": "passed"
+    },
+    "reason_for_same_questions": "保持真实验证问题不变，尽量把结果差异归因于V2.1边界，而不是更换样本"
+  },
+  "selection_strategy": {
+    "selected_question_ids_in_order": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "coverage": [
+      "依赖式双工具分析与FACT参数绑定",
+      "受控语义模板和FACT签名",
+      "一次集中澄清且工具调用为零",
+      "缺失利润字段的能力边界且工具调用为零",
+      "与V2真实运行的同题对照"
+    ],
+    "deferred_questions": {
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q07",
+        "Q10"
+      ],
+      "reason": "首轮少量验证优先覆盖V2历史失败和两类Agent控制行为；其余问题已经通过H2、独立Mock和离线传输验证，若首轮通过再由用户决定是否另行授权扩展"
+    }
+  },
+  "hard_limits": {
+    "request_attempt_upper_bound": 6,
+    "reserve_attempt_before_transport": true,
+    "automatic_retry_count": 0,
+    "parallel_requests": false,
+    "stop_on_first_case_failure": true,
+    "continue_after_transport_error": false,
+    "continue_after_privacy_or_security_issue": false,
+    "expected_endpoint_counts_if_all_pass": {
+      "standard_json": 4,
+      "beta_strict_tool": 2,
+      "total": 6
+    },
+    "token_budget": null,
+    "token_rule": "记录真实usage，不按Token数量判定内容正确"
+  },
+  "case_gates": [
+    {
+      "order": 1,
+      "question_id": "Q06",
+      "risk_role": "primary_regression_and_dependency_gate",
+      "expected_request_attempts": 4,
+      "expected_terminal_status": "completed",
+      "expected_decision": {
+        "decision_type": "analysis_recipe",
+        "recipe_id": "peak_month_product_ranking",
+        "period": "complete_months_only",
+        "metric": "sales_amount",
+        "top_n": 3
+      },
+      "expected_tool_sequence": [
+        "analyze_time_trend",
+        "rank_products"
+      ],
+      "required_dependency": {
+        "source_tool": "analyze_time_trend",
+        "source_metric": "peak_period",
+        "dependent_start_date": "2011-11-01",
+        "dependent_end_date": "2011-11-30",
+        "dependency_fact_count": 1
+      },
+      "required_semantic_templates": [
+        "peak_period_finding",
+        "ranked_entities_finding",
+        "tool_evidence_summary",
+        "descriptive_only",
+        "verify_with_additional_data",
+        "data_limitations"
+      ],
+      "program_acceptance": [
+        "决策JSON通过Pydantic解析和显式问题约束检查",
+        "每个工具步骤只暴露一个strict工具且模型参数与程序展开参数精确一致",
+        "第二步日期只由第一步peak_period FACT生成",
+        "两步工具结果均通过H2固定答案验证",
+        "语义计划不含narrative或模型生成数值",
+        "FACT签名校验和固定问题验证均通过"
+      ],
+      "manual_acceptance": [
+        "报告没有把全期概览误述为峰值月份",
+        "报告没有显著份额、驱动原因或因果结论",
+        "报告同时覆盖峰值月份和该月前三商品"
+      ]
+    },
+    {
+      "order": 2,
+      "question_id": "Q08",
+      "risk_role": "clarification_before_tool_gate",
+      "expected_request_attempts": 1,
+      "expected_terminal_status": "needs_clarification",
+      "expected_decision": {
+        "decision_type": "clarification",
+        "required_topics": [
+          "time_range",
+          "metric",
+          "comparison_dimension_or_objects"
+        ]
+      },
+      "expected_tool_sequence": [],
+      "program_acceptance": [
+        "只产生一次决策响应",
+        "三个必要澄清主题全部出现",
+        "工具、FACT、语义计划和报告均为空",
+        "固定问题验证通过"
+      ],
+      "manual_acceptance": [
+        "澄清内容一次性提出，不拆成连续多轮",
+        "没有静默假设国家、商品、月份或指标"
+      ]
+    },
+    {
+      "order": 3,
+      "question_id": "Q09",
+      "risk_role": "unsupported_profit_boundary_gate",
+      "expected_request_attempts": 1,
+      "expected_terminal_status": "boundary",
+      "expected_decision": {
+        "decision_type": "boundary",
+        "required_missing_fields": [
+          "cost",
+          "profit"
+        ],
+        "supported_alternative": "按销售额或销量进行商品排名"
+      },
+      "expected_tool_sequence": [],
+      "program_acceptance": [
+        "响应是可解析的合法JSON",
+        "明确包含成本与利润字段缺失",
+        "工具、FACT、语义计划和报告均为空",
+        "固定问题验证通过"
+      ],
+      "manual_acceptance": [
+        "没有把销售额冒充利润或利润率",
+        "没有假设成本率或虚构赚钱原因",
+        "替代方案只包含销售额或销量排名"
+      ]
+    }
+  ],
+  "stage_acceptance": {
+    "all_case_gates_must_pass": true,
+    "partial_pass_does_not_pass_stage": true,
+    "transport_success_alone_does_not_pass": true,
+    "schema_success_alone_does_not_pass": true,
+    "fixed_question_validation_required": true,
+    "manual_review_required": true,
+    "h3_may_be_frozen_automatically": false,
+    "user_confirmation_required_after_results": true
+  },
+  "failure_and_stop_rules": [
+    "任何case的状态、决策、工具顺序、依赖、FACT、语义计划或固定问题验证失败时立即停止后续case",
+    "请求尝试在进入传输前计数，达到6次后不得继续",
+    "HTTP错误、超时、非UTF-8、非法JSON或Provider响应结构错误不自动重试",
+    "出现API Key、Authorization值、CustomerID值、原始交易行或本地绝对路径落盘迹象时立即停止",
+    "失败记录保留错误阶段和原始Provider响应；失败不得覆盖上一次成功current结果"
+  ],
+  "privacy_boundary": {
+    "raw_retail_rows_sent": false,
+    "customer_id_values_sent": false,
+    "api_key_saved": false,
+    "authorization_header_saved": false,
+    "local_absolute_paths_saved": false,
+    "model_receives": [
+      "固定问题文本",
+      "程序展开的单步工具契约",
+      "当前轮聚合FACT目录",
+      "语义计划Schema"
+    ]
+  },
+  "evidence_to_save_locally": [
+    "运行汇总与实际请求尝试数",
+    "每题Provider原始响应",
+    "解析后的决策、工具调用和语义计划",
+    "工具结构化结果与FACT",
+    "程序固定问题验证结果",
+    "人工检查记录",
+    "Token usage与失败阶段",
+    "隐私和安全扫描结果"
+  ],
+  "runner_changes_required_before_execution": [
+    "在线入口增加按case通过后才进入下一case的逐题门控",
+    "在线入口在固定问题验证失败后立即停止",
+    "在线入口输出未执行case及停止原因",
+    "在线入口写入实际标准JSON与Beta strict请求计数",
+    "为六次上限和零重试增加离线测试"
+  ],
+  "offline_preflight": {
+    "status": "passed",
+    "run_id": "v2_1_real_plan_preflight_20260731T173600_225258+0800",
+    "local_evidence_path": "results/raw/v2_1_real_plan_preflight_20260731T173600_225258+0800",
+    "targeted_test_count": 7,
+    "real_network_opened": false,
+    "api_key_read": false,
+    "real_model_called": false,
+    "question_ids": [
+      "Q06",
+      "Q08",
+      "Q09"
+    ],
+    "request_attempt_upper_bound": 6,
+    "automatic_retry_count": 0,
+    "stop_on_first_case_failure": true
+  },
+  "change_control": {
+    "question_ids_frozen_before_call": false,
+    "request_attempt_upper_bound_frozen_before_call": false,
+    "acceptance_rules_frozen_before_call": false,
+    "real_call_authorized": false,
+    "next_gate": "等待主线修正版原生工具Agent离线协议通过后，重新设计真实验证请求上限；当前方案不得执行"
+  }
+}

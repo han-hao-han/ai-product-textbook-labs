@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.5.6-h3-combined-prompt-v20-full-real-validation-v1",
+  "status": "superseded_without_execution_by_claim_controller_v3",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+  "response_attempt_upper_bound": 41,
+  "automatic_transport_retry_count": 0,
+  "authorization": {
+    "authorization_id": "AUTH-COMBINED-V20-FULL-20260804-01",
+    "status": "revoked_without_execution",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "real_model_called": false,
+  "blocked_by": "Q01 incomplete_period FACT expression failed in three consecutive boundary attempts",
+  "v2_2_3_resumed": false
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.5.6-h3-claim-controller-v3-q01-q06-real-validation-v1",
+  "status": "passed_deterministic_pending_manual_review",
+  "model": "deepseek-v4-flash",
+  "question_ids_in_order": ["Q01", "Q06"],
+  "response_attempt_upper_bound": 9,
+  "automatic_transport_retry_count": 0,
+  "authorization": {
+    "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q06-20260805-03",
+    "status": "consumed",
+    "real_model_calls_allowed": true,
+    "single_execution_only": true,
+    "consumed_when_first_attempt_reserved": true,
+    "authorized_by_current_user_instruction": true
+  },
+  "previous_attempts": [
+    {
+      "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q06-20260805-01",
+      "status": "failed_stopped",
+      "result_run_id": "claim_controller_v3_q01_q06_real_20260805T133217_785427+0800",
+      "question_ids_executed": ["Q01"],
+      "actual_response_attempts": 4,
+      "root_failure_code": "derived_metric_fact_missing",
+      "evidence_preserved": true
+    },
+    {
+      "authorization_id": "AUTH-CLAIM-CONTROLLER-V3-Q01-Q06-20260805-02",
+      "status": "failed_stopped",
+      "result_run_id": "claim_controller_v3_q01_q06_real_20260805T134418_209746+0800",
+      "question_ids_executed": ["Q01", "Q06"],
+      "passed_question_ids": ["Q01"],
+      "actual_response_attempts": 8,
+      "root_failure_code": "deterministic_report_validation_failed",
+      "evidence_preserved": true
+    }
+  ],
+  "result_run_id": "claim_controller_v3_q01_q06_real_20260805T134917_163496+0800",
+  "actual_response_attempts": 7,
+  "semantic_correction_attempts": 0,
+  "passed_question_ids": ["Q01", "Q06"],
+  "failed_question_ids": [],
+  "real_model_called": true,
+  "v20_incremental_prompt_route_closed": true,
+  "v2_2_3_resumed": false
+}
